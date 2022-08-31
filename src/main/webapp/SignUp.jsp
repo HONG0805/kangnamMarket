@@ -1,0 +1,213 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+<title>강남대학교 중고장터 회원가입</title>
+<link rel="stylesheet" type="text/css" href="CSS/reset.css">
+<link rel="stylesheet" type="text/css" href="">
+<link rel="shortcut icon" href="images/favicon/favicon.ico">
+<link rel="apple-touch-icon-precomposed"
+	href="images/favicon/flat-design-touch.png">
+<script src="https://kit.fontawesome.com/e1bd1cb2a5.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="../js/script.js"></script>
+<script src="js/jquery.min.js"></script>
+<style>
+/* 모바일용 CSS */
+/* 기본 CSS */
+#wrap {
+	display: flex;
+	flex-flow: column nowrap;
+	width: 80%;
+	margin: 0 auto;
+	max-width: 1200px;
+}
+
+#wrap section {
+	box-sizing: border-box;
+}
+
+.header {
+	display: flex;
+	flex-direction: column;
+	order: 1;
+	width: 100%;
+	align-items: center;
+}
+
+.header h1 {
+	width: 100%;
+	padding: 100px 30px 30px 30px;
+	text-align: center;
+	font-size: 30px;
+}
+
+.header h3 {
+	width: 100%;
+	text-align: center;
+	font-size: 14px;
+}
+
+.sign_section {
+	display: flex;
+	flex-direction: column;
+	flex-direction: row;
+	justify-content: center;
+	width: 100%;
+	order: 2;
+	padding: 30px;
+	width: 100%;
+}
+
+div.signup>h2 {
+	font-size: 14px;
+	margin-bottom: 10px;
+}
+
+div.signup>div.text {
+	font-size: 12px;
+	margin-top: 8px;
+	margin-bottom: 4px;
+}
+
+.signup {
+	border: 1px solid #1289dd;
+	border-radius: 10px;
+	padding: 20px;
+}
+
+input::placeholder {
+	color: #a7a7a7;
+}
+
+.input_text {
+	border: 1px solid #a6a6a6;
+	border-radius: 5px;
+	font-size: 12px;
+	width: 90%;
+	padding: 5px;
+}
+
+.bt_signup {
+	width: 90%;
+	background: #1289dd;
+	color: white;
+	padding: 5px;
+	margin-top: 20px;
+	border-radius: 5px;
+	font-weight: bold;
+	text-align: center;
+	cursor: pointer;
+	background: #1289dd;
+}
+
+/* 태블릿용 CSS */
+@media all and (min-width:768px) {
+	.header h1 {
+		font-size: 50px;
+	}
+	.header h3 {
+		font-size: 30px;
+	}
+	div.signup>h2 {
+		font-size: 30px;
+		margin-bottom: 20px;
+	}
+	div.signup>div.text {
+		font-size: 14px;
+		margin-top: 14px;
+		margin-bottom: 3px;
+	}
+	.input_text {
+		font-size: 14px;
+		width: 300px;
+	}
+	.signbtn {
+		font-size: 20px;
+	}
+	.bt_signup{
+		width:95%;
+	}
+}
+
+/* PC용 CSS */
+@media all and (min-width:1200px) {
+	/* 기본 CSS */
+	#wrap {
+		position: relative;
+		width: 50%;
+	}
+	.header h1 {
+		width: 100%;
+		padding: 150px 30px 30px 30px;
+		text-align: center;
+		font-size: 60px;
+	}
+	.header h3 {
+		width: 100%;
+		text-align: center;
+		font-size: 28px;
+	}
+	.sign_section {
+		padding: 80px;
+	}
+	.signup {
+		padding: 40px;
+	}
+	.bt_signup{
+		width:95%;
+	}
+}
+</style>
+</head>
+<body>
+	<div id="wrap">
+		<header class="header">
+			<h1>Kangnam University</h1>
+			<div>
+				<h3>중고장터</h3>
+			</div>
+		</header>
+
+		<section class="sign_section">
+			<form action="./SignUp_Action.jsp" method="post">
+				<div class="signup">
+					<h2>회원가입</h2>
+					<div class="text">아이디</div>
+					<div>
+						<input type="text" name="userID" placeholder="아이디" class="input_text">
+					</div>
+					<div class="text">
+						비밀번호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 10px;">영문,
+							숫자, 특문이 2종류 이상 조합된 8~20자</span>
+					</div>
+					<div>
+						<input type="password" name="userPassword" placeholder="비밀번호" class="input_text">
+
+					</div>
+					<div class="text">이메일</div>
+					<div>
+						<input type="text" name="userEmail" placeholder="이메일@example.com"
+							class="input_text">
+					</div>
+					<div class="text">이름</div>
+					<div>
+						<input type="text" name="userName" placeholder="이름" class="input_text">
+					</div>
+					<div class="text">닉네임</div>
+					<div>
+						<input type="text" name="userNickName" placeholder="닉네임" class="input_text">
+					</div>
+					<div class="signbtn">
+						<input type="submit" class="bt_signup" value="회원가입">
+					</div>
+				</div>
+			</form>
+		</section>
+	</div>
+</body>
+</html>
