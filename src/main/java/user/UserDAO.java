@@ -60,7 +60,8 @@ public class UserDAO {
 		}
 		return false;
 	}
-	//회원가입
+
+	// 회원가입
 	public int join(UserDAO userDAO) {
 		if (!ID_Check(userDAO.getUserID()))
 			return 0;
@@ -79,6 +80,49 @@ public class UserDAO {
 		}
 	}
 
+	// 아이디 찾기
+	public String findId(String userEmail, String userName) {
+		String id = null;
+		try {
+			String sql = "SELECT userID" + "FORM user" + "WHERE userEmail = ? and" + "userName = ?";
+			PreparedStatement pst = con.prepareStatement(sql);
+			pst.setString(1, userEmail);
+			pst.setString(2, userName);
+
+			rs = pst.executeQuery();
+
+			if (rs.next()) {
+				id = rs.getString("user.userID");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return id;
+	}
+
+	// 비밀번호 찾기
+	public String findPw(String userID, String userEmail, String userName) {
+		String pw = null;
+		try {
+			String sql = "SELECT userPassword" + "FORM user" + "WHERE userID=? and" + "userEmail=? and"
+					+ "userName = ?";
+			PreparedStatement pst = con.prepareStatement(sql);
+			pst.setString(1, userID);
+			pst.setString(2, userEmail);
+			pst.setString(3, userName);
+
+			ResultSet rs = pst.executeQuery();
+
+			if (rs.next()) {
+				pw = rs.getString("user.userPassword");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return pw;
+	}
+	
+	//유저 데이터 가져오기
 	public UserDAO getUser(String userID) {
 		try {
 			PreparedStatement pst = con.prepareStatement("SELECT * FROM user WHERE userID = ?");

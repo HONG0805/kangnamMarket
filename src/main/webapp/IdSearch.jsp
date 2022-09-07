@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
 <html lang="ko">
 <head>
@@ -79,6 +79,9 @@ div.signup>div.text {
 
 input::placeholder {
 	color: #a7a7a7;
+	font-style: italic;
+	font-size: 15px;
+	vertical-align: middle;
 }
 
 .input_text {
@@ -90,14 +93,21 @@ input::placeholder {
 }
 
 .signbtn {
-	background: #1289dd;
+	width: 100%;
 	color: white;
 	padding: 5px;
 	margin-top: 20px;
 	border-radius: 5px;
 	font-weight: bold;
 	text-align: center;
-	cursor: pointer;
+}
+
+form button {
+	background-color: rgba(0, 147, 245, 0.5);
+}
+
+form button.active {
+	background-color: rgba(0, 147, 245);
 }
 
 /* 태블릿용 CSS */
@@ -152,7 +162,24 @@ input::placeholder {
 	}
 }
 </style>
+<script type="text/javascript">
+
+window.addEventListener('keyup', ()=>{
+	const signbtn = document.getElementById('signbtn');
+	console.log(signbtn);
+	const userName = document.getElementById('userName').value;
+    const userEmail = document.getElementById('userEmail').value;
+    if(userName.length > 0 && userEmail.length >0){
+        signbtn.disabled = false;
+        signbtn.classList.add('active');
+    }else{
+        signbtn.disabled = true;
+        signbtn.classList.remove('active');
+    }
+})
+</script>
 </head>
+
 <body>
 	<div id="wrap">
 		<header class="header">
@@ -163,33 +190,23 @@ input::placeholder {
 		</header>
 
 		<section class="sign_section">
-			<div class="signup">
-				<h2>아이디/비밀번호 찾기</h2>
-				<div class="text">이름</div>
-				<div>
-					<input name="name" placeholder="아이디" class="input_text">
+			<form name="idsearch" method ="post" action="IdSearchAction.jsp">
+				<div class="signup">
+					<h2>아이디 찾기</h2>
+					<div class="text">이름</div>
+					<div>
+						<input id="userName" name="name" placeholder="이름" class="input_text">
+					</div>
+					<div class="text">이메일</div>
+					<div>
+						<input id="userEmail" name="email" placeholder="이메일@example.com"
+							class="input_text">
+					</div>
+					<div>
+						<button type="submit" id="signbtn" class="signbtn" disabled>아이디 찾기</button>
+					</div>
 				</div>
-				<div class="text">이메일</div>
-				<div>
-					<input name="mail" placeholder="이메일@example.com" class="input_text">
-				</div>
-				<div class="signbtn">아이디 찾기</div>
-
-
-				<div class="text">이름</div>
-				<div>
-					<input name="name" placeholder="이름" class="input_text">
-				</div>
-				<div class="text">아이디</div>
-				<div>
-					<input name="id" placeholder="아이디" class="input_text">
-				</div>
-				<div class="text">이메일</div>
-				<div>
-					<input name="mail" placeholder="이메일@example.com" class="input_text">
-				</div>
-				<div class="signbtn">비밀번호 찾기</div>
-			</div>
+			</form>
 		</section>
 	</div>
 </body>

@@ -10,6 +10,8 @@
 <link rel="stylesheet" type="text/css" href="CSS/reset.css">
 <link rel="stylesheet" type="text/css" href="">
 <link rel="shortcut icon" href="images/favicon/favicon.ico">
+<script src="https://kit.fontawesome.com/e1bd1cb2a5.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <link rel="apple-touch-icon-precomposed"
 	href="images/favicon/flat-design-touch.png">
 <script src="js/jquery.min.js"></script>
@@ -71,10 +73,14 @@
 .login_section input {
 	float: right;
 	border: none;
-	font-size: 12px;
-	color: #a7a7a7;
+	font-size: 15px;
 	margin-left: 10px;
 	width: 180px;
+}
+
+input::placeholder {
+	color: #a7a7a7;
+	font-style: italic;
 }
 
 .btnsection {
@@ -87,14 +93,19 @@
 }
 
 .btn_login {
-	width: 270px;
+	width: 100%;
 	text-align: center;
 	color: #ffffff;
-	background: #4d90de;
 	border-radius: 5px;
-	float: right;
-	cursor: pointer;
 	padding: 10px;
+	font-weight: bold;
+}
+form button {
+    background-color: rgba(0, 147, 245, 0.5);
+}
+
+form button.active{
+    background-color: rgba(0, 147, 245);
 }
 
 .login_section_1 {
@@ -173,6 +184,25 @@
 	}
 }
 </style>
+<script type="text/javascript">
+
+window.addEventListener('keyup', ()=>{
+	const loginbtn = document.getElementById('loginbtn');
+	console.log(loginbtn);
+	const userId = document.getElementById('user_id').value;
+    const userPw = document.getElementById('user_pw').value;
+    console.log("userId : ", userId);
+    console.log("userPw : "+userPw);
+    if(userPw.length > 0 && userId.length >0 ){
+        loginbtn.disabled = false;
+        loginbtn.classList.add('active');
+    }else{
+        loginbtn.disabled = true;
+        loginbtn.classList.remove('active');
+    }
+})
+
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -184,21 +214,26 @@
 		</header>
 
 		<section class="login_section">
-			<form action="/login.jsp" method="post">
-				<div>
-					아이디 &nbsp;&nbsp;&nbsp;| <input type="text" name="id" id="userid"
+			<form action="loginAction.jsp" class="login_form" method="post">
+				<div class="input_box">
+					아이디 &nbsp;&nbsp;&nbsp;| <input type="text" name="userID" id="user_id"
 						placeholder="아이디를 입력해주세요.">
 				</div>
-				<div>
-					비밀번호 | <input type="text" name="pw" id="userpw"
+				<div class="input_box">
+					비밀번호 | <input type="password" name="userPassword" id="user_pw"
 						placeholder="비밀번호를 입력해주세요.">
 				</div>
-				<a href="" onclick="submitForm();" class="btn_login">로그인</a>
-				</form>
+				<div>
+					<button type="submit" id="loginbtn" class="btn_login" disabled>로그인</button>
+				</div>
+			</form>
 		</section>
 		<section class="login_section_1">
 			<div class="changepw_div">
-				<a href="IdPwSearch.jsp">아이디/비밀번호 찾기</a>
+				<a href="IdSearch.jsp">아이디찾기</a>
+			</div>
+			<div class="changepw_div">
+				<a href="PwSearch.jsp">비밀번호찾기</a>
 			</div>
 			<div class="signup_div">
 				<a href="SignUp.jsp">회원가입</a>
@@ -206,4 +241,5 @@
 		</section>
 	</div>
 </body>
+
 </html>

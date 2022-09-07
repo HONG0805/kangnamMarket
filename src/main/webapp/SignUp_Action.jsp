@@ -2,14 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="user.UserDAO"%>
 <%@ page import="java.io.PrintWriter"%>
-<%
-request.setCharacterEncoding("UTF-8");
-%>
+<%request.setCharacterEncoding("UTF-8");%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>TEST</title>
+<title>SignUp_Action</title>
 </head>
 <body>
 	<%
