@@ -93,7 +93,7 @@ input::placeholder {
 }
 
 .signbtn {
-	width : 100%;
+	width: 100%;
 	color: white;
 	padding: 5px;
 	margin-top: 20px;
@@ -101,12 +101,13 @@ input::placeholder {
 	font-weight: bold;
 	text-align: center;
 }
+
 form button {
-    background-color: rgba(0, 147, 245, 0.5);
+	background-color: rgba(0, 147, 245, 0.5);
 }
 
-form button.active{
-    background-color: rgba(0, 147, 245);
+form button.active {
+	background-color: rgba(0, 147, 245);
 }
 
 /* 태블릿용 CSS */
@@ -165,9 +166,9 @@ form button.active{
 
 window.addEventListener('keyup', ()=>{
 	const signbtn = document.getElementById('signbtn');
-	const userName = document.getElementById("userName").value;
-    const userId = document.getElementById('userID').value;
-    const userEmail = document.getElementById('userEmail').value;
+	const userName = document.getElementById("user_Name").value;
+    const userId = document.getElementById('user_ID').value;
+    const userEmail = document.getElementById('user_Email').value;
     if(userName.length > 0 && userId.length >0 && userEmail.length >0){
         signbtn.disabled = false;
         signbtn.classList.add('active');
@@ -177,39 +178,59 @@ window.addEventListener('keyup', ()=>{
     }
 })
 
+function pw_search() { 
+	var frm = document.pwsearch;
+	
+	if (frm.userName.value.length < 1) {
+  		alert("이름을 입력해주세요");
+ 		return;
+ 	}
+	if (frm.userID.value.length < 5) {
+  		alert("아이디를 입력해주세요");
+ 		return;
+ 	}
+	
+	frm.method = "post";
+	frm.action = "PwSearch_success.jsp";
+	frm.submit();  
+}
+
 </script>
 </head>
 
 <body>
 	<div id="wrap">
 		<header class="header">
-			<h1>Kangnam University</h1>
-			<div>
-				<h3>중고장터</h3>
-			</div>
+			<h1><a href="Login.jsp">Kangnam University</a></h1>
+				<div>
+					<h3><a href="Login.jsp">중고장터</a></h3>
+				</div>
 		</header>
 
 		<section class="sign_section">
-		<form name ="pwsearch" method ="post">
-			<div class="signup">
-				<h2>비밀번호 찾기</h2>
-				<div class="text">이름</div>
-				<div>
-					<input id="userName" name="name" placeholder="이름" class="input_text">
+			<form name="pwsearch" method="post">
+				<div class="signup">
+					<h2>비밀번호 찾기</h2>
+					<div class="text">이름</div>
+					<div>
+						<input id="user_Name" name="userName" placeholder="이름"
+							class="input_text">
+					</div>
+					<div class="text">아이디</div>
+					<div>
+						<input id="user_ID" name="userID" placeholder="아이디"
+							class="input_text">
+					</div>
+					<div class="text">이메일</div>
+					<div>
+						<input id="user_Email" name="userEmail"
+							placeholder="이메일@example.com" class="input_text">
+					</div>
+					<div>
+						<button type="submit" id="signbtn" class="signbtn" value="비밀번호 찾기"
+							onClick="pw_search()" disabled>비밀번호 찾기</button>
+					</div>
 				</div>
-				<div class="text">아이디</div>
-				<div>
-					<input id="userID" name="id" placeholder="아이디" class="input_text">
-				</div>
-				<div class="text">이메일</div>
-				<div>
-					<input id="userEmail" name="mail" placeholder="이메일@example.com"
-						class="input_text">
-				</div>
-				<div>
-					<button type="submit" id="signbtn" class="signbtn" disabled>비밀번호 찾기</button>
-				</div>
-			</div>
 			</form>
 		</section>
 	</div>

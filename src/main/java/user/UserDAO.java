@@ -6,11 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class UserDAO {
-	private String userID;
-	private String userPassword;
-	private String userEmail;
-	private String userName;
-	private String userNickName;
 
 	private Connection con;
 	private ResultSet rs;
@@ -44,7 +39,7 @@ public class UserDAO {
 		}
 	}
 
-	// 중복여부확인
+	// ID 중복여부확인
 	public boolean ID_Check(String userID) {
 		try {
 			PreparedStatement pst = con.prepareStatement("SELECT * FROM user WHERE userID = ?");
@@ -62,17 +57,17 @@ public class UserDAO {
 	}
 
 	// 회원가입
-	public int join(UserDAO userDAO) {
-		if (!ID_Check(userDAO.getUserID()))
+	public int join(User User) {
+		if (!ID_Check(User.getUserID()))
 			return 0;
 
 		try {
 			PreparedStatement pst = con.prepareStatement("INSERT INTO user VALUES (?,?,?,?,?)");
-			pst.setString(1, userDAO.getUserID());
-			pst.setString(2, userDAO.getUserPassword());
-			pst.setString(3, userDAO.getUserEmail());
-			pst.setString(4, userDAO.getUserName());
-			pst.setString(5, userDAO.getUserNickName());
+			pst.setString(1, User.getUserID());
+			pst.setString(2, User.getUserPassword());
+			pst.setString(3, User.getUserEmail());
+			pst.setString(4, User.getUserName());
+			pst.setString(5, User.getUserNickName());
 			return pst.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -81,10 +76,10 @@ public class UserDAO {
 	}
 
 	// 아이디 찾기
-	public String findId(String userEmail, String userName) {
+	public String findId(String userName, String userEmail) {
 		String id = null;
 		try {
-			String sql = "SELECT userID" + "FORM user" + "WHERE userEmail = ? and" + "userName = ?";
+			String sql = "SELECT userID FROM user WHERE userEmail = ? and userName = ?";
 			PreparedStatement pst = con.prepareStatement(sql);
 			pst.setString(1, userEmail);
 			pst.setString(2, userName);
@@ -92,7 +87,7 @@ public class UserDAO {
 			rs = pst.executeQuery();
 
 			if (rs.next()) {
-				id = rs.getString("user.userID");
+				id = rs.getString("userID");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -101,20 +96,19 @@ public class UserDAO {
 	}
 
 	// 비밀번호 찾기
-	public String findPw(String userID, String userEmail, String userName) {
+	public String findPw(String userID, String userName, String userEmail) {
 		String pw = null;
 		try {
-			String sql = "SELECT userPassword" + "FORM user" + "WHERE userID=? and" + "userEmail=? and"
-					+ "userName = ?";
+			String sql = "SELECT userPassword FROM user WHERE userID=? and userName=? and userEmail=?";
 			PreparedStatement pst = con.prepareStatement(sql);
 			pst.setString(1, userID);
-			pst.setString(2, userEmail);
-			pst.setString(3, userName);
+			pst.setString(2, userName);
+			pst.setString(3, userEmail);
 
-			ResultSet rs = pst.executeQuery();
+			rs = pst.executeQuery();
 
 			if (rs.next()) {
-				pw = rs.getString("user.userPassword");
+				pw = rs.getString("userPassword");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -122,64 +116,50 @@ public class UserDAO {
 		return pw;
 	}
 	
-	//유저 데이터 가져오기
-	public UserDAO getUser(String userID) {
+	//비밀번호 변경
+	public boolean changePassword(String userID, String newPw) {
+
+		boolean flag = false;
+		String sql = "UPDATE user SET userPassword=? WHERE userID=?"; 
+
+		PreparedStatement pst = null;
+
+		try {
+			pst = con.prepareStatement(sql);
+			pst.setString(1, newPw);
+			pst.setString(2, userID);
+
+			int i = pst.executeUpdate();
+
+			if(i == 1) {
+				flag = true;
+			} else {
+				flag = false;
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+
+	// 유저 데이터 가져오기
+	public User getUser(String userID) {
 		try {
 			PreparedStatement pst = con.prepareStatement("SELECT * FROM user WHERE userID = ?");
 			pst.setString(1, userID);
 			rs = pst.executeQuery();
 			if (rs.next()) {
-				UserDAO userDAO = new UserDAO();
-				userDAO.setUserID(rs.getString(1));
-				userDAO.setUserPassword(rs.getString(2));
-				userDAO.setUserEmail(rs.getString(3));
-				userDAO.setUserName(rs.getString(4));
-				userDAO.setUserNickName(rs.getString(5));
-				return userDAO;
+				User user = new User();
+				user.setUserID(rs.getString(1));
+				user.setUserPassword(rs.getString(2));
+				user.setUserEmail(rs.getString(3));
+				user.setUserName(rs.getString(4));
+				user.setUserNickName(rs.getString(5));
+				return user;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
-	}
-
-	public String getUserID() {
-		return userID;
-	}
-
-	public void setUserID(String userID) {
-		this.userID = userID;
-	}
-
-	public String getUserPassword() {
-		return userPassword;
-	}
-
-	public void setUserPassword(String userPassword) {
-		this.userPassword = userPassword;
-	}
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getUserNickName() {
-		return userNickName;
-	}
-
-	public void setUserNickName(String userNickName) {
-		this.userNickName = userNickName;
 	}
 }

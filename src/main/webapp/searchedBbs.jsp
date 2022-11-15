@@ -122,7 +122,7 @@
 	display: inline-block;
 }
 
-.content_row_2>form.search {
+.content_row_2 {
 	padding: 10px;
 	border: 2px solid #1289dd;
 	border-radius: 10px/10px;
@@ -135,7 +135,7 @@
 	background-color: 4f94e4b3;
 }
 
-.content_row_2>form.search>input.text {
+.content_row_2>input.text {
 	height: 20px;
 	border: 0;
 	width: 80%;
@@ -425,6 +425,15 @@ div.pagination>img {
 	if (request.getParameter("pageNumber") != null) {
 		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 	}
+	String searchWord = null;
+	if (request.getParameter("searchWord") != null) {
+		searchWord = (String) request.getParameter("searchWord");
+		System.out.println("searchword from parameter is :" + searchWord);
+	}
+	if (session.getAttribute("searchWord") != null) {
+		searchWord = (String) session.getAttribute("searchWord");
+		System.out.println("searchword from session is :" + searchWord);
+	}
 	%>
 	<div id="wrap">
 		<%
@@ -504,15 +513,16 @@ div.pagination>img {
 			</div>
 		</section>
 		-->
-		
+
 		<section class="content_search">
 			<div class="content_row_2">
-				<form class="search" method="post" action="searchedBbs.jsp">
-					<input type="text" name="searchWord" placeholder="검색어를 입력해주세요." class="text">
-					<button type="submit" class="search_check"><img
-						src="images/s_images/search-line.png"
-						style="width: 20px; height: 20px;"></button>
-				</form>
+				<input type="text" name="searchWord" placeholder="검색어를 입력해주세요."
+					class="text">
+				<button type="submit" class="search_check">
+					<img src="images/s_images/search-line.png"
+						style="width: 20px; height: 20px;"> <a
+						href="searchedBbs.jsp"></a>
+				</button>
 			</div>
 		</section>
 
@@ -524,7 +534,7 @@ div.pagination>img {
 
 			<%
 			BbsDAO bbsDAO = new BbsDAO();
-			ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
+			ArrayList<Bbs> list = bbsDAO.getSearchedList(pageNumber, searchWord);
 			for (int i = 0; i < list.size(); i++) {
 			%>
 			<div style="text-align: center; border: 1px solid #dddddd">

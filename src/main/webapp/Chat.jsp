@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
-<title>이메일 인증</title>
+<title>강남대학교 중고장터</title>
 <link rel="stylesheet" type="text/css" href="CSS/reset.css">
 <link rel="stylesheet" type="text/css" href="">
 <link rel="shortcut icon" href="images/favicon/favicon.ico">
@@ -19,8 +19,8 @@
 	href="images/favicon/flat-design-touch.png">
 <script src="js/jquery.min.js"></script>
 <style>
-/* 모바일용 CSS */
-/* 기본 CSS */
+/* ëª¨ë°ì¼ì© CSS */
+/* ê¸°ë³¸ CSS */
 #wrap {
 	display: flex;
 	flex-flow: column nowrap;
@@ -83,6 +83,10 @@
 	text-transform: uppercase;
 }
 
+.logo img {
+	vertical-align: middle;
+}
+
 .logo a {
 	font-size: 20px;
 }
@@ -91,7 +95,152 @@
 	color: #4f94e4;
 }
 
-.logo img {
+.content_categories {
+	width: 100%;
+	order: 3;
+	padding: 10px;
+	padding: 0.625rem;
+	order: 3;
+}
+
+.content_search {
+	width: 100%;
+	order: 4;
+	padding: 10px;
+	padding: 0.625rem;
+}
+
+.content_row_1>div.category_selected {
+	padding: 10px;
+	cursor: pointer;
+	display: inline-block;
+}
+
+.content_row_1>div.category {
+	padding: 10px;
+	cursor: pointer;
+	display: inline-block;
+}
+
+.content_row_2>form.search {
+	padding: 10px;
+	border: 2px solid #1289dd;
+	border-radius: 10px/10px;
+	background: transparent url(/images/s_images/search-line.png) no-repeat
+		right 10px center;
+}
+
+.search_check {
+	float: right;
+}
+
+.content_row_2>form.search>input.text {
+	height: 20px;
+	border: 0;
+	width: 80%;
+	color: #292929;
+	font-size: 14px;
+	background-color: transparent;
+	outline: none;
+}
+
+.content_section {
+	order: 5;
+	width: 100%;
+	padding: 10px;
+	padding: 0.625rem;
+}
+
+.comment {
+	padding: 5px;
+}
+
+.bbstitle {
+	width: 60%;
+	margin: 15px 0px 15px 10px;
+	font-weight: bold;
+	font-size: 20px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.bbscontent {
+	width: 60%;
+	margin: 15px 0px 15px 10px;
+	color: gray;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.bbsdate {
+	width: 100%;
+	font-size: 12px;
+	margin: 10px;
+}
+
+#writeArticleButton {
+	display: block;
+	border: 2px solid #d6d6d6;
+	color: #a6a6a6;
+	box-sizing: border-box;
+	cursor: text;
+	height: 50px;
+	padding: 10px;
+	font-size: 18px;
+	margin-bottom: 5px;
+	font-weight: bold;
+	line-height: 26px;
+}
+
+.writeimg {
+	float: right;
+	filter: opacity(0.5) drop-shadow(0 0 0 #d6d6d6);
+}
+
+div.content_article>article {
+	margin-bottom: -1px;
+	box-sizing: border-box;
+	border: 1px solid #e3e3e3;
+	background-color: white;
+}
+
+div.content_article>article>a.article {
+	display: block;
+	padding: 15px;
+	padding: 0.9375rem;
+	cursor: pointer;
+}
+
+.pagination_footer {
+	order: 6;
+	width: 100%;
+	margin-bottom: 100px;
+	box-sizing: border-box;
+}
+
+div.pagination>a.prev {
+	float: left;
+	padding: 10px;
+	margin-left: 20px;
+	border: 2px solid #1289dd;
+	font-size: 14px;
+	border-radius: 15px;
+	cursor: pointer;
+}
+
+div.pagination>a.next {
+	float: right;
+	padding: 10px;
+	margin-right: 20px;
+	border: 2px solid #1289dd;
+	font-size: 14px;
+	border-radius: 15px;
+	cursor: pointer;
+}
+
+div.pagination>img {
 	vertical-align: middle;
 }
 
@@ -106,44 +255,10 @@
 	width: 100%;
 }
 
-div.signup>h2 {
-	font-size: 20px;
-	margin-bottom: 10px;
-}
-
-div.signup>div.text {
-	font-size: 14px;
-	margin-top: 8px;
-	margin-bottom: 4px;
-}
-
 .signup {
 	border: 1px solid #1289dd;
 	border-radius: 10px;
 	padding: 20px;
-}
-
-input::placeholder {
-	color: #a7a7a7;
-}
-
-.input_text {
-	border: 1px solid #a6a6a6;
-	border-radius: 5px;
-	font-size: 12px;
-	width: 250px;
-	padding: 5px;
-}
-
-.signbtn {
-	background: #1289dd;
-	color: white;
-	padding: 5px;
-	margin-top: 20px;
-	border-radius: 5px;
-	font-weight: bold;
-	text-align: center;
-	cursor: pointer;
 }
 
 .loginbtn {
@@ -158,7 +273,7 @@ input::placeholder {
 	font-size: 10px;
 }
 
-/* 태블릿용 CSS */
+/* 테블릿 CSS */
 @media all and (min-width:768px) {
 	.header {
 		flex-direction: row;
@@ -172,7 +287,6 @@ input::placeholder {
 		width: 100%;
 		padding: 0;
 		text-align: center;
-		left: 0;
 	}
 	.logo a {
 		display: flex;
@@ -182,37 +296,32 @@ input::placeholder {
 		font-size: 40px;
 		justify-content: center;
 	}
-	.signup {
-		padding: 40px;
+	.content_categories {
+		padding: 10px;
+		padding: 0.625rem;
 	}
-	div.signup>div.text {
-		font-size: 20px;
-		margin-top: 14px;
-		margin-bottom: 3px;
+	.content_row_1>div.category_selected {
+		padding: 10px;
+		cursor: pointer;
+		display: inline-block;
 	}
-	div.signup>h2 {
-		font-size: 30px;
-		margin-bottom: 30px;
+	.content_row_1>div.category {
+		padding: 10px;
+		cursor: pointer;
+		display: inline-block;
 	}
-	.input_text {
-		font-size: 18px;
-		width: 350px;
+	.content_search {
+		padding: 10px;
+		padding: 0.625rem;
 	}
-	.signbtn {
-		font-size: 20px;
-	}
+	/* ê¸°ë³¸ CSS */
 	#wrap {
 		flex-flow: row wrap;
 	}
 }
 
-/* PC용 CSS */
+/* PC CSS */
 @media all and (min-width:1200px) {
-	/* 기본 CSS */
-	#wrap {
-		position: relative;
-		width: 50%;
-	}
 	.info_section {
 		order: 0;
 		position: absolute;
@@ -220,7 +329,6 @@ input::placeholder {
 		top: 4.375rem;
 		right: 30px;
 		right: 1.875rem;
-		z-index: 30;
 		width: auto;
 		border-bottom: 0;
 	}
@@ -252,9 +360,9 @@ input::placeholder {
 	}
 	.logo a {
 		font-size: 30px;
+		justify-content: flex-start;
 		padding: 50px 0;
 		padding: 3.125rem 0;
-		justify-content: flex-start
 	}
 	#logo_1 {
 		color: #4f94e4;
@@ -262,27 +370,118 @@ input::placeholder {
 	.logo img {
 		vertical-align: middle;
 	}
-	.sign_section {
-		padding: 80px;
+	.content_categories {
+		width: 40%;
+		padding: 20px;
+		padding: 1.25rem;
 	}
-	.input_text {
-		width: 350px;
+	.content_search {
+		width: 60%;
+		padding: 20px;
+		padding: 1.25rem;
 	}
-	.signup {
-		padding: 60px;
+	.content_row_1>div.category_selected {
+		padding: 10px;
+		cursor: pointer;
+		display: inline-block;
+	}
+	.content_row_1>div.category {
+		padding: 10px;
+		cursor: pointer;
+		display: inline-block;
+	}
+	.content_row_2>form.search {
+		width: 70%;
+		float: right;
+		border: 2px solid #1289dd;
+		float: right;
+	}
+	.content_section {
+		order: 5;
+		width: 100%;
+		padding: 20px;
+		padding: 1.25rem;
+	}
+	.loginbtn {
+		font-size: 15px;
+	}
+
+	/* ê¸°ë³¸ CSS */
+	#wrap {
+		position: relative;
+		width: 50%;
 	}
 }
 </style>
+<script type="text/javascript">
+	var websocket = new WebSocket("ws://localhost:8080/wsocket");
+	var line = 0;
+	websocket.onopen = function(message) {
+		document.getElementById("state").innerHTML = "소켓 시작";
+	}
+	websocket.onclose = function(message) {
+	}
+	websocket.onerror = function(message) {
+	}
+	websocket.onmessage = function(message) {
+		if (++line % 20 == 0) {
+			line = 0;
+			document.getElementById("chat").value = "";
+		}
+
+		document.getElementById("chat").value = document.getElementById("chat").value
+				+ "\n" + message.data;
+	}
+
+	function sendmessage() {
+		msg = "[${sessionScope.id}]" + document.getElementById("send").value;
+		websocket.send(msg);
+ 
+		document.getElementById("send").value = "";
+		/*
+		//	나의 메시지
+		document.getElementById("chat").value = 
+			document.getElementById("chat").value + "\n"+msg; 
+		 */
+	}
+	function keypress() {
+		var keycode = event.keyCode;
+
+		if (keycode == 13)
+			sendmessage();
+	}
+
+	/*
+	 function submitFunction() {
+	 var chatName = $('#chatName').val();
+	 var chatContent = $('#chatContent').val();
+	 $.ajax({
+	 type : "POST",
+	 url : "./chatSubmitServlet",
+	 data : {
+	 chatName : chatNaem,
+	 chatContent : chatContent
+	 },
+	 success : function (result) {
+	 if(result == 1){
+	 alert("전송에 성공했습니다.");
+	 }else if(result ==0){
+	 alert("이름과 내용을 정확히 입력하세요.");
+	 }else{
+	 alert("데이터베이스 오류가 발생했습니다.");
+	 }
+	 }
+	 });
+	 $('#chatContent').val('');
+	 }
+	 */
+</script>
 </head>
 <body>
 	<%
 	String userID = null;
 	if (session.getAttribute("userID") != null) {
 		userID = (String) session.getAttribute("userID");
-	}
-	int pageNumber = 1;
-	if (request.getParameter("pageNumber") != null) {
-		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 	}
 	%>
 	<div id="wrap">
@@ -348,20 +547,13 @@ input::placeholder {
 			</h1>
 		</header>
 
-		<section class="sign_section">
-			<div class="signup">
-				<h2>학교 이메일 인증</h2>
-				<div class="text">이메일</div>
-				<div>
-					<input name="mail" placeholder="이메일을 입력하세요.(@kangnam.ac.kr)"
-						class="input_text">
-				</div>
-				<div class="signbtn">이메일 인증</div>
-			</div>
+		<section class="chat_section">
+			<div>강남채팅</div>
 		</section>
 	</div>
 	<%
 	}
 	%>
+
 </body>
 </html>

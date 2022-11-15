@@ -76,6 +76,7 @@
 	font-size: 15px;
 	margin-left: 10px;
 	width: 180px;
+	outline: none;
 }
 
 input::placeholder {
@@ -99,6 +100,7 @@ input::placeholder {
 	border-radius: 5px;
 	padding: 10px;
 	font-weight: bold;
+	outline: none;
 }
 form button {
     background-color: rgba(0, 147, 245, 0.5);
@@ -207,10 +209,10 @@ window.addEventListener('keyup', ()=>{
 <body>
 	<div id="wrap">
 		<header class="header">
-			<h1>Kangnam University</h1>
-			<div>
-				<h3>중고장터</h3>
-			</div>
+			<h1><a href="Login.jsp">Kangnam University</a></h1>
+				<div>
+					<h3><a href="Login.jsp">중고장터</a></h3>
+				</div>
 		</header>
 
 		<section class="login_section">

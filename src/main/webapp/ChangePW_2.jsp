@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ page import="user.UserDAO"%>
+<%@ page import="java.io.PrintWriter"%>
 <!DOCTYPE HTML>
 <html lang="ko">
 <head>
@@ -131,7 +133,20 @@ input::placeholder {
 	margin-bottom: 4px;
 }
 
+.loginbtn {
+	width : 90%;
+	color: white;
+	padding: 5px;
+	border-radius: 5px;
+	margin: 20px 5px 5px 5px;
+	font-weight: bold;
+	text-align: center;
+	background-color: rgba(0, 147, 245);
+	font-size: 10px;
+}
+
 .signbtn {
+	width: 95%;
 	background: #1289dd;
 	color: white;
 	padding: 5px;
@@ -140,8 +155,8 @@ input::placeholder {
 	font-weight: bold;
 	text-align: center;
 	cursor: pointer;
+	background: #1289dd;
 }
-
 /* 태블릿용 CSS */
 @media all and (min-width:768px) {
 	.header {
@@ -251,20 +266,61 @@ input::placeholder {
 	}
 }
 </style>
+<script type="text/javascript">
+	function validate() {
+		var newPW = document.getElementById("new_pw");
+		var newPWCK = document.getElementById("new_pwck");
+
+		var arrNum1 = new Array();
+		var arrNum2 = new Array();
+
+		//아이디, 패스워드 값 데이터 정규화
+		var regul1 = /^[a-zA-Z0-9]{8,20}$/;
+
+		if ((newPW.value) == "" && (newPWCK.value) == "") {
+			alert("빈칸을 입력해 주세요");
+			return false;
+		}
+		if (!check(regul1, newPW, "비밀번호는 8~20자의 대소문자와 숫자로만 입력 가능합니다.")) {
+			return false;
+		}
+		if (newPW.value != newPWCK.value) {
+			alert("새로운 비밀번호가 일치하지 않습니다.");
+			return false;
+		}
+		function check(re, what, message) {
+			if (re.test(what.value)) {
+				return true;
+			}
+			alert(message);
+			what.value = "";
+			what.focus();
+		}
+	}
+</script>
 </head>
 <body>
+	<%
+	String userID = null;
+	if (session.getAttribute("userID") != null) {
+		userID = (String) session.getAttribute("userID");
+	}
+	%>
 	<div id="wrap">
+		<%
+		if (userID == null) {
+		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a herf=""><img
+				<li><a href=""><img
 						src="images/s_images/free-icon-font-bell-3917226.png"
 						style="width: 30px; height: auto;" alt="">알림</a></li>
-				<li><a href="MyPage.jsp"><img
+				<li><a href=""><img
 						src="images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
-				<li><a herf=""><img
+				<li><a href="Login.jsp"><img
 						src="images/s_images/free-icon-font-comments-5074600.png"
-						style="width: 30px; height: auto;" alt="">채팅</a></li>
+						style="width: 30px; height: auto;" alt="">로그인</a></li>
 			</ul>
 		</section>
 
@@ -272,30 +328,81 @@ input::placeholder {
 			<h1 class="logo">
 				<a href="MainPage.jsp"><img src="images/s_images/마크.png"
 					style="width: 98px; height: auto;" alt=""> <span id="logo_1">강남대학교</span>
-					중고장터 </a>
+					중고장터</a>
 			</h1>
 		</header>
 		<section class="sign_section">
 			<div class="signup">
-				<h2>비밀번호 변경</h2>
-				<div class="text">
-					새 비밀번호&nbsp;&nbsp;<span style="font-size: 10px;">영문, 숫자, 특문이
-						2종류 이상 조합된 8~20자</span>
+				<h2>로그인 후 이용가능 합니다.</h2>
+				<div>
+					<input type="button" id="btnPwSearch" class="loginbtn" value="로그인"
+						onclick="location.href='Login.jsp'" />
 				</div>
 				<div>
-					<input name="newpw" placeholder="새 비밀번호" class="input_text">
-
+					<input type="button" id="btnSignUp" class="loginbtn" value="회원가입"
+						onclick="location.href='SignUp.jsp'" />
 				</div>
-				<div>
-					<input name="newckpw" placeholder="새 비밀번호 확인" class="input_text">
-				</div>
-				<div class="text">현재 비밀번호</div>
-				<div>
-					<input name="pw" placeholder="현재 비밀번호" class="input_text">
-				</div>
-				<div class="signbtn">비밀번호 변경</div>
 			</div>
 		</section>
+		<%
+		} else {
+		%>
+		<section class="info_section">
+			<ul class="info_list">
+				<li><a href=""><img
+						src="images/s_images/free-icon-font-bell-3917226.png"
+						style="width: 30px; height: auto;" alt="">알림</a></li>
+				<li><a href="MyPage.jsp"><img
+						src="images/s_images/free-icon-font-id-badge-3914510.png"
+						style="width: 30px; height: auto;" alt="">내정보</a></li>
+				<li><a href="Logout.jsp"><img
+						src="images/s_images/free-icon-font-comments-5074600.png"
+						style="width: 30px; height: auto;" alt="">로그아웃</a></li>
+			</ul>
+		</section>
+
+		<header class="header">
+			<h1 class="logo">
+				<a href="MainPage.jsp"><img src="images/s_images/마크.png"
+					style="width: 98px; height: auto;" alt=""> <span id="logo_1">강남대학교</span>
+					중고장터</a>
+			</h1>
+		</header>
+		<section class="sign_section">
+			<form name="chagnepw" action="ChangePW_success.jsp" method="post"
+				onsubmit="return validate()" enctype="text/pain">
+				<div class="signup">
+					<input type="hidden" name="userID" value="<%=userID%>">
+					<h2>비밀번호 변경</h2>
+					<div class="text">현재 비밀번호</div>
+					<div>
+						<input type="password" name="userPW" placeholder="현재 비밀번호"
+							class="input_text">
+					</div>
+					<div class="text">
+						새 비밀번호&nbsp;&nbsp;<span style="font-size: 10px;">영문, 숫자,
+							특문이 2종류 이상 조합된 8~20자</span>
+					</div>
+					<div>
+						<input type="password" name="newPw" id="new_pw"
+							placeholder="새 비밀번호" class="input_text">
+
+					</div>
+					<div>
+						<input type="password" name="newPwCheck" id="new_pwck"
+							placeholder="새 비밀번호 확인" class="input_text">
+					</div>
+					<div>
+						<input type="submit" id="btnChangePw" class="signbtn"
+							value="비밀번호 변경" />
+					</div>
+				</div>
+			</form>
+		</section>
+		<%
+		}
+		%>
+
 	</div>
 </body>
 </html>

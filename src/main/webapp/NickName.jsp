@@ -1,5 +1,10 @@
+<%@page import="javax.security.auth.Subject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ page import="java.io.PrintWriter"%>
+<%@ page import="bbs.BbsDAO"%>
+<%@ page import="bbs.Bbs"%>
+<%@ page import="java.util.ArrayList"%>
 <!DOCTYPE HTML>
 <html lang="ko">
 <head>
@@ -141,6 +146,18 @@ input::placeholder {
 	cursor: pointer;
 }
 
+.loginbtn {
+	width: 90%;
+	color: white;
+	padding: 5px;
+	border-radius: 5px;
+	margin: 20px 5px 5px 5px;
+	font-weight: bold;
+	text-align: center;
+	background-color: rgba(0, 147, 245);
+	font-size: 10px;
+}
+
 /* 태블릿용 CSS */
 @media all and (min-width:768px) {
 	.header {
@@ -258,18 +275,31 @@ input::placeholder {
 </style>
 </head>
 <body>
+	<%
+	String userID = null;
+	if (session.getAttribute("userID") != null) {
+		userID = (String) session.getAttribute("userID");
+	}
+	int pageNumber = 1;
+	if (request.getParameter("pageNumber") != null) {
+		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+	}
+	%>
 	<div id="wrap">
+		<%
+		if (userID == null) {
+		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a herf=""><img
+				<li><a href=""><img
 						src="images/s_images/free-icon-font-bell-3917226.png"
 						style="width: 30px; height: auto;" alt="">알림</a></li>
-				<li><a href="MyPage.jsp"><img
+				<li><a href=""><img
 						src="images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
-				<li><a herf=""><img
+				<li><a href="Login.jsp"><img
 						src="images/s_images/free-icon-font-comments-5074600.png"
-						style="width: 30px; height: auto;" alt="">채팅</a></li>
+						style="width: 30px; height: auto;" alt="">로그인</a></li>
 			</ul>
 		</section>
 
@@ -277,7 +307,44 @@ input::placeholder {
 			<h1 class="logo">
 				<a href="MainPage.jsp"><img src="images/s_images/마크.png"
 					style="width: 98px; height: auto;" alt=""> <span id="logo_1">강남대학교</span>
-					중고장터 </a>
+					중고장터</a>
+			</h1>
+		</header>
+		<section class="sign_section">
+			<div class="signup">
+				<h2>로그인 후 이용가능 합니다.</h2>
+				<div>
+					<input type="button" id="btnPwSearch" class="loginbtn" value="로그인"
+						onclick="location.href='Login.jsp'" />
+				</div>
+				<div>
+					<input type="button" id="btnSignUp" class="loginbtn" value="회원가입"
+						onclick="location.href='SignUp.jsp'" />
+				</div>
+			</div>
+		</section>
+		<%
+		} else {
+		%>
+		<section class="info_section">
+			<ul class="info_list">
+				<li><a href=""><img
+						src="images/s_images/free-icon-font-bell-3917226.png"
+						style="width: 30px; height: auto;" alt="">알림</a></li>
+				<li><a href="MyPage.jsp"><img
+						src="images/s_images/free-icon-font-id-badge-3914510.png"
+						style="width: 30px; height: auto;" alt="">내정보</a></li>
+				<li><a href="Logout.jsp"><img
+						src="images/s_images/free-icon-font-comments-5074600.png"
+						style="width: 30px; height: auto;" alt="">로그아웃</a></li>
+			</ul>
+		</section>
+
+		<header class="header">
+			<h1 class="logo">
+				<a href="MainPage.jsp"><img src="images/s_images/마크.png"
+					style="width: 98px; height: auto;" alt=""> <span id="logo_1">강남대학교</span>
+					중고장터</a>
 			</h1>
 		</header>
 
@@ -292,5 +359,8 @@ input::placeholder {
 			</div>
 		</section>
 	</div>
+	<%
+	}
+	%>
 </body>
 </html>

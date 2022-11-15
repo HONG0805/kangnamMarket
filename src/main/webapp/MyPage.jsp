@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ page import="user.UserDAO"%>
+<%@ page import="user.User"%>
+<%@ page import="java.io.PrintWriter"%>
 <!DOCTYPE HTML>
 <html lang="ko">
 <head>
@@ -304,18 +307,30 @@ div.my_profile p {
 </style>
 </head>
 <body>
+	<%
+	request.setCharacterEncoding("UTF-8");
+	String userID = null;
+	if (session.getAttribute("userID") != null) {
+		userID = (String) session.getAttribute("userID");
+	}
+	User user = new User();
+	
+	%>
 	<div id="wrap">
+		<%
+		if (userID == null) {
+		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a herf=""><img
+				<li><a href=""><img
 						src="images/s_images/free-icon-font-bell-3917226.png"
 						style="width: 30px; height: auto;" alt="">알림</a></li>
 				<li><a href="MyPage.jsp"><img
 						src="images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
-				<li><a herf=""><img
+				<li><a href="Login.jsp"><img
 						src="images/s_images/free-icon-font-comments-5074600.png"
-						style="width: 30px; height: auto;" alt="">채팅</a></li>
+						style="width: 30px; height: auto;" alt="">로그인</a></li>
 			</ul>
 		</section>
 
@@ -323,27 +338,55 @@ div.my_profile p {
 			<h1 class="logo">
 				<a href="MainPage.jsp"><img src="images/s_images/마크.png"
 					style="width: 98px; height: auto;" alt=""> <span id="logo_1">강남대학교</span>
-					중고장터 </a>
+					중고장터</a>
 			</h1>
 		</header>
+
+		<%
+		} else {
+		%>
+		<section class="info_section">
+			<ul class="info_list">
+				<li><a href=""><img
+						src="images/s_images/free-icon-font-bell-3917226.png"
+						style="width: 30px; height: auto;" alt="">알림</a></li>
+				<li><a href="MyPage.jsp"><img
+						src="images/s_images/free-icon-font-id-badge-3914510.png"
+						style="width: 30px; height: auto;" alt="">내정보</a></li>
+				<li><a href="Logout.jsp"><img
+						src="images/s_images/free-icon-font-comments-5074600.png"
+						style="width: 30px; height: auto;" alt="">로그아웃</a></li>
+			</ul>
+		</section>
+
+		<header class="header">
+			<h1 class="logo">
+				<a href="MainPage.jsp"><img src="images/s_images/마크.png"
+					style="width: 98px; height: auto;" alt=""> <span id="logo_1">강남대학교</span>
+					중고장터</a>
+			</h1>
+		</header>
+		<%
+		}
+		%>
 
 		<section class="my_section">
 			<div class="my_info">
 				<h1>내 정보</h1>
-				<a herf="" class="logout">로그아웃</a>
+				<a href="Logout.jsp" class="logout">로그아웃</a>
 			</div>
 			<div class="my_profile">
 				<img src="images/s_images/user-line.png">
-				<h3>아이디</h3>
-				<p>이름/닉네임</p>
+				<h3><%=userID %></h3>
+				<p><%=user.getUserName() %></p>
 				<p>학교/학번</p>
 			</div>
 		</section>
 		<section class="my_section_1">
 			<h2>계정</h2>
-			<a href="MailCheck.jsp" class="item">이메일 인증</a> 
-			<a href="NickName.jsp" class="item">닉네임 변경</a> 
-			<a href="ChangePW_2.jsp" class="item">비밀번호 변경</a>
+			<a href="MailCheck.jsp" class="item">이메일 인증</a> <a
+				href="NickName.jsp" class="item">닉네임 변경</a> <a href="ChangePW_2.jsp"
+				class="item">비밀번호 변경</a>
 		</section>
 	</div>
 </body>

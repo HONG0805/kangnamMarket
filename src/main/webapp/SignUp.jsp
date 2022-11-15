@@ -242,39 +242,45 @@ input::placeholder {
 <body>
 	<div id="wrap">
 		<header class="header">
-			<h1>Kangnam University</h1>
-			<div>
-				<h3>중고장터</h3>
-			</div>
+			<h1><a href="Login.jsp">Kangnam University</a></h1>
+				<div>
+					<h3><a href="Login.jsp">중고장터</a></h3>
+				</div>
 		</header>
 
 		<section class="sign_section">
-			<form name="f" action="SignUp_Action.jsp" method="post" onsubmit="return validate()" enctype="text/pain">
+			<form name="f" action="SignUp_Action.jsp" method="post"
+				onsubmit="return validate()" enctype="text/pain">
 				<div class="signup">
 					<h2>회원가입</h2>
 					<div class="text">아이디</div>
 					<div>
-						<input type="text" name="userID" id="my_id" placeholder="아이디" class="input_text">
+						<input type="text" name="userID" id="my_id" placeholder="아이디"
+							class="input_text">
 					</div>
 					<div class="text">
-						비밀번호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 10px;">비밀번호 8~20자의 대소문자와 숫자</span>
+						비밀번호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 10px;">비밀번호
+							8~20자의 대소문자와 숫자</span>
 					</div>
 					<div>
-						<input type="password" name="userPassword" id="my_password" placeholder="비밀번호" class="input_text">
+						<input type="password" name="userPassword" id="my_password"
+							placeholder="비밀번호" class="input_text">
 
 					</div>
 					<div class="text">이메일</div>
 					<div>
-						<input type="text" name="userEmail" id="my_email" placeholder="이메일@example.com"
-							class="input_text">
+						<input type="text" name="userEmail" id="my_email"
+							placeholder="이메일@example.com" class="input_text">
 					</div>
 					<div class="text">이름</div>
 					<div>
-						<input type="text" name="userName" id="my_name" placeholder="이름" class="input_text">
+						<input type="text" name="userName" id="my_name" placeholder="이름"
+							class="input_text">
 					</div>
 					<div class="text">닉네임</div>
 					<div>
-						<input type="text" name="userNickName" id="my_nickname" placeholder="닉네임" class="input_text">
+						<input type="text" name="userNickName" id="my_nickname"
+							placeholder="닉네임" class="input_text">
 					</div>
 					<div class="signbtn">
 						<input type="submit" class="bt_signup" value="회원가입">

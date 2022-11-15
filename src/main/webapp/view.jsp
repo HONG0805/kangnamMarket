@@ -1,17 +1,18 @@
-<%@page import="javax.security.auth.Subject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.io.PrintWriter"%>
-<%@ page import="bbs.BbsDAO"%>
 <%@ page import="bbs.Bbs"%>
+<%@ page import="bbs.BbsDAO"%>
+<%@ page import="reply.Reply"%>
+<%@ page import="reply.ReplyDAO"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="java.io.PrintWriter"%>
 <!DOCTYPE HTML>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
-<title>이메일 인증</title>
+<title>강남대학교 중고장터 내 정보</title>
 <link rel="stylesheet" type="text/css" href="CSS/reset.css">
 <link rel="stylesheet" type="text/css" href="">
 <link rel="shortcut icon" href="images/favicon/favicon.ico">
@@ -95,57 +96,6 @@
 	vertical-align: middle;
 }
 
-.sign_section {
-	display: flex;
-	flex-direction: column;
-	flex-direction: row;
-	justify-content: center;
-	width: 100%;
-	order: 2;
-	padding: 30px;
-	width: 100%;
-}
-
-div.signup>h2 {
-	font-size: 20px;
-	margin-bottom: 10px;
-}
-
-div.signup>div.text {
-	font-size: 14px;
-	margin-top: 8px;
-	margin-bottom: 4px;
-}
-
-.signup {
-	border: 1px solid #1289dd;
-	border-radius: 10px;
-	padding: 20px;
-}
-
-input::placeholder {
-	color: #a7a7a7;
-}
-
-.input_text {
-	border: 1px solid #a6a6a6;
-	border-radius: 5px;
-	font-size: 12px;
-	width: 250px;
-	padding: 5px;
-}
-
-.signbtn {
-	background: #1289dd;
-	color: white;
-	padding: 5px;
-	margin-top: 20px;
-	border-radius: 5px;
-	font-weight: bold;
-	text-align: center;
-	cursor: pointer;
-}
-
 .loginbtn {
 	width: 90%;
 	color: white;
@@ -158,6 +108,124 @@ input::placeholder {
 	font-size: 10px;
 }
 
+p {
+	margin: 10px;
+	overflow: hidden;
+	word-wrap: break-word;
+}
+
+.sign_section {
+	display: flex;
+	flex-direction: column;
+	flex-direction: row;
+	justify-content: center;
+	width: 100%;
+	order: 2;
+	padding: 30px;
+	width: 100%;
+}
+
+.signup {
+	border: 1px solid #1289dd;
+	border-radius: 10px;
+	padding: 20px;
+}
+
+.board_section {
+	width: 100%;
+	order: 2;
+}
+
+.board_section_1 {
+	width: 100%;
+	order: 4;
+}
+
+.category_div {
+	padding: 20px;
+	border-radius: 5px;
+	border: 2px solid #4f94e4;
+}
+
+.btn_primary {
+	float: left;
+	margin: 5px;
+	padding: 10px;
+	border-radius: 5px;
+	border: 2px solid black;
+	background: #d6d6d6;
+	color: white;
+	font-weight: bold;
+}
+
+.back_list {
+	float: right;
+	margin: 5px;
+	padding: 10px;
+	border-radius: 5px;
+	border: 2px solid black;
+	background: #d6d6d6;
+	color: white;
+	font-weight: bold;
+	padding: 10px;
+}
+
+.reply_section {
+	order: 3;
+	width: 100%;
+	margin-bottom: 100px;
+}
+
+.table-striped {
+	text-align: center;
+	width: 100%;
+}
+
+.reply_title {
+	background-color: #4f94e4;
+	border-radius: 5px;
+	text-align: center;
+	padding: 10px;
+	width: 100%;
+	color: white;
+}
+
+.form-control {
+	width: 95%;
+	border-radius: 5px;
+	border: 2px solid #4f94e4;
+	border-radius: 5px;
+}
+
+.reply_btn {
+	padding: 5px;
+	margin: 5px;
+	text-align: center;
+	float: right;
+	font-weight: bold;
+	border-radius: 5px;
+	background-color: #4f94e457;
+	color: black;
+	float: right;
+	font-weight: bold;
+	border-radius: 5px;
+	background-color: #4f94e457;
+	color: black;
+	width: 70%;
+}
+
+.reply_tr td {
+	width: 100%;
+	border: 1px solid #4f94e4;
+	border-radius: 5px;
+	padding: 10px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.reply_td_font {
+	font-size: 11px;
+}
 /* 태블릿용 CSS */
 @media all and (min-width:768px) {
 	.header {
@@ -181,25 +249,6 @@ input::placeholder {
 		padding: 3.125rem;
 		font-size: 40px;
 		justify-content: center;
-	}
-	.signup {
-		padding: 40px;
-	}
-	div.signup>div.text {
-		font-size: 20px;
-		margin-top: 14px;
-		margin-bottom: 3px;
-	}
-	div.signup>h2 {
-		font-size: 30px;
-		margin-bottom: 30px;
-	}
-	.input_text {
-		font-size: 18px;
-		width: 350px;
-	}
-	.signbtn {
-		font-size: 20px;
 	}
 	#wrap {
 		flex-flow: row wrap;
@@ -262,15 +311,6 @@ input::placeholder {
 	.logo img {
 		vertical-align: middle;
 	}
-	.sign_section {
-		padding: 80px;
-	}
-	.input_text {
-		width: 350px;
-	}
-	.signup {
-		padding: 60px;
-	}
 }
 </style>
 </head>
@@ -280,10 +320,26 @@ input::placeholder {
 	if (session.getAttribute("userID") != null) {
 		userID = (String) session.getAttribute("userID");
 	}
+
+	int bbsID = 0;
+	if (request.getParameter("bbsID") != null) {
+		bbsID = Integer.parseInt(request.getParameter("bbsID"));
+	}
+
 	int pageNumber = 1;
 	if (request.getParameter("pageNumber") != null) {
 		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 	}
+
+	if (bbsID == 0) {
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("alert('유효하지 않은 글입니다.')");
+		script.println("location.href='MainPage.jsp'");
+		script.println("</script>");
+	}
+
+	Bbs bbs = new BbsDAO().getBbs(bbsID);
 	%>
 	<div id="wrap">
 		<%
@@ -323,6 +379,7 @@ input::placeholder {
 				</div>
 			</div>
 		</section>
+
 		<%
 		} else {
 		%>
@@ -348,15 +405,72 @@ input::placeholder {
 			</h1>
 		</header>
 
-		<section class="sign_section">
-			<div class="signup">
-				<h2>학교 이메일 인증</h2>
-				<div class="text">이메일</div>
-				<div>
-					<input name="mail" placeholder="이메일을 입력하세요.(@kangnam.ac.kr)"
-						class="input_text">
-				</div>
-				<div class="signbtn">이메일 인증</div>
+		<section class="board_section">
+			<div class="category_div">
+				<p>
+					작성자 :
+					<%=bbs.getUserNickName()%></p>
+				<p>
+					작성일자 :
+					<%=bbs.getBbsDate().substring(0, 11) + bbs.getBbsDate().substring(11, 13) + "시"
+		+ bbs.getBbsDate().substring(14, 16) + "분"%></p>
+				<p style="font-size: 30px; font-weight: bold;"><%=bbs.getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n",
+		"<br>")%></p>
+			
+				<p><%=bbs.getBbsContent().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n",
+		"<br>")%></p>
+			</div>
+		</section>
+
+		<section class="reply_section">
+			<form method="post" action="replyAction.jsp?bbsID=<%=bbsID%>">
+				<table class="table-striped">
+					<thead>
+						<tr>
+							<th colspan="3" class="reply_title">댓글</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<%
+						ReplyDAO replyDAO = new ReplyDAO();
+						ArrayList<Reply> list = replyDAO.getList(bbsID, pageNumber);
+						for (int i = list.size() - 1; i >= 0; i--) {
+						%>
+
+						<tr class="reply_tr">
+							<td style="text-align: left;"><%=list.get(i).getReplyContent()%></td>
+							<td style="text-align: right;"><%=list.get(i).getUserID()%>
+								<a href="reply_deleteAction.jsp?bbsID=<%=bbsID%>"
+								class="reply_btn ">삭제</a></td>
+						</tr>
+
+						<%
+						}
+						%>
+						<td><textarea type="text" class="form-control"
+								placeholder="댓글을 입력하세요." name="replyContent" maxlength="2048"></textarea>
+						</td>
+						<td><input type="submit" class="reply_btn" value="댓글입력"></td>
+
+					</tbody>
+				</table>
+
+			</form>
+		</section>
+
+		<section class="board_section_1">
+			<div class="btn_div">
+				<%
+				if (userID != null && userID.equals(bbs.getUserNickName())) {
+				%>
+				<a href="update.jsp?bbsID=<%=bbsID%>" class="btn_primary">수정</a> <a
+					onclick="return confirm('정말로 삭제하시겠습니까?')"
+					href="deleteAction.jsp?bbsID=<%=bbsID%>" class="btn_primary">삭제</a>
+				<a href="MainPage.jsp" class="back_list">목록</a>
+				<%
+				}
+				%>
 			</div>
 		</section>
 	</div>
