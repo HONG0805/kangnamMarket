@@ -277,11 +277,13 @@ input::placeholder {
 						<input type="text" name="userName" id="my_name" placeholder="이름"
 							class="input_text">
 					</div>
+					<!--
 					<div class="text">닉네임</div>
 					<div>
 						<input type="text" name="userNickName" id="my_nickname"
 							placeholder="닉네임" class="input_text">
 					</div>
+					-->
 					<div class="signbtn">
 						<input type="submit" class="bt_signup" value="회원가입">
 					</div>

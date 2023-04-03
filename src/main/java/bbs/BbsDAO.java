@@ -57,8 +57,8 @@ public class BbsDAO {
 	}
 
 	// 글작성 메소드
-	public int write(String bbsTitle, String userNickName, String bbsContent) {
-		String sql = "INSERT INTO bbs VALUES(?, ?, ?, ?, ?, ?)";
+	public int write(String bbsTitle, String userNickName, String bbsContent, int cost) {
+		String sql = "INSERT INTO bbs VALUES(?, ?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pst = con.prepareStatement(sql);
 			pst.setInt(1, getNext());
@@ -67,6 +67,7 @@ public class BbsDAO {
 			pst.setString(4, getDate());
 			pst.setString(5, bbsContent);
 			pst.setInt(6, 1);// 글의 유호번호
+			pst.setInt(7, cost);
 			return pst.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -90,6 +91,7 @@ public class BbsDAO {
 				bbs.setBbsDate(rs.getString(4));
 				bbs.setBbsContent(rs.getString(5));
 				bbs.setBbsAvailable(rs.getInt(6));
+				bbs.setCost(rs.getInt(7));
 				list.add(bbs);
 			}
 		} catch (Exception e) {
@@ -128,6 +130,7 @@ public class BbsDAO {
 				bbs.setBbsDate(rs.getString(4));
 				bbs.setBbsContent(rs.getString(5));
 				bbs.setBbsAvailable(rs.getInt(6));
+				bbs.setCost(rs.getInt(7));
 				return bbs;
 			}
 		} catch (Exception e) {
@@ -145,7 +148,7 @@ public class BbsDAO {
 			no2 = getNext();
 		}
 		int no1 = (pageNumber - 1) * 10 + 1;
-		String sql = "select * from (select row_number() over (order by bbsDate desc) NUM, A.* from bbs A	where bbsavailable=1 and bbstitle like'%"
+		String sql = "select * from (select row_number() over (order by bbsDate desc) NUM, A.* from bbs A where bbsavailable=1 and bbstitle like'%"
 				+ searchWord
 				+ "%' order by bbsDate desc)bbs_a where NUM between "
 				+ no1
@@ -163,6 +166,7 @@ public class BbsDAO {
 				bbs.setBbsDate(rs.getString(5));
 				bbs.setBbsContent(rs.getString(6));
 				bbs.setBbsAvailable(rs.getInt(7));
+				bbs.setCost(rs.getInt(8));
 				list.add(bbs);
 			}
 		} catch (Exception e) {
@@ -187,8 +191,7 @@ public class BbsDAO {
 
 	//
 	public int getSearchedNext(String searchWord) {
-		String SQL = "select NUM from (select row_number() over (order by bbsDate desc) NUM, A.* from bbs A where bbsavailable=1 and bbsTitle like '%"
-				+ searchWord + "%' order by NUM desc)";
+		String SQL = "select NUM from (select row_number() over (order by bbsDate desc) NUM, A.* from bbs A where bbsavailable=1 and bbsTitle like '%"+searchWord+"%' order by NUM desc)bbs_a";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(SQL);
 			rs = pstmt.executeQuery();
@@ -203,13 +206,14 @@ public class BbsDAO {
 	}
 
 	// 게시글 수정 메소드
-	public int update(int bbsID, String bbsTitle, String bbsContent) {
+	public int update(int bbsID, String bbsTitle, String bbsContent, int cost) {
 		String sql = "UPDATE bbs SET bbsTitle = ?, bbsContent = ? WHERE bbsID = ?";
 		try {
 			PreparedStatement pst = con.prepareStatement(sql);
 			pst.setString(1, bbsTitle);
 			pst.setString(2, bbsContent);
 			pst.setInt(3, bbsID);
+			pst.setInt(4, cost);
 			return pst.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

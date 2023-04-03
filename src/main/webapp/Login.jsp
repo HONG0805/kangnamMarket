@@ -102,12 +102,13 @@ input::placeholder {
 	font-weight: bold;
 	outline: none;
 }
+
 form button {
-    background-color: rgba(0, 147, 245, 0.5);
+	background-color: rgba(0, 147, 245, 0.5);
 }
 
-form button.active{
-    background-color: rgba(0, 147, 245);
+form button.active {
+	background-color: rgba(0, 147, 245);
 }
 
 .login_section_1 {
@@ -207,19 +208,32 @@ window.addEventListener('keyup', ()=>{
 </script>
 </head>
 <body>
+	<%
+	String userID = null;
+	if (session.getAttribute("userID") != null) {
+		userID = (String) session.getAttribute("userID");
+	}
+	%>
 	<div id="wrap">
+		<%
+		if (userID == null) {
+		%>
 		<header class="header">
-			<h1><a href="Login.jsp">Kangnam University</a></h1>
-				<div>
-					<h3><a href="Login.jsp">중고장터</a></h3>
-				</div>
+			<h1>
+				<a href="Login.jsp">Kangnam University</a>
+			</h1>
+			<div>
+				<h3>
+					<a href="Login.jsp">중고장터</a>
+				</h3>
+			</div>
 		</header>
 
 		<section class="login_section">
 			<form action="loginAction.jsp" class="login_form" method="post">
 				<div class="input_box">
-					아이디 &nbsp;&nbsp;&nbsp;| <input type="text" name="userID" id="user_id"
-						placeholder="아이디를 입력해주세요.">
+					아이디 &nbsp;&nbsp;&nbsp;| <input type="text" name="userID"
+						id="user_id" placeholder="아이디를 입력해주세요.">
 				</div>
 				<div class="input_box">
 					비밀번호 | <input type="password" name="userPassword" id="user_pw"
@@ -241,6 +255,49 @@ window.addEventListener('keyup', ()=>{
 				<a href="SignUp.jsp">회원가입</a>
 			</div>
 		</section>
+		<%
+		} else {
+		%>
+		<header class="header">
+			<h1>
+				<a href="MainPage.jsp">Kangnam University</a>
+			</h1>
+			<div>
+				<h3>
+					<a href="MainPage.jsp">중고장터</a>
+				</h3>
+			</div>
+		</header>
+
+		<section class="login_section">
+			<form action="loginAction.jsp" class="login_form" method="post">
+				<div class="input_box">
+					아이디 &nbsp;&nbsp;&nbsp;| <input type="text" name="userID"
+						id="user_id" placeholder="아이디를 입력해주세요.">
+				</div>
+				<div class="input_box">
+					비밀번호 | <input type="password" name="userPassword" id="user_pw"
+						placeholder="비밀번호를 입력해주세요.">
+				</div>
+				<div>
+					<button type="submit" id="loginbtn" class="btn_login" disabled>로그인</button>
+				</div>
+			</form>
+		</section>
+		<section class="login_section_1">
+			<div class="changepw_div">
+				<a href="IdSearch.jsp">아이디찾기</a>
+			</div>
+			<div class="changepw_div">
+				<a href="PwSearch.jsp">비밀번호찾기</a>
+			</div>
+			<div class="signup_div">
+				<a href="SignUp.jsp">회원가입</a>
+			</div>
+		</section>
+		<%
+		}
+		%>
 	</div>
 </body>
 

@@ -346,9 +346,9 @@ window.addEventListener('keyup', ()=>{
 	<div id="wrap">
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href=""><img
+				<li><a href="jjimBbs.jsp"><img
 						src="images/s_images/free-icon-font-bell-3917226.png"
-						style="width: 30px; height: auto;" alt="">알림</a></li>
+						style="width: 30px; height: auto;" alt="">찜목록</a></li>
 				<li><a href="MyPage.jsp"><img
 						src="images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>

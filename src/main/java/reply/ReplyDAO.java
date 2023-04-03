@@ -80,29 +80,66 @@ public class ReplyDAO {
 		return -1;
 	}
 
-	// 댓글 삭제
-	public int delComment(String replyID, int bbsID) {
+	public Reply getReply(int replyID) {
+		String SQL = "SELECT * FROM reply WHERE replyID = ? ORDER BY replyID DESC";
 		try {
-			String sql = "delete from reply where replyID = ? and bbsID = ?";
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, replyID);
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1,  replyID);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Reply reply = new Reply();
+				reply.setBbsID(rs.getInt(1));
+				reply.setReplyID(rs.getInt(2));
+				reply.setUserID(rs.getString(3));
+				reply.setReplyContent(rs.getString(4));
+				reply.setReplyAvailable(rs.getInt(5));
+				return reply;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	// 댓글 삭제
+	public int delete(int replyID) {
+		String SQL = "UPDATE reply SET replyAvailable = 0 WHERE replyID = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, replyID);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return 0;
+		return -1;
 	}
 
 	// 게시물 삭제시 모든 댓글 삭제
-	public void delAllComment(String bbsID) {
+	public String getUpdateComment(int replyID) {
+		String SQL = "SELECT replyContent FROM reply WHERE replyID = ?";
 		try {
-			String sql = "delete from reply where bbsID = ?";
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, bbsID);
-			pstmt.executeUpdate();
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, replyID);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	public int update(int replyID, String replyContent) {
+		String SQL = "UPDATE reply SET replyContent = ? WHERE replyID LIKE ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, replyContent);
+			pstmt.setInt(2, replyID);
+			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return -1;
 	}
 }

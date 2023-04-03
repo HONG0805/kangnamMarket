@@ -5,12 +5,11 @@
 <%
 request.setCharacterEncoding("UTF-8");
 %>
-<jsp:useBean id="user" class="user.User" scope="page"/>
-<jsp:setProperty name ="user" property="userID"/>
-<jsp:setProperty name ="user" property="userPassword"/>
-<jsp:setProperty name ="user" property="userEmail"/>
-<jsp:setProperty name ="user" property="userName"/>
-<jsp:setProperty name ="user" property="userNickName"/>
+<jsp:useBean id="user" class="user.User" scope="page" />
+<jsp:setProperty name="user" property="userID" />
+<jsp:setProperty name="user" property="userPassword" />
+<jsp:setProperty name="user" property="userEmail" />
+<jsp:setProperty name="user" property="userName" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -23,11 +22,9 @@ request.setCharacterEncoding("UTF-8");
 	String userPassword = request.getParameter("userPassword");
 	String userEmail = request.getParameter("userEmail");
 	String userName = request.getParameter("userName");
-	String userNickName = request.getParameter("userNickName");
 
 	// -1: 서버 오류 / 0: 이미존재하는 아이디 / 1: 성공
-	if (userID.equals("") || userPassword.equals("") || userEmail.equals("") || userName.equals("")
-			|| userNickName.equals("")) {
+	if (userID.equals("") || userPassword.equals("") || userEmail.equals("") || userName.equals("")) {
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
 		script.println("alert('빈칸을 확인해 주세요')");

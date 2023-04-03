@@ -62,12 +62,11 @@ public class UserDAO {
 			return 0;
 
 		try {
-			PreparedStatement pst = con.prepareStatement("INSERT INTO user VALUES (?,?,?,?,?)");
+			PreparedStatement pst = con.prepareStatement("INSERT INTO user VALUES (?,?,?,?)");
 			pst.setString(1, User.getUserID());
 			pst.setString(2, User.getUserPassword());
 			pst.setString(3, User.getUserEmail());
 			pst.setString(4, User.getUserName());
-			pst.setString(5, User.getUserNickName());
 			return pst.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -154,7 +153,6 @@ public class UserDAO {
 				user.setUserPassword(rs.getString(2));
 				user.setUserEmail(rs.getString(3));
 				user.setUserName(rs.getString(4));
-				user.setUserNickName(rs.getString(5));
 				return user;
 			}
 		} catch (Exception e) {

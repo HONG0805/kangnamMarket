@@ -5,12 +5,14 @@
 <%@ page import="java.io.PrintWriter"%>
 <%@ page import="file.FileDAO"%>
 <%@ page import="java.io.File"%>
-<%@ page import="java.util.Enumeration"%>
+<%@ page import="java.util.Enumeration"%> 
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@ page import="com.oreilly.servlet.MultipartRequest"%>
-<%
-request.setCharacterEncoding("UTF-8");
-%>
+<% request.setCharacterEncoding("UTF-8");%>
+<jsp:useBean id="bbs" class="bbs.Bbs" scope="page" />
+<jsp:setProperty name="bbs" property="bbsTitle" />
+<jsp:setProperty name="bbs" property="bbsContent" />
+<jsp:setProperty name="bbs" property="cost" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,35 +21,33 @@ request.setCharacterEncoding("UTF-8");
 </head>
 <body>
 	<%
+	/*
+	String realFolder = "";
+	String saveFolder = "bbsUpload";
+	String encType = "utf-8";
+	int maxSize = 5 * 1024 * 1024;
+
+	ServletContext context = this.getServletContext();
+	realFolder = context.getRealPath(saveFolder);
+	DefaultFileRenamePolicy policy = new DefaultFileRenamePolicy();
+	MultipartRequest multi = new MultipartRequest(request, realFolder, maxSize, encType, policy);
+
+	String fileName = multi.getFilesystemName("fileName");
+	String bbsTitle = multi.getParameter("bbsTitle");
+	String bbsContent = multi.getParameter("bbsContent");
+
+	bbs.setBbsTitle(bbsTitle);
+	bbs.setBbsContent(bbsContent);
+	*/
+
 	String userID = null;
 	if (session.getAttribute("userID") != null) {
 		userID = (String) session.getAttribute("userID");
 	}
-	BbsDAO bbsDAO = new BbsDAO();
-	Bbs bbs = new Bbs();
-	bbs.setBbsID(bbsDAO.getNext());
-	int bbsID = bbs.getBbsID();
-	String directory = application.getRealPath("/upload/" + bbsID + "/");
-	
-	File targetDir = new File(directory);
-	if (!targetDir.exists()) {
-		targetDir.mkdirs();
+	int bbsID = 0;
+	if (request.getParameter("bbsID") != null) {
+		bbsID = Integer.parseInt(request.getParameter("bbsID"));
 	}
-	int maxSize = 1024 * 1024 * 500;
-	String realFolder="";
-	String encType = "utf-8";
-
-	MultipartRequest multi = null;		
-	multi = new MultipartRequest(request,realFolder,maxSize,encType,new DefaultFileRenamePolicy());
-
-	String fileName = multi.getOriginalFileName("file");
-	String fileRealName = multi.getFilesystemName("file");
-
-	String bbsTitle = multi.getParameter("bbsTitle");
-	String bbsContent = multi.getParameter("bbsContent");
-	bbs.setBbsTitle(bbsTitle);
-	bbs.setBbsContent(bbsContent);
-
 	if (userID == null) {
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
@@ -62,7 +62,8 @@ request.setCharacterEncoding("UTF-8");
 			script.println("history.back()");
 			script.println("</script>");
 		} else {
-			int result = bbsDAO.write(bbs.getBbsTitle(), userID, bbs.getBbsContent());
+			BbsDAO bbsDAO = new BbsDAO();
+			int result = bbsDAO.write(bbs.getBbsTitle(), userID, bbs.getBbsContent(), bbs.getCost());
 			//데이터베이스 오류
 			if (result == -1) {
 		PrintWriter script = response.getWriter();

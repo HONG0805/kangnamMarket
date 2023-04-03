@@ -31,17 +31,21 @@ request.setCharacterEncoding("UTF-8");
 	}
 	int bbsID = 0;
 	if (request.getParameter("bbsID") != null) {
-		bbsID = Integer.parseInt(request.getParameter("bbsID"));
+		bbsID = Integer.parseInt(request.getParameter("bbsID").trim());
 	}
-	if (bbsID == 0) {
+
+	int replyID = 0;
+	if (request.getParameter("replyID") != null) {
+		replyID = Integer.parseInt(request.getParameter("replyID"));
+	}
+	if (replyID == 0) {
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
-		script.println("alert('유효하지 않은 글입니다.')");
-		script.println("location.href='MainPage.jsp'");
+		script.println("alert('유효하지 않은 댓글 입니다.')");
+		script.println("history.back()");
 		script.println("</script>");
 	}
-	String replyID = null;
-	
+	Reply reply = new ReplyDAO().getReply(replyID);
 	Bbs bbs = new BbsDAO().getBbs(bbsID);
 	if (!userID.equals(bbs.getUserNickName())) {
 		PrintWriter script = response.getWriter();
@@ -51,7 +55,7 @@ request.setCharacterEncoding("UTF-8");
 		script.println("</script>");
 	} else {
 		ReplyDAO replyDAO = new ReplyDAO();
-		int result = replyDAO.delComment(replyID,bbsID);
+		int result = replyDAO.delete(replyID);
 		//데이터베이스 오류
 		if (result == -1) {
 			PrintWriter script = response.getWriter();
@@ -64,7 +68,7 @@ request.setCharacterEncoding("UTF-8");
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('댓글을 삭제하였습니다.')");
-			script.println("location.href ='view.jsp'");
+			script.println("location.href =document.referrer;");
 			script.println("</script>");
 		}
 	}

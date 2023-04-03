@@ -391,7 +391,7 @@ div.pagination>img {
 		cursor: pointer;
 		display: inline-block;
 	}
-	.content_row_2>form.search {
+	.content_row_2 {
 		width: 50%;
 		float: right;
 		border: 2px solid #1289dd;
@@ -441,9 +441,9 @@ div.pagination>img {
 		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href=""><img
+				<li><a href="jjimBbs.jsp"><img
 						src="images/s_images/free-icon-font-bell-3917226.png"
-						style="width: 30px; height: auto;" alt="">알림</a></li>
+						style="width: 30px; height: auto;" alt="">찜목록</a></li>
 				<li><a href=""><img
 						src="images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
@@ -478,9 +478,9 @@ div.pagination>img {
 		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href=""><img
+				<li><a href="jjimBbs.jsp"><img
 						src="images/s_images/free-icon-font-bell-3917226.png"
-						style="width: 30px; height: auto;" alt="">알림</a></li>
+						style="width: 30px; height: auto;" alt="">찜목록</a></li>
 				<li><a href="MyPage.jsp"><img
 						src="images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
@@ -519,9 +519,10 @@ div.pagination>img {
 				<input type="text" name="searchWord" placeholder="검색어를 입력해주세요."
 					class="text">
 				<button type="submit" class="search_check">
-					<img src="images/s_images/search-line.png"
-						style="width: 20px; height: 20px;"> <a
-						href="searchedBbs.jsp"></a>
+					<a href="searchedBbs.jsp"> <img
+						src="images/s_images/search-line.png"
+						style="width: 20px; height: 20px;">
+					</a>
 				</button>
 			</div>
 		</section>
@@ -545,6 +546,10 @@ div.pagination>img {
 						</div>
 						<div align="left" class="bbscontent">
 							<%=list.get(i).getBbsContent()%>
+							<p>
+								가격:
+								<%=list.get(i).getCost()%>원
+							</p>
 						</div>
 						<div align="left" class="bbsdate">
 							<%=list.get(i).getBbsDate().substring(0, 11) + list.get(i).getBbsDate().substring(11, 13) + ":"
@@ -566,12 +571,15 @@ div.pagination>img {
 				<%
 				if (pageNumber != 1) {
 				%>
-				<a href="MainPage.jsp?pageNumber=<%=pageNumber - 1%>" class="prev">이전</a>
+				<a href="searchedBbs.jsp?pageNumber=<%=pageNumber - 1%>"
+					class="prev">이전</a>
 				<%
 				}
-				if (bbsDAO.nextPage(pageNumber + 1)) {
+				if (bbsDAO.searchedNextPage(pageNumber, searchWord)) {
+				session.setAttribute("searchWord", searchWord);
 				%>
-				<a href="MainPage.jsp?pageNumber=<%=pageNumber + 1%>" class="next">다음</a>
+				<a href="searchedBbs.jsp?pageNumber=<%=pageNumber + 1%>"
+					class="next">다음</a>
 				<%
 				}
 				%>

@@ -314,7 +314,6 @@ div.my_profile p {
 		userID = (String) session.getAttribute("userID");
 	}
 	User user = new User();
-	
 	%>
 	<div id="wrap">
 		<%
@@ -322,9 +321,9 @@ div.my_profile p {
 		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href=""><img
+				<li><a href="jjimBbs.jsp"><img
 						src="images/s_images/free-icon-font-bell-3917226.png"
-						style="width: 30px; height: auto;" alt="">알림</a></li>
+						style="width: 30px; height: auto;" alt="">찜목록</a></li>
 				<li><a href="MyPage.jsp"><img
 						src="images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
@@ -347,9 +346,9 @@ div.my_profile p {
 		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href=""><img
+				<li><a href="jjimBbs.jsp"><img
 						src="images/s_images/free-icon-font-bell-3917226.png"
-						style="width: 30px; height: auto;" alt="">알림</a></li>
+						style="width: 30px; height: auto;" alt="">찜목록</a></li>
 				<li><a href="MyPage.jsp"><img
 						src="images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
@@ -377,16 +376,15 @@ div.my_profile p {
 			</div>
 			<div class="my_profile">
 				<img src="images/s_images/user-line.png">
-				<h3><%=userID %></h3>
-				<p><%=user.getUserName() %></p>
+				<h3><%=userID%></h3>
+				<p><%=user.getUserName()%></p>
 				<p>학교/학번</p>
 			</div>
 		</section>
 		<section class="my_section_1">
 			<h2>계정</h2>
 			<a href="MailCheck.jsp" class="item">이메일 인증</a> <a
-				href="NickName.jsp" class="item">닉네임 변경</a> <a href="ChangePW_2.jsp"
-				class="item">비밀번호 변경</a>
+				href="ChangePW_2.jsp" class="item">비밀번호 변경</a>
 		</section>
 	</div>
 </body>

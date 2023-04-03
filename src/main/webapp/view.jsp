@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="bbs.Bbs"%>
 <%@ page import="bbs.BbsDAO"%>
+<%@ page import="bbs.JjimDAO"%>
+<%@ page import="bbs.Jjim"%>
 <%@ page import="reply.Reply"%>
 <%@ page import="reply.ReplyDAO"%>
 <%@ page import="java.util.ArrayList"%>
@@ -179,6 +181,7 @@ p {
 .table-striped {
 	text-align: center;
 	width: 100%;
+	margin-top: 20px;
 }
 
 .reply_title {
@@ -191,40 +194,43 @@ p {
 }
 
 .form-control {
-	width: 95%;
-	border-radius: 5px;
+	width: 90%;
 	border: 2px solid #4f94e4;
 	border-radius: 5px;
+	margin-top: 10px;
 }
 
 .reply_btn {
 	padding: 5px;
-	margin: 5px;
 	text-align: center;
 	float: right;
 	font-weight: bold;
 	border-radius: 5px;
 	background-color: #4f94e457;
 	color: black;
-	float: right;
-	font-weight: bold;
-	border-radius: 5px;
-	background-color: #4f94e457;
-	color: black;
-	width: 70%;
+	width: 80%;
 }
 
 .reply_tr td {
-	width: 100%;
-	border: 1px solid #4f94e4;
-	border-radius: 5px;
+	border: 2px solid #4f94e4;
+	border-radius: 10px;
 	padding: 10px;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	vertical-align: middle;
 }
 
 .reply_td_font {
 	font-size: 11px;
+}
+
+.jjimbtn {
+	margin: 5px;
+	font-weight: bold;
+	background-color: #fffe00;
+	border: 2px solid #f9de2e;
+	border-radius: 10px;
+	color: black;
 }
 /* 태블릿용 CSS */
 @media all and (min-width:768px) {
@@ -311,6 +317,18 @@ p {
 	.logo img {
 		vertical-align: middle;
 	}
+	.board_section {
+		width: 600px;
+		margin: auto;
+	}
+	.reply_section {
+		width: 600px;
+		margin: auto;
+	}
+	.board_section_1 {
+		width: 600px;
+		margin: auto;
+	}
 }
 </style>
 </head>
@@ -340,6 +358,7 @@ p {
 	}
 
 	Bbs bbs = new BbsDAO().getBbs(bbsID);
+	Reply reply = new ReplyDAO().getReply(bbsID);
 	%>
 	<div id="wrap">
 		<%
@@ -347,9 +366,9 @@ p {
 		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href=""><img
+				<li><a href="jjimBbs.jsp"><img
 						src="images/s_images/free-icon-font-bell-3917226.png"
-						style="width: 30px; height: auto;" alt="">알림</a></li>
+						style="width: 30px; height: auto;" alt="">찜목록</a></li>
 				<li><a href=""><img
 						src="images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
@@ -385,9 +404,9 @@ p {
 		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href=""><img
+				<li><a href="jjimBbs.jsp"><img
 						src="images/s_images/free-icon-font-bell-3917226.png"
-						style="width: 30px; height: auto;" alt="">알림</a></li>
+						style="width: 30px; height: auto;" alt="">찜목록</a></li>
 				<li><a href="MyPage.jsp"><img
 						src="images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
@@ -416,47 +435,80 @@ p {
 		+ bbs.getBbsDate().substring(14, 16) + "분"%></p>
 				<p style="font-size: 30px; font-weight: bold;"><%=bbs.getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n",
 		"<br>")%></p>
-			
+				<p style="font-size: 15px; font-weight: bold;">가격: <%=bbs.getCost()%>원</p>
 				<p><%=bbs.getBbsContent().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n",
 		"<br>")%></p>
+				<%
+				JjimDAO jjimDAO = new JjimDAO();
+				ArrayList<Jjim> list1 = jjimDAO.getJjim(userID, bbsID);
+				if (list1.isEmpty()) {
+				%>
+				<button class="jjimbtn"
+					onclick="location.href='jjimAction.jsp?bbsID=<%=bbsID%>'">찜하기</button>
+				<%
+				} else {
+				%>
+				<button class="jjimbtn"
+					onclick="location.href='jjimAction.jsp?bbsID=<%=bbsID%>'">찜해제</button>
+				<%
+				}
+				%>
 			</div>
+
 		</section>
 
 		<section class="reply_section">
-			<form method="post" action="replyAction.jsp?bbsID=<%=bbsID%>">
-				<table class="table-striped">
-					<thead>
-						<tr>
-							<th colspan="3" class="reply_title">댓글</th>
-						</tr>
-					</thead>
-					<tbody>
+			<table class="table-striped">
+				<thead>
+					<tr>
+						<th colspan="3" class="reply_title">댓글</th>
+					</tr>
+				</thead>
+				<tbody>
+					<%
+					ReplyDAO replyDAO = new ReplyDAO();
+					ArrayList<Reply> list = replyDAO.getList(bbsID, pageNumber);
+					for (int i = 0; i < list.size(); i++) {
+					%>
 
+					<tr class="reply_tr">
+
+						<td style="text-align: left; width: 80%;"><p
+								style="font-weight: bold;">
+								작성사:
+								<%=list.get(i).getUserID()%></p><%=list.get(i).getReplyContent()%></td>
 						<%
-						ReplyDAO replyDAO = new ReplyDAO();
-						ArrayList<Reply> list = replyDAO.getList(bbsID, pageNumber);
-						for (int i = list.size() - 1; i >= 0; i--) {
+						if (list.get(i).getUserID() != null && list.get(i).getUserID().equals(userID)) {
 						%>
-
-						<tr class="reply_tr">
-							<td style="text-align: left;"><%=list.get(i).getReplyContent()%></td>
-							<td style="text-align: right;"><%=list.get(i).getUserID()%>
-								<a href="reply_deleteAction.jsp?bbsID=<%=bbsID%>"
-								class="reply_btn ">삭제</a></td>
-						</tr>
-
+						<td style="text-align: center;"><a
+							onclick="return confirm('정말로 삭제하시겠습니까?')"
+							href="reply_deleteAction.jsp?bbsID=<%=bbsID%> &replyID=<%=list.get(i).getReplyID()%>"
+							class="reply_btn ">삭제</a></td>
+						<%
+						} else {
+						%>
+						<td style="text-align: center;">*</td>
 						<%
 						}
 						%>
-						<td><textarea type="text" class="form-control"
-								placeholder="댓글을 입력하세요." name="replyContent" maxlength="2048"></textarea>
-						</td>
-						<td><input type="submit" class="reply_btn" value="댓글입력"></td>
-
-					</tbody>
-				</table>
-
-			</form>
+					</tr>
+					<%
+					}
+					%>
+				</tbody>
+			</table>
+			<div>
+				<form method="post" action="replyAction.jsp?bbsID=<%=bbsID%>">
+					<table class="table-striped">
+						<tr>
+							<td style="text-align: left;"><textarea class="form-control"
+									placeholder="댓글을 입력하세요." name="replyContent" maxlength="2048"></textarea></td>
+							<td style="text-align: right;"><input type="submit"
+								class="reply_btn" value="댓글입력"></td>
+						</tr>
+					</table>
+				</form>
+			</div>
 		</section>
 
 		<section class="board_section_1">
@@ -467,6 +519,10 @@ p {
 				<a href="update.jsp?bbsID=<%=bbsID%>" class="btn_primary">수정</a> <a
 					onclick="return confirm('정말로 삭제하시겠습니까?')"
 					href="deleteAction.jsp?bbsID=<%=bbsID%>" class="btn_primary">삭제</a>
+				<a href="MainPage.jsp" class="back_list">목록</a>
+				<%
+				} else {
+				%>
 				<a href="MainPage.jsp" class="back_list">목록</a>
 				<%
 				}

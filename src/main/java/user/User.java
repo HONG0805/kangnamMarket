@@ -5,7 +5,6 @@ public class User {
 	private String userPassword;
 	private String userEmail;
 	private String userName;
-	private String userNickName;
 	public String getUserID() {
 		return userID;
 	}
@@ -29,12 +28,6 @@ public class User {
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
-	}
-	public String getUserNickName() {
-		return userNickName;
-	}
-	public void setUserNickName(String userNickName) {
-		this.userNickName = userNickName;
 	}
 	
 }

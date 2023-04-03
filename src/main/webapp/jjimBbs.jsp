@@ -4,6 +4,8 @@
 <%@ page import="java.io.PrintWriter"%>
 <%@ page import="bbs.BbsDAO"%>
 <%@ page import="bbs.Bbs"%>
+<%@ page import="bbs.JjimDAO"%>
+<%@ page import="bbs.Jjim"%>
 <%@ page import="java.util.ArrayList"%>
 <!DOCTYPE HTML>
 <html lang="ko">
@@ -432,9 +434,9 @@ div.pagination>img {
 		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href="jjimBbs.jsp"><img
+				<li><a href=""><img
 						src="images/s_images/free-icon-font-bell-3917226.png"
-						style="width: 30px; height: auto;" alt="">찜목록</a></li>
+						style="width: 30px; height: auto;" alt="">알림</a></li>
 				<li><a href=""><img
 						src="images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
@@ -526,8 +528,9 @@ div.pagination>img {
 
 			<%
 			BbsDAO bbsDAO = new BbsDAO();
-			ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
-			for (int i = 0; i < list.size(); i++) {
+			JjimDAO jjimDAO = new JjimDAO();
+			ArrayList<Bbs> list = jjimDAO.getList(userID, pageNumber);
+			for(int i=0; i<list.size(); i++){
 			%>
 			<div style="text-align: center; border: 1px solid #dddddd">
 				<div class="comment">
@@ -537,7 +540,6 @@ div.pagination>img {
 						</div>
 						<div align="left" class="bbscontent">
 							<%=list.get(i).getBbsContent()%>
-							<p>가격: <%=list.get(i).getCost()%>원</p>
 						</div>
 						<div align="left" class="bbsdate">
 							<%=list.get(i).getBbsDate().substring(0, 11) + list.get(i).getBbsDate().substring(11, 13) + ":"
@@ -570,6 +572,7 @@ div.pagination>img {
 				%>
 			</div>
 		</footer>
+	
 	</div>
 	<%
 	}

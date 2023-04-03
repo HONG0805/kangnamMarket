@@ -180,7 +180,6 @@ input {
 	border-radius: 10px;
 }
 
-
 form button {
 	background-color: rgba(0, 147, 245, 0.5);
 }
@@ -312,6 +311,10 @@ window.addEventListener('keyup', ()=>{
 	if (session.getAttribute("userID") != null) {
 		userID = (String) session.getAttribute("userID");
 	}
+	int bbsID = 0;
+	if (request.getParameter("bbsID") != null) {
+		bbsID = Integer.parseInt(request.getParameter("bbsID"));
+	}
 	%>
 	<div id="wrap">
 		<%
@@ -319,9 +322,9 @@ window.addEventListener('keyup', ()=>{
 		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href=""><img
+				<li><a href="jjimBbs.jsp"><img
 						src="images/s_images/free-icon-font-bell-3917226.png"
-						style="width: 30px; height: auto;" alt="">알림</a></li>
+						style="width: 30px; height: auto;" alt="">찜목록</a></li>
 				<li><a href=""><img
 						src="images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
@@ -357,9 +360,9 @@ window.addEventListener('keyup', ()=>{
 		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href=""><img
+				<li><a href="jjimBbs.jsp"><img
 						src="images/s_images/free-icon-font-bell-3917226.png"
-						style="width: 30px; height: auto;" alt="">알림</a></li>
+						style="width: 30px; height: auto;" alt="">찜목록</a></li>
 				<li><a href="MyPage.jsp"><img
 						src="images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
@@ -378,12 +381,17 @@ window.addEventListener('keyup', ()=>{
 		</header>
 
 		<section class="board_section">
-			<form method="post" action="writeAction.jsp" enctype="multipart/form-data">
+			<form method="post"
+				action="writeAction.jsp?bbsID=<%=bbsID%>&keyValue=multipart">
 				<div class="category_div">
 					<input type="text" autocapitalize="off" placeholder="제목을 입력해 주세요."
 						class="title" id="bbs_title" name="bbsTitle" maxlength="50">
 				</div>
-				<input type="file" name="file" class="folder_images">
+				<input type="file" name="fileName" class="folder_images">
+				<div class="category_div">
+					<input type="number" name="cost" class="title"
+						placeholder="가격을 입력해 주세요." maxlength="50">
+				</div>
 				<div class="article_content">
 					<textarea autocapitalize="off" placeholder="글을 작성해 주세요."
 						class="title" id="bbs_content" name="bbsContent" maxlength="2048"></textarea>
