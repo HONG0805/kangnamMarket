@@ -189,13 +189,13 @@ form button.active {
 </style>
 <script type="text/javascript">
 
-window.addEventListener('keyup', ()=>{
+window.addEventListener('keyup', ()=> {
 	const loginbtn = document.getElementById('loginbtn');
 	console.log(loginbtn);
 	const userId = document.getElementById('user_id').value;
     const userPw = document.getElementById('user_pw').value;
     console.log("userId : ", userId);
-    console.log("userPw : "+userPw);
+    console.log("userPw : ", userPw);
     if(userPw.length > 0 && userId.length >0 ){
         loginbtn.disabled = false;
         loginbtn.classList.add('active');
@@ -203,7 +203,7 @@ window.addEventListener('keyup', ()=>{
         loginbtn.disabled = true;
         loginbtn.classList.remove('active');
     }
-})
+});
 
 </script>
 </head>

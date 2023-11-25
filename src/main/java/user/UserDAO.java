@@ -22,7 +22,7 @@ public class UserDAO {
 		}
 	}
 
-	// ·Î±×ÀÎ
+	// ï¿½Î±ï¿½ï¿½ï¿½
 	public int login(String userID, String userPassword) {
 		try {
 			PreparedStatement pst = con.prepareStatement("SELECT userPassword FROM user WHERE userID = ?");
@@ -39,7 +39,7 @@ public class UserDAO {
 		}
 	}
 
-	// ID Áßº¹¿©ºÎÈ®ÀÎ
+	// ID ï¿½ßºï¿½ï¿½ï¿½ï¿½ï¿½È®ï¿½ï¿½
 	public boolean ID_Check(String userID) {
 		try {
 			PreparedStatement pst = con.prepareStatement("SELECT * FROM user WHERE userID = ?");
@@ -56,7 +56,7 @@ public class UserDAO {
 		return false;
 	}
 
-	// È¸¿ø°¡ÀÔ
+	// È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public int join(User User) {
 		if (!ID_Check(User.getUserID()))
 			return 0;
@@ -74,7 +74,7 @@ public class UserDAO {
 		}
 	}
 
-	// ¾ÆÀÌµð Ã£±â
+	// ï¿½ï¿½ï¿½Ìµï¿½ Ã£ï¿½ï¿½
 	public String findId(String userName, String userEmail) {
 		String id = null;
 		try {
@@ -94,7 +94,7 @@ public class UserDAO {
 		return id;
 	}
 
-	// ºñ¹Ð¹øÈ£ Ã£±â
+	// ï¿½ï¿½Ð¹ï¿½È£ Ã£ï¿½ï¿½
 	public String findPw(String userID, String userName, String userEmail) {
 		String pw = null;
 		try {
@@ -115,7 +115,7 @@ public class UserDAO {
 		return pw;
 	}
 	
-	//ºñ¹Ð¹øÈ£ º¯°æ
+	//ï¿½ï¿½Ð¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½
 	public boolean changePassword(String userID, String newPw) {
 
 		boolean flag = false;
@@ -141,7 +141,7 @@ public class UserDAO {
 		return flag;
 	}
 
-	// À¯Àú µ¥ÀÌÅÍ °¡Á®¿À±â
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public User getUser(String userID) {
 		try {
 			PreparedStatement pst = con.prepareStatement("SELECT * FROM user WHERE userID = ?");

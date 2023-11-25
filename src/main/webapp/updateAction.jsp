@@ -56,7 +56,8 @@ request.setCharacterEncoding("UTF-8");
 			script.println("</script>");
 		} else {
 			BbsDAO bbsDAO = new BbsDAO();
-			int result = bbsDAO.update(bbsID, request.getParameter("bbsTitle"), request.getParameter("bbsContent"));
+			int cost = Integer.parseInt(request.getParameter("cost"));
+			int result = bbsDAO.update(bbsID, request.getParameter("bbsTitle"), request.getParameter("bbsContent"), cost);
 			//데이터베이스 오류
 			if (result == -1) {
 		PrintWriter script = response.getWriter();

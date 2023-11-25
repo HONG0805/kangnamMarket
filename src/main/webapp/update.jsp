@@ -296,8 +296,9 @@ window.addEventListener('keyup', ()=>{
 	const btn_board = document.getElementById('btn_board');
 	const bbsTitle = document.getElementById('bbs_title').value;
     const bbsContent = document.getElementById('bbs_content').value;
+    const cost = document.getElementById('bbs_cost').value
     
-    if(bbsTitle.length > 0 && bbsContent.length >0 ){
+    if(bbsTitle.length > 0 && bbsContent.length >0 && cost.length >0){
     	btn_board.disabled = false;
     	btn_board.classList.add('active');
     }else{
@@ -374,6 +375,11 @@ window.addEventListener('keyup', ()=>{
 						value="<%=bbs.getBbsTitle()%>">
 				</div>
 				<input type="file" name="uploadFile" class="folder_images">
+				<div class="category_div">
+					<input type="number" name="cost" class="title"
+						placeholder="가격을 입력해 주세요." maxlength="50" id="bbs_cost"
+						name="cost" value="<%=bbs.getCost()%>">
+				</div>
 				<div class="article_content">
 					<textarea autocapitalize="off" placeholder="글을 작성해 주세요."
 						class="title" id="bbs_content" name="bbsContent" maxlength="2048"><%=bbs.getBbsContent()%></textarea>
