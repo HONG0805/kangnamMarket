@@ -6,32 +6,31 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class UserDAO {
-
 	private Connection con;
-	private ResultSet rs;
 
 	public UserDAO() {
 		try {
 			String dbURL = "jdbc:mysql://localhost:3306/mydb?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8";
 			String dbID = "root";
 			String dbPassword = "1248";
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = DriverManager.getConnection(dbURL, dbID, dbPassword);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	// �α���
+	// 로그인 (비밀번호 해시 비교)
 	public int login(String userID, String userPassword) {
-		try {
-			PreparedStatement pst = con.prepareStatement("SELECT userPassword FROM user WHERE userID = ?");
+		String sql = "SELECT userPassword FROM user WHERE userID = ?";
+		try (PreparedStatement pst = con.prepareStatement(sql)) {
 			pst.setString(1, userID);
-			rs = pst.executeQuery();
-			if (rs.next()) {
-				return rs.getString(1).equals(userPassword) ? 1 : 0;
-			} else {
-				return -2;
+			try (ResultSet rs = pst.executeQuery()) {
+				if (rs.next()) {
+					return SecurityUtil.hashPassword(userPassword).equals(rs.getString(1)) ? 1 : 0;
+				} else {
+					return -2; // 아이디 없음
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -39,16 +38,13 @@ public class UserDAO {
 		}
 	}
 
-	// ID �ߺ�����Ȯ��
-	public boolean ID_Check(String userID) {
-		try {
-			PreparedStatement pst = con.prepareStatement("SELECT * FROM user WHERE userID = ?");
+	// 아이디 중복 확인
+	public boolean isIDAvailable(String userID) {
+		String sql = "SELECT 1 FROM user WHERE userID = ?";
+		try (PreparedStatement pst = con.prepareStatement(sql)) {
 			pst.setString(1, userID);
-			rs = pst.executeQuery();
-			if (rs.next()) {
-				return false;
-			} else {
-				return true;
+			try (ResultSet rs = pst.executeQuery()) {
+				return !rs.next(); // 중복이면 false, 사용 가능하면 true
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -56,17 +52,17 @@ public class UserDAO {
 		return false;
 	}
 
-	// ȸ������
-	public int join(User User) {
-		if (!ID_Check(User.getUserID()))
-			return 0;
+	// 회원가입 (비밀번호 암호화 저장)
+	public int join(User user) {
+		if (!isIDAvailable(user.getUserID()))
+			return 0; // 중복된 아이디
 
-		try {
-			PreparedStatement pst = con.prepareStatement("INSERT INTO user VALUES (?,?,?,?)");
-			pst.setString(1, User.getUserID());
-			pst.setString(2, User.getUserPassword());
-			pst.setString(3, User.getUserEmail());
-			pst.setString(4, User.getUserName());
+		String sql = "INSERT INTO user (userID, userPassword, userEmail, userName) VALUES (?, ?, ?, ?)";
+		try (PreparedStatement pst = con.prepareStatement(sql)) {
+			pst.setString(1, user.getUserID());
+			pst.setString(2, SecurityUtil.hashPassword(user.getUserPassword()));
+			pst.setString(3, user.getUserEmail());
+			pst.setString(4, user.getUserName());
 			return pst.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,90 +70,86 @@ public class UserDAO {
 		}
 	}
 
-	// ���̵� ã��
+	// 아이디 찾기
 	public String findId(String userName, String userEmail) {
-		String id = null;
-		try {
-			String sql = "SELECT userID FROM user WHERE userEmail = ? and userName = ?";
-			PreparedStatement pst = con.prepareStatement(sql);
+		String sql = "SELECT userID FROM user WHERE userEmail = ? AND userName = ?";
+		try (PreparedStatement pst = con.prepareStatement(sql)) {
 			pst.setString(1, userEmail);
 			pst.setString(2, userName);
-
-			rs = pst.executeQuery();
-
-			if (rs.next()) {
-				id = rs.getString("userID");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return id;
-	}
-
-	// ��й�ȣ ã��
-	public String findPw(String userID, String userName, String userEmail) {
-		String pw = null;
-		try {
-			String sql = "SELECT userPassword FROM user WHERE userID=? and userName=? and userEmail=?";
-			PreparedStatement pst = con.prepareStatement(sql);
-			pst.setString(1, userID);
-			pst.setString(2, userName);
-			pst.setString(3, userEmail);
-
-			rs = pst.executeQuery();
-
-			if (rs.next()) {
-				pw = rs.getString("userPassword");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return pw;
-	}
-	
-	//��й�ȣ ����
-	public boolean changePassword(String userID, String newPw) {
-
-		boolean flag = false;
-		String sql = "UPDATE user SET userPassword=? WHERE userID=?"; 
-
-		PreparedStatement pst = null;
-
-		try {
-			pst = con.prepareStatement(sql);
-			pst.setString(1, newPw);
-			pst.setString(2, userID);
-
-			int i = pst.executeUpdate();
-
-			if(i == 1) {
-				flag = true;
-			} else {
-				flag = false;
-			}			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return flag;
-	}
-
-	// ���� ������ ��������
-	public User getUser(String userID) {
-		try {
-			PreparedStatement pst = con.prepareStatement("SELECT * FROM user WHERE userID = ?");
-			pst.setString(1, userID);
-			rs = pst.executeQuery();
-			if (rs.next()) {
-				User user = new User();
-				user.setUserID(rs.getString(1));
-				user.setUserPassword(rs.getString(2));
-				user.setUserEmail(rs.getString(3));
-				user.setUserName(rs.getString(4));
-				return user;
+			try (ResultSet rs = pst.executeQuery()) {
+				if (rs.next()) {
+					return rs.getString("userID");
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	// 비밀번호 재설정 (이메일 인증 후 사용)
+	public boolean resetPassword(String userID, String userEmail, String tempPassword) {
+		String sql = "UPDATE user SET userPassword=? WHERE userID=? AND userEmail=?";
+		try (PreparedStatement pst = con.prepareStatement(sql)) {
+			pst.setString(1, SecurityUtil.hashPassword(tempPassword));
+			pst.setString(2, userID);
+			pst.setString(3, userEmail);
+			return pst.executeUpdate() > 0;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	// 비밀번호 변경
+	public boolean changePassword(String userID, String newPw) {
+		String sql = "UPDATE user SET userPassword=? WHERE userID=?";
+		try (PreparedStatement pst = con.prepareStatement(sql)) {
+			pst.setString(1, SecurityUtil.hashPassword(newPw));
+			pst.setString(2, userID);
+			return pst.executeUpdate() > 0;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	// 사용자 정보 가져오기
+	public User getUser(String userID) {
+		String sql = "SELECT * FROM user WHERE userID = ?";
+		try (PreparedStatement pst = con.prepareStatement(sql)) {
+			pst.setString(1, userID);
+			try (ResultSet rs = pst.executeQuery()) {
+				if (rs.next()) {
+					User user = new User();
+					user.setUserID(rs.getString("userID"));
+					user.setUserPassword(rs.getString("userPassword"));
+					user.setUserEmail(rs.getString("userEmail"));
+					user.setUserName(rs.getString("userName"));
+					return user;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	// 비밀번호 찾기 (아이디, 이름, 이메일로 비밀번호 조회)
+	public String findPw(String userID, String userName, String userEmail) {
+		String sql = "SELECT userPassword FROM user WHERE userID = ? AND userName = ? AND userEmail = ?";
+		try (PreparedStatement pst = con.prepareStatement(sql)) {
+			pst.setString(1, userID);
+			pst.setString(2, userName);
+			pst.setString(3, userEmail);
+			try (ResultSet rs = pst.executeQuery()) {
+				if (rs.next()) {
+					return rs.getString("userPassword");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null; // 정보가 없으면 null 반환
 	}
 }

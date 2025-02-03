@@ -15,372 +15,67 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 <title>강남대학교 중고장터 내 정보</title>
-<link rel="stylesheet" type="text/css" href="CSS/reset.css">
-<link rel="stylesheet" type="text/css" href="">
-<link rel="shortcut icon" href="images/favicon/favicon.ico">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/CSS/reset.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/CSS/view.css">
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath}/images/favicon/favicon.ico">
 <link rel="apple-touch-icon-precomposed"
-	href="images/favicon/flat-design-touch.png">
-<script src="js/jquery.min.js"></script>
-<style>
-/* 모바일용 CSS */
-/* 기본 CSS */
-#wrap {
-	display: flex;
-	flex-flow: column nowrap;
-	width: 80%;
-	margin: 0 auto;
-	max-width: 1200px;
-}
-
-#wrap section {
-	box-sizing: border-box;
-}
-
-.info_section {
-	order: 1;
-	width: 100%;
-	background: white;
-	border-bottom: 1px solid black;
-}
-
-.info_list {
-	display: flex;
-}
-
-.info_list li {
-	width: 33.33%;
-	text-align: center;
-	font-weight: bold;
-}
-
-.info_list li a {
-	display: block;
-	padding: 15px 0;
-	padding: 0.938rem 0;
-	cursor: pointer;
-}
-
-.info_list img {
-	vertical-align: middle;
-	margin: 2px;
-}
-
-.header {
-	display: flex;
-	order: 2;
-	flex-direction: column;
-	position: relative;
-	width: 100%;
-}
-
-.logo {
-	order: 1;
-	width: 100%;
-	padding: 30px 0;
-	padding: 1.875rem 0;
-	font-size: 1.188rem;
-	font-size: 1.188rem;
-	line-height: 21px;
-	line-height: 1.313rem;
-	text-align: center;
-	text-transform: uppercase;
-}
-
-.logo a {
-	font-size: 20px;
-}
-
-#logo_1 {
-	color: #4f94e4;
-}
-
-.logo img {
-	vertical-align: middle;
-}
-
-.loginbtn {
-	width: 90%;
-	color: white;
-	padding: 5px;
-	border-radius: 5px;
-	margin: 20px 5px 5px 5px;
-	font-weight: bold;
-	text-align: center;
-	background-color: rgba(0, 147, 245);
-	font-size: 10px;
-}
-
-p {
-	margin: 10px;
-	overflow: hidden;
-	word-wrap: break-word;
-}
-
-.sign_section {
-	display: flex;
-	flex-direction: column;
-	flex-direction: row;
-	justify-content: center;
-	width: 100%;
-	order: 2;
-	padding: 30px;
-	width: 100%;
-}
-
-.signup {
-	border: 1px solid #1289dd;
-	border-radius: 10px;
-	padding: 20px;
-}
-
-.board_section {
-	width: 100%;
-	order: 2;
-}
-
-.board_section_1 {
-	width: 100%;
-	order: 4;
-}
-
-.category_div {
-	padding: 20px;
-	border-radius: 5px;
-	border: 2px solid #4f94e4;
-}
-
-.btn_primary {
-	float: left;
-	margin: 5px;
-	padding: 10px;
-	border-radius: 5px;
-	border: 2px solid black;
-	background: #d6d6d6;
-	color: white;
-	font-weight: bold;
-}
-
-.back_list {
-	float: right;
-	margin: 5px;
-	padding: 10px;
-	border-radius: 5px;
-	border: 2px solid black;
-	background: #d6d6d6;
-	color: white;
-	font-weight: bold;
-	padding: 10px;
-}
-
-.reply_section {
-	order: 3;
-	width: 100%;
-	margin-bottom: 100px;
-}
-
-.table-striped {
-	text-align: center;
-	width: 100%;
-	margin-top: 20px;
-}
-
-.reply_title {
-	background-color: #4f94e4;
-	border-radius: 5px;
-	text-align: center;
-	padding: 10px;
-	width: 100%;
-	color: white;
-}
-
-.form-control {
-	width: 90%;
-	border: 2px solid #4f94e4;
-	border-radius: 5px;
-	margin-top: 10px;
-}
-
-.reply_btn {
-	padding: 5px;
-	text-align: center;
-	float: right;
-	font-weight: bold;
-	border-radius: 5px;
-	background-color: #4f94e457;
-	color: black;
-	width: 80%;
-}
-
-.reply_tr td {
-	border: 2px solid #4f94e4;
-	border-radius: 10px;
-	padding: 10px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	vertical-align: middle;
-}
-
-.reply_td_font {
-	font-size: 11px;
-}
-
-.jjimbtn {
-	margin: 5px;
-	font-weight: bold;
-	background-color: #fffe00;
-	border: 2px solid #f9de2e;
-	border-radius: 10px;
-	color: black;
-}
-/* 태블릿용 CSS */
-@media all and (min-width:768px) {
-	.header {
-		flex-direction: row;
-		height: 180px;
-	}
-	.logo {
-		position: absolute;
-		top: 0;
-		left: 0;
-		z-index: 10;
-		width: 100%;
-		padding: 0;
-		text-align: center;
-		left: 0;
-	}
-	.logo a {
-		display: flex;
-		align-items: center;
-		padding: 50px;
-		padding: 3.125rem;
-		font-size: 40px;
-		justify-content: center;
-	}
-	#wrap {
-		flex-flow: row wrap;
-	}
-}
-
-/* PC용 CSS */
-@media all and (min-width:1200px) {
-	/* 기본 CSS */
-	#wrap {
-		position: relative;
-		width: 50%;
-	}
-	.info_section {
-		order: 0;
-		position: absolute;
-		top: 70px;
-		top: 4.375rem;
-		right: 30px;
-		right: 1.875rem;
-		z-index: 30;
-		width: auto;
-		border-bottom: 0;
-	}
-	.info_list li {
-		width: auto;
-		margin-left: 30px;
-		margin-left: 1.25rem;
-		font-weight: bold;
-	}
-	.info_list li a {
-		padding: 0;
-	}
-	.info_list a {
-		align-items: center;
-	}
-	.info_list img {
-		vertical-align: middle;
-		margin: 2px;
-	}
-	.header {
-		order: 1;
-		justify-content: flex-end;
-		position: static;
-		height: 200px;
-	}
-	.logo {
-		float: left;
-		width: 70%;
-	}
-	.logo a {
-		font-size: 30px;
-		padding: 50px 0;
-		padding: 3.125rem 0;
-		justify-content: flex-start
-	}
-	#logo_1 {
-		color: #4f94e4;
-	}
-	.logo img {
-		vertical-align: middle;
-	}
-	.board_section {
-		width: 600px;
-		margin: auto;
-	}
-	.reply_section {
-		width: 600px;
-		margin: auto;
-	}
-	.board_section_1 {
-		width: 600px;
-		margin: auto;
-	}
-}
-</style>
+	href="${pageContext.request.contextPath}/images/favicon/flat-design-touch.png">
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+<style></style>
 </head>
 <body>
 	<%
-	String userID = null;
-	if (session.getAttribute("userID") != null) {
-		userID = (String) session.getAttribute("userID");
-	}
+		String userID = null;
+		if (session.getAttribute("userID") != null) {
+			userID = (String) session.getAttribute("userID");
+		}
 
-	int bbsID = 0;
-	if (request.getParameter("bbsID") != null) {
-		bbsID = Integer.parseInt(request.getParameter("bbsID"));
-	}
+		int bbsID = 0;
+		if (request.getParameter("bbsID") != null) {
+			bbsID = Integer.parseInt(request.getParameter("bbsID"));
+		}
 
-	int pageNumber = 1;
-	if (request.getParameter("pageNumber") != null) {
-		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-	}
+		int pageNumber = 1;
+		if (request.getParameter("pageNumber") != null) {
+			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		}
 
-	if (bbsID == 0) {
-		PrintWriter script = response.getWriter();
-		script.println("<script>");
-		script.println("alert('유효하지 않은 글입니다.')");
-		script.println("location.href='MainPage.jsp'");
-		script.println("</script>");
-	}
+		if (bbsID == 0) {
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('유효하지 않은 글입니다.')");
+			script.println("location.href='${pageContext.request.contextPath}/view/pages/MainPage.jsp'");
+			script.println("</script>");
+		}
 
-	Bbs bbs = new BbsDAO().getBbs(bbsID);
-	Reply reply = new ReplyDAO().getReply(bbsID);
+		Bbs bbs = new BbsDAO().getBbs(bbsID);
+		Reply reply = new ReplyDAO().getReply(bbsID);
 	%>
 	<div id="wrap">
 		<%
-		if (userID == null) {
+			if (userID == null) {
 		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href="jjimBbs.jsp"><img
-						src="images/s_images/free-icon-font-bell-3917226.png"
+				<li><a href="${pageContext.request.contextPath}/view/pages/jjimBbs.jsp"><img
+						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-bell-3917226.png"
 						style="width: 30px; height: auto;" alt="">찜목록</a></li>
-				<li><a href=""><img
-						src="images/s_images/free-icon-font-id-badge-3914510.png"
+				<li><a href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
+						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
-				<li><a href="Login.jsp"><img
-						src="images/s_images/free-icon-font-comments-5074600.png"
+				<li><a href="${pageContext.request.contextPath}/view/pages/Login.jsp"><img
+						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-comments-5074600.png"
 						style="width: 30px; height: auto;" alt="">로그인</a></li>
 			</ul>
 		</section>
 
 		<header class="header">
 			<h1 class="logo">
-				<a href="MainPage.jsp"><img src="images/s_images/마크.png"
+				<a href="${pageContext.request.contextPath}/view/pages/MainPage.jsp"><img
+					src="${pageContext.request.contextPath}/images/s_images/마크.png"
 					style="width: 98px; height: auto;" alt=""> <span id="logo_1">강남대학교</span>
 					중고장터</a>
 			</h1>
@@ -390,35 +85,36 @@ p {
 				<h2>로그인 후 이용가능 합니다.</h2>
 				<div>
 					<input type="button" id="btnPwSearch" class="loginbtn" value="로그인"
-						onclick="location.href='Login.jsp'" />
+						onclick="location.href='${pageContext.request.contextPath}/view/pages/Login.jsp'" />
 				</div>
 				<div>
 					<input type="button" id="btnSignUp" class="loginbtn" value="회원가입"
-						onclick="location.href='SignUp.jsp'" />
+						onclick="location.href='${pageContext.request.contextPath}/view/pages/SignUp.jsp'" />
 				</div>
 			</div>
 		</section>
 
 		<%
-		} else {
+			} else {
 		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href="jjimBbs.jsp"><img
-						src="images/s_images/free-icon-font-bell-3917226.png"
+				<li><a href="${pageContext.request.contextPath}/view/pages/jjimBbs.jsp"><img
+						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-bell-3917226.png"
 						style="width: 30px; height: auto;" alt="">찜목록</a></li>
-				<li><a href="MyPage.jsp"><img
-						src="images/s_images/free-icon-font-id-badge-3914510.png"
+				<li><a href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
+						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
-				<li><a href="Logout.jsp"><img
-						src="images/s_images/free-icon-font-comments-5074600.png"
+				<li><a href="${pageContext.request.contextPath}/view/pages/Logout.jsp"><img
+						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-comments-5074600.png"
 						style="width: 30px; height: auto;" alt="">로그아웃</a></li>
 			</ul>
 		</section>
 
 		<header class="header">
 			<h1 class="logo">
-				<a href="MainPage.jsp"><img src="images/s_images/마크.png"
+				<a href="${pageContext.request.contextPath}/view/pages/MainPage.jsp"><img
+					src="${pageContext.request.contextPath}/images/s_images/마크.png"
 					style="width: 98px; height: auto;" alt=""> <span id="logo_1">강남대학교</span>
 					중고장터</a>
 			</h1>
@@ -428,33 +124,35 @@ p {
 			<div class="category_div">
 				<p>
 					작성자 :
-					<%=bbs.getUserNickName()%></p>
+					<%=bbs.getUserName()%></p>
 				<p>
 					작성일자 :
 					<%=bbs.getBbsDate().substring(0, 11) + bbs.getBbsDate().substring(11, 13) + "시"
-		+ bbs.getBbsDate().substring(14, 16) + "분"%></p>
-				<p style="font-size: 30px; font-weight: bold;"><%=bbs.getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n",
-		"<br>")%></p>
-				<p style="font-size: 15px; font-weight: bold;">가격: <%=bbs.getCost()%>원</p>
-				<p><%=bbs.getBbsContent().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n",
-		"<br>")%></p>
+						+ bbs.getBbsDate().substring(14, 16) + "분"%></p>
+				<p style="font-size: 30px; font-weight: bold;"><%=bbs.getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")
+						.replaceAll("\n", "<br>")%></p>
+				<p style="font-size: 15px; font-weight: bold;">
+					가격:
+					<%=bbs.getCost()%>원
+				</p>
+				<p><%=bbs.getBbsContent().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")
+						.replaceAll("\n", "<br>")%></p>
 				<%
-				JjimDAO jjimDAO = new JjimDAO();
-				ArrayList<Jjim> list1 = jjimDAO.getJjim(userID, bbsID);
-				if (list1.isEmpty()) {
+					JjimDAO jjimDAO = new JjimDAO();
+						ArrayList<Jjim> list1 = jjimDAO.getJjim(userID, bbsID);
+						if (list1.isEmpty()) {
 				%>
 				<button class="jjimbtn"
-					onclick="location.href='jjimAction.jsp?bbsID=<%=bbsID%>'">찜하기</button>
+					onclick="location.href='${pageContext.request.contextPath}/view/utils/jjimAction.jsp?bbsID=<%=bbsID%>'">찜하기</button>
 				<%
-				} else {
+					} else {
 				%>
 				<button class="jjimbtn"
-					onclick="location.href='jjimAction.jsp?bbsID=<%=bbsID%>'">찜해제</button>
+					onclick="location.href='${pageContext.request.contextPath}/view/utils/jjimAction.jsp?bbsID=<%=bbsID%>'">찜해제</button>
 				<%
-				}
+					}
 				%>
 			</div>
-
 		</section>
 
 		<section class="reply_section">
@@ -466,39 +164,38 @@ p {
 				</thead>
 				<tbody>
 					<%
-					ReplyDAO replyDAO = new ReplyDAO();
-					ArrayList<Reply> list = replyDAO.getList(bbsID, pageNumber);
-					for (int i = 0; i < list.size(); i++) {
+						ReplyDAO replyDAO = new ReplyDAO();
+							ArrayList<Reply> list = replyDAO.getList(bbsID, pageNumber);
+							for (int i = 0; i < list.size(); i++) {
 					%>
-
 					<tr class="reply_tr">
-
 						<td style="text-align: left; width: 80%;"><p
 								style="font-weight: bold;">
-								작성사:
+								작성자:
 								<%=list.get(i).getUserID()%></p><%=list.get(i).getReplyContent()%></td>
 						<%
-						if (list.get(i).getUserID() != null && list.get(i).getUserID().equals(userID)) {
+							if (list.get(i).getUserID() != null && list.get(i).getUserID().equals(userID)) {
 						%>
 						<td style="text-align: center;"><a
 							onclick="return confirm('정말로 삭제하시겠습니까?')"
-							href="reply_deleteAction.jsp?bbsID=<%=bbsID%> &replyID=<%=list.get(i).getReplyID()%>"
+							href="${pageContext.request.contextPath}/view/actions/reply_deleteAction.jsp?bbsID=<%=bbsID%>&replyID=<%=list.get(i).getReplyID()%>"
 							class="reply_btn ">삭제</a></td>
 						<%
-						} else {
+							} else {
 						%>
 						<td style="text-align: center;">*</td>
 						<%
-						}
+							}
 						%>
 					</tr>
 					<%
-					}
+						}
 					%>
 				</tbody>
 			</table>
 			<div>
-				<form method="post" action="replyAction.jsp?bbsID=<%=bbsID%>">
+				<form method="post"
+					action="${pageContext.request.contextPath}/view/actions/replyAction.jsp?bbsID=<%=bbsID%>">
 					<table class="table-striped">
 						<tr>
 							<td style="text-align: left;"><textarea class="form-control"
@@ -514,24 +211,29 @@ p {
 		<section class="board_section_1">
 			<div class="btn_div">
 				<%
-				if (userID != null && userID.equals(bbs.getUserNickName())) {
+					if (userID != null && userID.equals(bbs.getUserName())) {
 				%>
-				<a href="update.jsp?bbsID=<%=bbsID%>" class="btn_primary">수정</a> <a
+				<a
+					href="${pageContext.request.contextPath}/view/pages/update.jsp?bbsID=<%=bbsID%>"
+					class="btn_primary">수정</a> <a
 					onclick="return confirm('정말로 삭제하시겠습니까?')"
-					href="deleteAction.jsp?bbsID=<%=bbsID%>" class="btn_primary">삭제</a>
-				<a href="MainPage.jsp" class="back_list">목록</a>
+					href="${pageContext.request.contextPath}/view/actions/deleteAction.jsp?bbsID=<%=bbsID%>"
+					class="btn_primary">삭제</a> <a
+					href="${pageContext.request.contextPath}/view/pages/MainPage.jsp"
+					class="back_list">목록</a>
 				<%
-				} else {
+					} else {
 				%>
-				<a href="MainPage.jsp" class="back_list">목록</a>
+				<a href="${pageContext.request.contextPath}/view/pages/MainPage.jsp"
+					class="back_list">목록</a>
 				<%
-				}
+					}
 				%>
 			</div>
 		</section>
 	</div>
 	<%
-	}
+		}
 	%>
 </body>
 </html>

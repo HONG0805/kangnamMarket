@@ -3,7 +3,7 @@ package bbs;
 public class Bbs {
 	private int bbsID;
 	private String bbsTitle;
-	private String userNickName;
+	private String userName; // userNickName을 userName으로 변경
 	private String bbsDate;
 	private String bbsContent;
 	private int bbsAvailable;
@@ -25,12 +25,12 @@ public class Bbs {
 		this.bbsTitle = bbsTitle;
 	}
 
-	public String getUserNickName() {
-		return userNickName;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUserNickName(String userNickName) {
-		this.userNickName = userNickName;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getBbsDate() {

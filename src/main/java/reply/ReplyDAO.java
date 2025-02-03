@@ -16,7 +16,7 @@ public class ReplyDAO {
 			String dbURL = "jdbc:mysql://localhost:3306/mydb?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8";
 			String dbID = "root";
 			String dbPassword = "1248";
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -101,7 +101,7 @@ public class ReplyDAO {
 		return null;
 	}
 	
-	// ´ñ±Û »èÁ¦
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public int delete(int replyID) {
 		String SQL = "UPDATE reply SET replyAvailable = 0 WHERE replyID = ?";
 		try {
@@ -114,7 +114,7 @@ public class ReplyDAO {
 		return -1;
 	}
 
-	// °Ô½Ã¹° »èÁ¦½Ã ¸ðµç ´ñ±Û »èÁ¦
+	// ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public String getUpdateComment(int replyID) {
 		String SQL = "SELECT replyContent FROM reply WHERE replyID = ?";
 		try {

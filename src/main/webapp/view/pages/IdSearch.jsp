@@ -7,199 +7,55 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 <title>아이디/비밀번호 찾기</title>
-<link rel="stylesheet" type="text/css" href="CSS/reset.css">
-<link rel="stylesheet" type="text/css" href="">
-<link rel="shortcut icon" href="images/favicon/favicon.ico">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/CSS/reset.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/CSS/IdSearch.css">
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath}/images/favicon/favicon.ico">
 <link rel="apple-touch-icon-precomposed"
-	href="images/favicon/flat-design-touch.png">
-<script src="js/jquery.min.js"></script>
-<style>
-/* 모바일용 CSS */
-/* 기본 CSS */
-#wrap {
-	display: flex;
-	flex-flow: column nowrap;
-	width: 80%;
-	margin: 0 auto;
-	max-width: 1200px;
-}
-
-#wrap section {
-	box-sizing: border-box;
-}
-
-.header {
-	display: flex;
-	flex-direction: column;
-	order: 1;
-	width: 100%;
-	align-items: center;
-}
-
-.header h1 {
-	width: 100%;
-	padding: 100px 30px 30px 30px;
-	text-align: center;
-	font-size: 30px;
-}
-
-.header h3 {
-	width: 100%;
-	text-align: center;
-	font-size: 14px;
-}
-
-.sign_section {
-	display: flex;
-	flex-direction: column;
-	flex-direction: row;
-	justify-content: center;
-	width: 100%;
-	order: 2;
-	padding: 30px;
-	width: 100%;
-}
-
-div.signup>h2 {
-	font-size: 20px;
-	margin-bottom: 10px;
-}
-
-div.signup>div.text {
-	font-size: 14px;
-	margin-top: 8px;
-	margin-bottom: 4px;
-}
-
-.signup {
-	border: 1px solid #1289dd;
-	border-radius: 10px;
-	padding: 20px;
-}
-
-input::placeholder {
-	color: #a7a7a7;
-	font-style: italic;
-	font-size: 15px;
-	vertical-align: middle;
-}
-
-.input_text {
-	border: 1px solid #a6a6a6;
-	border-radius: 5px;
-	font-size: 14px;
-	width: 200px;
-	padding: 5px;
-}
-
-.signbtn {
-	width: 95%;
-	color: white;
-	padding: 5px;
-	margin-top: 20px;
-	border-radius: 5px;
-	font-weight: bold;
-	text-align: center;
-}
-
-form input.signbtn {
-	background-color: rgba(0, 147, 245, 0.5);
-}
-
-form input.active.signbtn {
-	background-color: rgba(0, 147, 245);
-}
-
-/* 태블릿용 CSS */
-@media all and (min-width:768px) {
-	.header h1 {
-		font-size: 50px;
-	}
-	.header h3 {
-		font-size: 30px;
-	}
-	div.signup>h2 {
-		font-size: 30px;
-		margin-bottom: 20px;
-	}
-	div.signup>div.text {
-		font-size: 20px;
-		margin-top: 14px;
-		margin-bottom: 3px;
-	}
-	.input_text {
-		font-size: 18px;
-		width: 300px;
-	}
-	.signbtn {
-		font-size: 20px;
-	}
-}
-
-/* PC용 CSS */
-@media all and (min-width:1200px) {
-	/* 기본 CSS */
-	#wrap {
-		position: relative;
-		width: 50%;
-	}
-	.header h1 {
-		width: 100%;
-		padding: 150px 30px 30px 30px;
-		text-align: center;
-		font-size: 60px;
-	}
-	.header h3 {
-		width: 100%;
-		text-align: center;
-		font-size: 28px;
-	}
-	.sign_section {
-		padding: 80px;
-	}
-	.signup {
-		padding: 40px;
-	}
-}
-</style>
+	href="${pageContext.request.contextPath}/images/favicon/flat-design-touch.png">
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script type="text/javascript">
+        window.addEventListener('keyup', () => {
+            const signbtn = document.getElementById('signbtn');
+            const userName = document.getElementById('name').value;
+            const userEmail = document.getElementById('email').value;
+            if(userName.length > 0 && userEmail.length > 0) {
+                signbtn.disabled = false;
+                signbtn.classList.add('active');
+            } else {
+                signbtn.disabled = true;
+                signbtn.classList.remove('active');
+            }
+        });
 
-window.addEventListener('keyup', ()=>{
-	const signbtn = document.getElementById('signbtn');
-	console.log(signbtn);
-	const userName = document.getElementById('name').value;
-    const userEmail = document.getElementById('email').value;
-    if(userName.length > 0 && userEmail.length >0){
-        signbtn.disabled = false;
-        signbtn.classList.add('active');
-    }else{
-        signbtn.disabled = true;
-        signbtn.classList.remove('active');
-    }
-})
+        function id_search() {
+            var frm = document.idsearch;
+            if (frm.userName.value.length < 1) {
+                alert("이름을 입력해주세요");
+                return;
+            }
 
-function id_search() { 
-	var frm = document.idsearch;
-	
-	if (frm.userName.value.length < 1) {
-  		alert("이름을 입력해주세요");
- 		return;
- 	}
-	
-	frm.method = "post";
-	frm.action = "IdSearch_success.jsp";
-	frm.submit();  
-}
-</script>
+            frm.method = "post";
+            frm.action = "${pageContext.request.contextPath}/IdSearch_success.jsp";
+            frm.submit();
+        }
+    </script>
 </head>
 
 <body>
 	<div id="wrap">
 		<header class="header">
-			<h1><a href="Login.jsp">Kangnam University</a></h1>
-				<div>
-					<h3><a href="Login.jsp">중고장터</a></h3>
-				</div>
+			<h1>
+				<a href="${pageContext.request.contextPath}/view/pages/Login.jsp">Kangnam
+					University</a>
+			</h1>
+			<div>
+				<h3>
+					<a href="${pageContext.request.contextPath}/view/pages/Login.jsp">중고장터</a>
+				</h3>
+			</div>
 		</header>
 
 		<section class="sign_section">
@@ -217,7 +73,7 @@ function id_search() {
 							class="input_text">
 					</div>
 					<div>
-						<input type="button" id="signbtn" class="signbtn" value="아아디 찾기"
+						<input type="button" id="signbtn" class="signbtn" value="아이디 찾기"
 							onClick="id_search()" disabled>
 					</div>
 				</div>

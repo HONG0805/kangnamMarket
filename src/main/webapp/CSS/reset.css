@@ -1,73 +1,105 @@
 @charset "utf-8";
 
 /* CSS 초기화 */
-html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video{
-margin:0;
-padding:0;
-border:0;
-font-size:100%;
-vertical-align:baseline;
-background:transparent;
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p,
+	blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd,
+	q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li,
+	fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr,
+	th, td, article, aside, canvas, details, figcaption, figure, footer,
+	header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
 }
 
-body{
-font-family:'맑은 고딕';
-line-height:1;
+body {
+	font-family: '맑은 고딕', sans-serif;
+	line-height: 1.6; /* 기본 줄 간격을 1.6으로 설정 */
+	background-color: #f4f4f4; /* 기본 배경 색상 */
 }
 
-article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{ 
-display:block;
+article, aside, details, figcaption, figure, footer, header, hgroup,
+	menu, nav, section {
+	display: block;
 }
 
-nav ul, li{
-list-style:none;
-float: left;
+nav ul, li {
+	list-style: none;
+	float: left;
 }
 
-a{
-margin:0;
-padding:0;
-font-size:100%;
-text-decoration:none;
-vertical-align:baseline;
-background:transparent;
+a {
+	margin: 0;
+	padding: 0;
+	font-size: 100%;
+	text-decoration: none;
+	vertical-align: baseline;
+	background: transparent;
 }
+
 a:link {
-  color : inherit;
+	color: inherit;
 }
+
 a:visited {
-  color : inherit;
+	color: inherit;
 }
 
-img{
-vertical-align:top;
+a:hover, a:focus {
+	text-decoration: underline; /* 링크에 마우스를 올렸을 때 밑줄 */
 }
 
-table{
-border-collapse:collapse;
-border-spacing:0;
+img {
+	vertical-align: top;
 }
 
-input{
-margin:0;
-padding:0;
-box-sizing:content-box;
-vertical-align:top;
-appearance:none;
-border-radius:0; 
-font-family:'맑은 고딕';
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
-input::-moz-input-placeholder{
-color : inherit;
+input {
+	margin: 0;
+	padding: 0;
+	box-sizing: content-box;
+	vertical-align: top;
+	appearance: none;
+	border-radius: 0;
+	font-family: '맑은 고딕', sans-serif;
 }
 
-input::-webkit-input-placeholder {
-color : inherit;
+input::-moz-placeholder {
+	color: inherit;
+}
+
+input::-webkit-placeholder {
+	color: inherit;
 }
 
 /* 웹폰트 CSS */
-@font-face{font-family:'Nanum Gothic'; src:url(webfont/NanumGothic.eot)}
-@font-face{font-family:'Nanum Gothic'; src:url(webfont/NanumGothic.woff)}
+@font-face {
+	font-family: 'Nanum Gothic';
+	src: url(webfont/NanumGothic.eot);
+}
 
+@font-face {
+	font-family: 'Nanum Gothic';
+	src: url(webfont/NanumGothic.woff);
+}
+
+/* 추가적인 스타일 */
+button, input[type="submit"], input[type="button"] {
+	cursor: pointer; /* 버튼에 마우스 올리면 커서가 손 모양으로 변하도록 */
+	background-color: #1289dd; /* 버튼 기본 배경색 */
+	color: white; /* 버튼 텍스트 색상 */
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+}
+
+button:hover, input[type="submit"]:hover, input[type="button"]:hover {
+	background-color: #107ab7; /* 버튼 호버 시 배경색 */
+}
