@@ -13,7 +13,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/CSS/reset.css">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/MyPage.css">
+	href="${pageContext.request.contextPath}/CSS/MyPage.css?v=1.0">
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/images/favicon/favicon.ico">
 <link rel="apple-touch-icon-precomposed"
@@ -37,13 +37,16 @@
 		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href="${pageContext.request.contextPath}/view/pages/jjimBbs.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/MainPage.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-bell-3917226.png"
-						style="width: 30px; height: auto;" alt="">찜목록</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
+						style="width: 30px; height: auto;" alt="">메인홈</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/Login.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/Login.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/Login.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-comments-5074600.png"
 						style="width: 30px; height: auto;" alt="">로그인</a></li>
 			</ul>
@@ -58,18 +61,35 @@
 			</h1>
 		</header>
 
+		<section class="sign_section">
+			<div class="signup">
+				<h2>로그인 후 이용가능 합니다.</h2>
+				<div>
+					<input type="button" class="loginbtn" value="로그인"
+						onclick="location.href='${pageContext.request.contextPath}/view/pages/Login.jsp'" />
+				</div>
+				<div>
+					<input type="button" class="loginbtn" value="회원가입"
+						onclick="location.href='${pageContext.request.contextPath}/view/pages/SignUp.jsp'" />
+				</div>
+			</div>
+		</section>
+
 		<%
 			} else {
 		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href="${pageContext.request.contextPath}/view/pages/jjimBbs.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/jjimBbs.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-bell-3917226.png"
 						style="width: 30px; height: auto;" alt="">찜목록</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/Logout.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/Logout.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-comments-5074600.png"
 						style="width: 30px; height: auto;" alt="">로그아웃</a></li>
 			</ul>
@@ -83,9 +103,6 @@
 					중고장터</a>
 			</h1>
 		</header>
-		<%
-			}
-		%>
 
 		<section class="my_section">
 			<div class="my_info">
@@ -108,6 +125,11 @@
 				href="${pageContext.request.contextPath}/view/pages/ChangePW_2.jsp"
 				class="item">비밀번호 변경</a>
 		</section>
+		<%
+			}
+		%>
+
+
 	</div>
 </body>
 </html>

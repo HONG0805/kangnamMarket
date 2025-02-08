@@ -2,9 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%
 	String userID = (String) session.getAttribute("userID"); // 내장 객체 session 사용
-	if (userID != null) {
-		session.setMaxInactiveInterval(30 * 60); // 세션 타임아웃 갱신
-	}
 	int bbsID = 0;
 	if (request.getParameter("bbsID") != null) {
 		bbsID = Integer.parseInt(request.getParameter("bbsID"));
@@ -19,9 +16,9 @@
 	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 <title>강남대학교 중고장터 내 정보</title>
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/reset.css">
+	href="${pageContext.request.contextPath}/CSS/reset.css?v=1.0">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/Board.css">
+	href="${pageContext.request.contextPath}/CSS/Board.css?v=1.0">
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/images/favicon/favicon.ico">
 <script src="https://kit.fontawesome.com/e1bd1cb2a5.js"></script>
@@ -44,7 +41,7 @@
                 btn_board.classList.remove('active');
             }
         });
-    </script>
+</script>
 <body>
 	<div id="wrap">
 		<%
@@ -52,14 +49,17 @@
 		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href="${pageContext.request.contextPath}/view/pages/jjimBbs.jsp"><img
-						src="${pageContext.request.contextPath}/s_images/free-icon-font-bell-3917226.png"
-						style="width: 30px; height: auto;" alt="">찜목록</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
-						src="${pageContext.request.contextPath}/s_images/free-icon-font-id-badge-3914510.png"
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/MainPage.jsp"><img
+						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-bell-3917226.png"
+						style="width: 30px; height: auto;" alt="">메인홈</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/Login.jsp"><img
+						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/Login.jsp"><img
-						src="${pageContext.request.contextPath}/s_images/free-icon-font-comments-5074600.png"
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/Login.jsp"><img
+						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-comments-5074600.png"
 						style="width: 30px; height: auto;" alt="">로그인</a></li>
 			</ul>
 		</section>
@@ -67,7 +67,7 @@
 		<header class="header">
 			<h1 class="logo">
 				<a href="${pageContext.request.contextPath}/view/pages/MainPage.jsp"><img
-					src="${pageContext.request.contextPath}/s_images/마크.png"
+					src="${pageContext.request.contextPath}/images/s_images/마크.png"
 					style="width: 98px; height: auto;" alt=""> <span id="logo_1">강남대학교</span>
 					중고장터</a>
 			</h1>
@@ -91,14 +91,17 @@
 		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href="${pageContext.request.contextPath}/view/pages/jjimBbs.jsp"><img
-						src="${pageContext.request.contextPath}/s_images/free-icon-font-bell-3917226.png"
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/jjimBbs.jsp"><img
+						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-bell-3917226.png"
 						style="width: 30px; height: auto;" alt="">찜목록</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
-						src="${pageContext.request.contextPath}/s_images/free-icon-font-id-badge-3914510.png"
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
+						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/Logout.jsp"><img
-						src="${pageContext.request.contextPath}/s_images/free-icon-font-comments-5074600.png"
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/Logout.jsp"><img
+						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-comments-5074600.png"
 						style="width: 30px; height: auto;" alt="">로그아웃</a></li>
 			</ul>
 		</section>
@@ -106,7 +109,7 @@
 		<header class="header">
 			<h1 class="logo">
 				<a href="${pageContext.request.contextPath}/view/pages/MainPage.jsp"><img
-					src="${pageContext.request.contextPath}/s_images/마크.png"
+					src="${pageContext.request.contextPath}/images/s_images/마크.png"
 					style="width: 98px; height: auto;" alt=""> <span id="logo_1">강남대학교</span>
 					중고장터</a>
 			</h1>

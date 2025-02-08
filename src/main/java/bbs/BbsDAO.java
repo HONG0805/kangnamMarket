@@ -94,21 +94,20 @@ public class BbsDAO {
 		return -1; // 오류 발생 시 -1 반환
 	}
 
-	// 게시글 리스트 가져오기
+	// 게시글 리스트 가져오기 (페이지네이션 처리)
 	public ArrayList<Bbs> getList(int pageNumber) {
 		String sql = "SELECT bbs.bbsID, bbs.bbsTitle, bbs.userID, u.userName, bbs.bbsDate, bbs.bbsContent, bbs.bbsAvailable, bbs.cost "
 				+ "FROM bbs bbs " + "JOIN user u ON bbs.userID = u.userID " + "WHERE bbs.bbsAvailable = 1 "
-				+ "ORDER BY bbs.bbsID DESC LIMIT ?, 10"; // pageNumber에 맞게 LIMIT 처리
+				+ "ORDER BY bbs.bbsID DESC LIMIT ?, 10"; // 페이지네이션을 위한 LIMIT 처리
 		ArrayList<Bbs> list = new ArrayList<>();
 		try (PreparedStatement pst = con.prepareStatement(sql)) {
-			// (pageNumber - 1) * 10은 첫 번째 게시글 번호로 시작하도록 offset 설정
-			pst.setInt(1, (pageNumber - 1) * 10);
+			pst.setInt(1, (pageNumber - 1) * 10); // pageNumber에 맞게 OFFSET 처리
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				Bbs bbs = new Bbs();
 				bbs.setBbsID(rs.getInt(1));
 				bbs.setBbsTitle(rs.getString(2));
-				bbs.setUserName(rs.getString(4)); // userName을 userNickName에 매핑
+				bbs.setUserName(rs.getString(4)); // 사용자 이름
 				bbs.setBbsDate(rs.getString(5));
 				bbs.setBbsContent(rs.getString(6));
 				bbs.setBbsAvailable(rs.getInt(7));
@@ -148,7 +147,7 @@ public class BbsDAO {
 		return -1; // 오류 발생 시 -1 반환
 	}
 
-	// 검색된 게시글 리스트 가져오기
+	// 검색된 게시글 리스트 가져오기 (검색 기능 포함)
 	public ArrayList<Bbs> getSearchedList(int pageNumber, String searchWord) {
 		String sql = "SELECT bbs.bbsID, bbs.bbsTitle, bbs.userID, u.userName, bbs.bbsDate, bbs.bbsContent, bbs.bbsAvailable, bbs.cost "
 				+ "FROM bbs bbs " + "JOIN user u ON bbs.userID = u.userID "
@@ -158,7 +157,7 @@ public class BbsDAO {
 		try (PreparedStatement pst = con.prepareStatement(sql)) {
 			pst.setString(1, "%" + searchWord + "%");
 			pst.setString(2, "%" + searchWord + "%");
-			pst.setInt(3, (pageNumber - 1) * 10); // 페이지네이션을 위한 offset 설정
+			pst.setInt(3, (pageNumber - 1) * 10); // 페이지네이션을 위한 OFFSET 설정
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				Bbs bbs = new Bbs();

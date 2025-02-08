@@ -4,13 +4,30 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
 
-	<!-- Servlet 설정 -->
+	<!-- 세션 만료 시간 설정 -->
+	<session-config>
+		<session-timeout>30</session-timeout> <!-- 30분 (단위: 분) -->
+	</session-config>
+
+	<!-- 세션 갱신 필터 추가 -->
+	<filter>
+		<filter-name>SessionRefreshFilter</filter-name>
+		<filter-class>common.SessionRefreshFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>SessionRefreshFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- ChatSubmitServlet 설정 -->
 	<servlet>
-		<description></description>
+		<description>Chat Submit Servlet</description>
 		<display-name>ChatSubmitServlet</display-name>
 		<servlet-name>ChatSubmitServlet</servlet-name>
 		<servlet-class>chat.ChatSubmitServlet</servlet-class>
 	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>ChatSubmitServlet</servlet-name>
 		<url-pattern>/ChatSubmitServlet</url-pattern>
@@ -21,12 +38,7 @@
 
 	<!-- 기본 시작 파일 설정 -->
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
+		<welcome-file>view/pages/MainPage.jsp</welcome-file>
 	</welcome-file-list>
 
 </web-app>

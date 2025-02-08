@@ -13,8 +13,8 @@
 	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 <title>강남대학교 중고장터</title>
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/reset.css">
-<link rel="stylesheet" type="text/css" href="">
+	href="${pageContext.request.contextPath}/CSS/reset.css?v=1.0">
+<link rel="stylesheet" type="text/css" href="" />
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/images/favicon/favicon.ico">
 <link rel="apple-touch-icon-precomposed"
@@ -130,7 +130,11 @@
 		</header>
 
 		<section class="chat_section">
-			<div>강남채팅</div>
+			<h2>강남채팅</h2>
+			<textarea id="chat" readonly style="width: 100%; height: 300px;"></textarea>
+			<input type="text" id="send" placeholder="메시지를 입력하세요"
+				onkeypress="keypress()" />
+			<button onclick="sendmessage()">전송</button>
 		</section>
 	</div>
 	<%

@@ -13,9 +13,9 @@
 	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 <title>강남대학교 중고장터</title>
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/reset.css">
+	href="${pageContext.request.contextPath}/CSS/reset.css?v=1.0">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/searchedBbs.css">
+	href="${pageContext.request.contextPath}/CSS/searchedBbs.css?v=1.0">
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/images/favicon/favicon.ico">
 <link rel="apple-touch-icon-precomposed"
@@ -50,13 +50,16 @@
 		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href="${pageContext.request.contextPath}/view/pages/jjimBbs.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/MainPage.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-bell-3917226.png"
-						style="width: 30px; height: auto;" alt="">찜목록</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
+						style="width: 30px; height: auto;" alt="">메인홈</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/Login.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/Login.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/Login.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-comments-5074600.png"
 						style="width: 30px; height: auto;" alt="">로그인</a></li>
 			</ul>
@@ -88,13 +91,16 @@
 		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href="${pageContext.request.contextPath}/view/pages/jjimBbs.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/jjimBbs.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-bell-3917226.png"
 						style="width: 30px; height: auto;" alt="">찜목록</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/Logout.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/Logout.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-comments-5074600.png"
 						style="width: 30px; height: auto;" alt="">로그아웃</a></li>
 			</ul>
@@ -111,14 +117,16 @@
 
 		<section class="content_search">
 			<div class="content_row_2">
-				<input type="text" name="searchWord" placeholder="검색어를 입력해주세요."
-					class="text">
-				<button type="submit" class="search_check">
-					<a href="${pageContext.request.contextPath}/view/pages/searchedBbs.jsp"> <img
-						src="${pageContext.request.contextPath}/images/s_images/search-line.png"
-						style="width: 20px; height: 20px;"></a>
-			
-				</button>
+				<div class="search">
+					<input type="text" name="searchWord" placeholder="검색어를 입력해주세요."
+						class="text">
+					<button type="submit" class="search_check">
+						<img
+							src="${pageContext.request.contextPath}/images/s_images/search-line.png"
+							style="width: 20px; height: 20px;">
+
+					</button>
+				</div>
 			</div>
 		</section>
 

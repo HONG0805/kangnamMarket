@@ -14,15 +14,17 @@
 	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 <title>강남대학교 중고장터</title>
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/reset.css">
+	href="${pageContext.request.contextPath}/CSS/reset.css?v=1.0">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/MainPage.css">
+	href="${pageContext.request.contextPath}/CSS/MainPage.css?v=1.0">
+
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/images/favicon/favicon.ico">
 <link rel="apple-touch-icon-precomposed"
 	href="${pageContext.request.contextPath}/images/favicon/flat-design-touch.png">
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-<style></style>
+<style>
+</style>
 </head>
 <body>
 	<%
@@ -38,25 +40,31 @@
 				<%
 					if (userID == null) {
 				%>
-				<li><a href="${pageContext.request.contextPath}/view/pages/jjimBbs.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/MainPage.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-bell-3917226.png"
-						style="width: 30px;" alt="찜목록">찜목록</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
+						style="width: 30px;" alt="찜목록">메인홈</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/Login.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px;" alt="내정보">내정보</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/Login.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/Login.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-comments-5074600.png"
 						style="width: 30px;" alt="로그인">로그인</a></li>
 				<%
 					} else {
 				%>
-				<li><a href="${pageContext.request.contextPath}/view/pages/jjimBbs.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/jjimBbs.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-bell-3917226.png"
 						style="width: 30px;" alt="찜목록">찜목록</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px;" alt="내정보">내정보</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/Logout.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/Logout.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-comments-5074600.png"
 						style="width: 30px;" alt="로그아웃">로그아웃</a></li>
 				<%
@@ -145,7 +153,6 @@
 			<%
 				}
 			%>
-
 		</section>
 
 		<footer class="pagination_footer">

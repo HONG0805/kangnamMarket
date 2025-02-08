@@ -15,9 +15,9 @@
 	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 <title>강남대학교 중고장터</title>
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/reset.css">
+	href="${pageContext.request.contextPath}/CSS/reset.css?v=1.0">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/jjimBbs.css">
+	href="${pageContext.request.contextPath}/CSS/jjimBbs.css?v=1.0">
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/images/favicon/favicon.ico">
 <link rel="apple-touch-icon-precomposed"

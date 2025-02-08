@@ -74,18 +74,6 @@
 	vertical-align: middle;
 }
 
-.loginbtn {
-	width: 90%;
-	color: white;
-	padding: 5px;
-	border-radius: 5px;
-	margin: 20px 5px 5px 5px;
-	font-weight: bold;
-	text-align: center;
-	background-color: rgba(0, 147, 245);
-	font-size: 10px;
-}
-
 p {
 	margin: 10px;
 	overflow: hidden;
@@ -95,18 +83,36 @@ p {
 .sign_section {
 	display: flex;
 	flex-direction: column;
-	flex-direction: row;
 	justify-content: center;
 	width: 100%;
 	order: 2;
 	padding: 30px;
 	width: 100%;
+	align-items: center;
 }
 
 .signup {
 	border: 1px solid #1289dd;
 	border-radius: 10px;
 	padding: 20px;
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 400px;
+	margin: 0 auto;
+}
+
+.loginbtn {
+	width: 100%;
+	max-width: 1000px;
+	color: white;
+	padding: 15px;
+	border-radius: 5px;
+	margin: 20px 0;
+	font-weight: bold;
+	text-align: center;
+	background-color: rgba(0, 147, 245);
+	font-size: 16px;
+	box-sizing: border-box;
 }
 
 .board_section {
@@ -208,6 +214,21 @@ p {
 	border-radius: 10px;
 	color: black;
 }
+
+.chat_btn {
+	margin: 5px;
+	font-weight: bold;
+	background-color: #4f94e4;
+	border: 2px solid #4f94e4;
+	border-radius: 10px;
+	color: white;
+}
+
+.chat_btn:hover {
+	background-color: #3578c2;
+	border-color: #3578c2;
+}
+
 /* 태블릿용 CSS */
 @media all and (min-width:768px) {
 	.header {
@@ -238,7 +259,7 @@ p {
 }
 
 /* PC용 CSS */
-@media all and (min-width:1200px) {
+@media all and (min-width:1400px) {
 	/* 기본 CSS */
 	#wrap {
 		position: relative;
@@ -291,18 +312,6 @@ p {
 		color: #4f94e4;
 	}
 	.logo img {
-		vertical-align: middle;
-	}
-	.board_section {
-		width: 600px;
-		margin: auto;
-	}
-	.reply_section {
-		width: 600px;
-		margin: auto;
-	}
-	.board_section_1 {
-		width: 600px;
-		margin: auto;
+		
 	}
 }

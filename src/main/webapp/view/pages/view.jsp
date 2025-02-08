@@ -16,9 +16,9 @@
 	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 <title>강남대학교 중고장터 내 정보</title>
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/reset.css">
+	href="${pageContext.request.contextPath}/CSS/reset.css?v=1.0">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/view.css">
+	href="${pageContext.request.contextPath}/CSS/view.css?v=1.0">
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/images/favicon/favicon.ico">
 <link rel="apple-touch-icon-precomposed"
@@ -60,13 +60,16 @@
 		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href="${pageContext.request.contextPath}/view/pages/jjimBbs.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/MainPage.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-bell-3917226.png"
-						style="width: 30px; height: auto;" alt="">찜목록</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
+						style="width: 30px; height: auto;" alt="">메인홈</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/Login.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/Login.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/Login.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-comments-5074600.png"
 						style="width: 30px; height: auto;" alt="">로그인</a></li>
 			</ul>
@@ -99,13 +102,16 @@
 		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href="${pageContext.request.contextPath}/view/pages/jjimBbs.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/jjimBbs.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-bell-3917226.png"
 						style="width: 30px; height: auto;" alt="">찜목록</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/Logout.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/Logout.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-comments-5074600.png"
 						style="width: 30px; height: auto;" alt="">로그아웃</a></li>
 			</ul>
@@ -129,31 +135,44 @@
 					작성일자 :
 					<%=bbs.getBbsDate().substring(0, 11) + bbs.getBbsDate().substring(11, 13) + "시"
 						+ bbs.getBbsDate().substring(14, 16) + "분"%></p>
-				<p style="font-size: 30px; font-weight: bold;"><%=bbs.getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")
-						.replaceAll("\n", "<br>")%></p>
+				<p style="font-size: 30px; font-weight: bold;">
+					<%=bbs.getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")
+						.replaceAll("\n", "<br>")%>
+				</p>
 				<p style="font-size: 15px; font-weight: bold;">
 					가격:
 					<%=bbs.getCost()%>원
 				</p>
-				<p><%=bbs.getBbsContent().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")
-						.replaceAll("\n", "<br>")%></p>
-				<%
-					JjimDAO jjimDAO = new JjimDAO();
-						ArrayList<Jjim> list1 = jjimDAO.getJjim(userID, bbsID);
-						if (list1.isEmpty()) {
-				%>
-				<button class="jjimbtn"
-					onclick="location.href='${pageContext.request.contextPath}/view/utils/jjimAction.jsp?bbsID=<%=bbsID%>'">찜하기</button>
-				<%
-					} else {
-				%>
-				<button class="jjimbtn"
-					onclick="location.href='${pageContext.request.contextPath}/view/utils/jjimAction.jsp?bbsID=<%=bbsID%>'">찜해제</button>
-				<%
-					}
-				%>
+				<p>
+					<%=bbs.getBbsContent().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")
+						.replaceAll("\n", "<br>")%>
+				</p>
+
+				<div class="button_group">
+					<%
+						JjimDAO jjimDAO = new JjimDAO();
+							ArrayList<Jjim> list1 = jjimDAO.getJjim(userID, bbsID);
+							if (list1.isEmpty()) {
+					%>
+					<button class="jjimbtn"
+						onclick="location.href='${pageContext.request.contextPath}/view/utils/jjimAction.jsp?bbsID=<%=bbsID%>'">찜하기</button>
+					<%
+						} else {
+					%>
+					<button class="jjimbtn"
+						onclick="location.href='${pageContext.request.contextPath}/view/utils/jjimAction.jsp?bbsID=<%=bbsID%>'">찜해제</button>
+					<%
+						}
+					%>
+					<button class="chatbtn"
+						onclick="if (confirm('채팅을 하시겠습니까?')) { location.href='${pageContext.request.contextPath}/view/pages/Chat.jsp?bbsID=<%=bbsID%>'; }">
+						채팅하기</button>
+
+
+				</div>
 			</div>
 		</section>
+
 
 		<section class="reply_section">
 			<table class="table-striped">

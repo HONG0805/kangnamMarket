@@ -1,11 +1,8 @@
-/* ëª¨ë°ì¼ì© CSS */
-/* ê¸°ë³¸ CSS */
+/* 기본 레이아웃 */
 #wrap {
-	display: flex;
-	flex-flow: column nowrap;
 	width: 80%;
+	max-width: 1200px; /* 페이지의 최대 너비 제한 */
 	margin: 0 auto;
-	max-width: 1200px;
 }
 
 #wrap section {
@@ -55,9 +52,7 @@
 	padding: 30px 0;
 	padding: 1.875rem 0;
 	font-size: 1.188rem;
-	font-size: 1.188rem;
 	line-height: 21px;
-	line-height: 1.313rem;
 	text-align: center;
 	text-transform: uppercase;
 }
@@ -79,7 +74,6 @@
 	order: 3;
 	padding: 10px;
 	padding: 0.625rem;
-	order: 3;
 }
 
 .content_search {
@@ -101,23 +95,36 @@
 	display: inline-block;
 }
 
+.content_row_2 {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	width: 100%;
+}
+
 .content_row_2>form.search {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
 	padding: 10px;
 	border: 2px solid #1289dd;
-	border-radius: 10px/10px;
+	border-radius: 10px;
 	background: transparent url(/images/s_images/search-line.png) no-repeat
 		right 10px center;
+	width: 100%;
+	box-sizing: border-box;
 }
 
 .search_check {
-	float: right;
-	background-color: 4f94e4b3;
+	background-color: #4f94e4b3;
+	margin-left: 10px;
 }
 
 .content_row_2>form.search>input.text {
-	height: 20px;
+	flex-grow: 1;
+	height: 30px;
 	border: 0;
-	width: 80%;
+	width: calc(100% - 40px); /* 여백을 제외한 너비 설정 */
 	color: #292929;
 	font-size: 14px;
 	background-color: transparent;
@@ -169,9 +176,11 @@
 	height: 50px;
 	padding: 10px;
 	font-size: 18px;
-	margin-bottom: 5px;
+	margin-top: 20px; /* 위쪽에 공간을 추가해서 정렬 */
 	font-weight: bold;
 	line-height: 26px;
+	width: 100%;
+	box-sizing: border-box;
 }
 
 .writeimg {
@@ -227,34 +236,40 @@ div.pagination>img {
 .sign_section {
 	display: flex;
 	flex-direction: column;
-	flex-direction: row;
 	justify-content: center;
 	width: 100%;
 	order: 2;
 	padding: 30px;
 	width: 100%;
+	align-items: center;
 }
 
 .signup {
 	border: 1px solid #1289dd;
 	border-radius: 10px;
 	padding: 20px;
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 400px;
+	margin: 0 auto;
 }
 
 .loginbtn {
-	width: 90%;
+	width: 100%;
+	max-width: 1000px;
 	color: white;
-	padding: 5px;
+	padding: 15px;
 	border-radius: 5px;
-	margin: 20px 5px 5px 5px;
+	margin: 20px 0;
 	font-weight: bold;
 	text-align: center;
 	background-color: rgba(0, 147, 245);
-	font-size: 10px;
+	font-size: 16px;
+	box-sizing: border-box;
 }
 
 /* 테블릿 CSS */
-@media all and (min-width:768px) {
+@media all and (min-width: 768px) {
 	.header {
 		flex-direction: row;
 		height: 180px;
@@ -272,13 +287,11 @@ div.pagination>img {
 		display: flex;
 		align-items: center;
 		padding: 50px;
-		padding: 3.125rem;
 		font-size: 40px;
 		justify-content: center;
 	}
 	.content_categories {
 		padding: 10px;
-		padding: 0.625rem;
 	}
 	.content_row_1>div.category_selected {
 		padding: 10px;
@@ -292,16 +305,18 @@ div.pagination>img {
 	}
 	.content_search {
 		padding: 10px;
-		padding: 0.625rem;
 	}
-	/* ê¸°ë³¸ CSS */
 	#wrap {
 		flex-flow: row wrap;
 	}
 }
 
 /* PC CSS */
-@media all and (min-width:1200px) {
+@media all and (min-width: 1400px) {
+	#wrap {
+		position: relative;
+		width: 50%;
+	}
 	.info_section {
 		order: 0;
 		position: absolute;
@@ -309,10 +324,9 @@ div.pagination>img {
 		top: 4.375rem;
 		right: 30px;
 		right: 1.875rem;
+		z-index: 30;
 		width: auto;
 		border-bottom: 0;
-		right: 1.875rem;
-		width: auto;
 	}
 	.info_list li {
 		width: auto;
@@ -342,9 +356,9 @@ div.pagination>img {
 	}
 	.logo a {
 		font-size: 30px;
-		justify-content: flex-start;
 		padding: 50px 0;
 		padding: 3.125rem 0;
+		justify-content: flex-start
 	}
 	#logo_1 {
 		color: #4f94e4;
@@ -355,42 +369,19 @@ div.pagination>img {
 	.content_categories {
 		width: 40%;
 		padding: 20px;
-		padding: 1.25rem;
 	}
 	.content_search {
 		width: 100%;
 		padding: 20px;
-		padding: 1.25rem;
-	}
-	.content_row_1>div.category_selected {
-		padding: 10px;
-		cursor: pointer;
-		display: inline-block;
-	}
-	.content_row_1>div.category {
-		padding: 10px;
-		cursor: pointer;
-		display: inline-block;
 	}
 	.content_row_2>form.search {
-		width: 50%;
+		width: 100%;
 		float: right;
 		border: 2px solid #1289dd;
-		float: right;
 	}
 	.content_section {
 		order: 5;
 		width: 100%;
 		padding: 20px;
-		padding: 1.25rem;
-	}
-	.loginbtn {
-		font-size: 15px;
-	}
-
-	/* ê¸°ë³¸ CSS */
-	#wrap {
-		position: relative;
-		width: 50%;
 	}
 }

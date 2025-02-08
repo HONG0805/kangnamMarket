@@ -1,5 +1,10 @@
 @charset "utf-8";
 
+/* Google Fonts에서 Poppins 글꼴 불러오기 */
+@import
+	url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap')
+	;
+
 /* CSS 초기화 */
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p,
 	blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd,
@@ -12,18 +17,21 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p,
 	border: 0;
 	font-size: 100%;
 	vertical-align: baseline;
-	background: transparent;
+	background-color: white;
+	font-family: 'Poppins', sans-serif;
 }
 
 body {
-	font-family: '맑은 고딕', sans-serif;
-	line-height: 1.6; /* 기본 줄 간격을 1.6으로 설정 */
-	background-color: #f4f4f4; /* 기본 배경 색상 */
+	font-family: 'Poppins', sans-serif;
+	line-height: 1.6;
+	background-color: white; /* body의 배경 색상도 동일하게 설정 */
 }
 
 article, aside, details, figcaption, figure, footer, header, hgroup,
 	menu, nav, section {
 	display: block;
+	background-color: white;
+	font-family: 'Poppins', sans-serif;
 }
 
 nav ul, li {
@@ -38,6 +46,7 @@ a {
 	text-decoration: none;
 	vertical-align: baseline;
 	background: transparent;
+	font-family: 'Poppins', sans-serif;
 }
 
 a:link {
@@ -49,7 +58,7 @@ a:visited {
 }
 
 a:hover, a:focus {
-	text-decoration: underline; /* 링크에 마우스를 올렸을 때 밑줄 */
+	cursor: pointer;
 }
 
 img {
@@ -68,7 +77,7 @@ input {
 	vertical-align: top;
 	appearance: none;
 	border-radius: 0;
-	font-family: '맑은 고딕', sans-serif;
+	font-family: 'Poppins', sans-serif; /* 입력창도 Poppins로 변경 */
 }
 
 input::-moz-placeholder {
@@ -79,16 +88,7 @@ input::-webkit-placeholder {
 	color: inherit;
 }
 
-/* 웹폰트 CSS */
-@font-face {
-	font-family: 'Nanum Gothic';
-	src: url(webfont/NanumGothic.eot);
-}
 
-@font-face {
-	font-family: 'Nanum Gothic';
-	src: url(webfont/NanumGothic.woff);
-}
 
 /* 추가적인 스타일 */
 button, input[type="submit"], input[type="button"] {

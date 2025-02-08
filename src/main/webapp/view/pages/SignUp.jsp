@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/CSS/reset.css">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/SignUp.css">
+	href="${pageContext.request.contextPath}/CSS/SignUp.css?v=1.0">
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/images/favicon/favicon.ico">
 <link rel="apple-touch-icon-precomposed"
@@ -114,7 +114,7 @@
 		<section class="sign_section">
 			<form name="f"
 				action="${pageContext.request.contextPath}/view/actions/SignUp_Action.jsp"
-				method="post" onsubmit="return validate()" enctype="text/pain">
+				method="post" onsubmit="return validate()" enctype="text/plain">
 				<div class="signup">
 					<h2>회원가입</h2>
 					<div class="text">아이디</div>
@@ -129,7 +129,6 @@
 					<div>
 						<input type="password" name="userPassword" id="my_password"
 							placeholder="비밀번호" class="input_text">
-
 					</div>
 					<div class="text">이메일</div>
 					<div>
@@ -141,19 +140,13 @@
 						<input type="text" name="userName" id="my_name" placeholder="이름"
 							class="input_text">
 					</div>
-					<!--
-					<div class="text">닉네임</div>
-					<div>
-						<input type="text" name="userNickName" id="my_nickname"
-							placeholder="닉네임" class="input_text">
-					</div>
-					-->
 					<div class="signbtn">
 						<input type="submit" class="bt_signup" value="회원가입">
 					</div>
 				</div>
 			</form>
 		</section>
+
 	</div>
 </body>
 </html>
