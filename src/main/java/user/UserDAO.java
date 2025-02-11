@@ -27,14 +27,18 @@ public class UserDAO {
 			pst.setString(1, userID);
 			try (ResultSet rs = pst.executeQuery()) {
 				if (rs.next()) {
-					return SecurityUtil.hashPassword(userPassword).equals(rs.getString(1)) ? 1 : 0;
+					String dbPassword = rs.getString(1);
+					String hashedPassword = SecurityUtil.hashPassword(userPassword);
+					System.out.println("DB 비밀번호: " + dbPassword);
+					System.out.println("입력한 비밀번호 해시: " + hashedPassword);
+					return hashedPassword.equals(dbPassword) ? 1 : 0;
 				} else {
 					return -2; // 아이디 없음
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return -1;
+			return -1; // DB 오류
 		}
 	}
 
@@ -105,13 +109,24 @@ public class UserDAO {
 	public boolean changePassword(String userID, String newPw) {
 		String sql = "UPDATE user SET userPassword=? WHERE userID=?";
 		try (PreparedStatement pst = con.prepareStatement(sql)) {
+			// 해시화된 비밀번호를 설정
 			pst.setString(1, SecurityUtil.hashPassword(newPw));
 			pst.setString(2, userID);
-			return pst.executeUpdate() > 0;
+
+			// 업데이트된 행 수 확인
+			int result = pst.executeUpdate();
+
+			if (result > 0) {
+				System.out.println("비밀번호 변경 성공");
+				return true;
+			} else {
+				System.out.println("비밀번호 변경 실패: 변경된 행이 없습니다.");
+				return false;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 
 	// 사용자 정보 가져오기

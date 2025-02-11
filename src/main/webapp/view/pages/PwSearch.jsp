@@ -47,7 +47,7 @@ function pw_search() {
     }
     
     frm.method = "post";
-    frm.action = "${pageContext.request.contextPath}/PwSearch_success.jsp";
+    frm.action = "${pageContext.request.contextPath}/view/pages/PwSearch_success.jsp";
     frm.submit();
 }
 

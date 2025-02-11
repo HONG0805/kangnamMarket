@@ -33,11 +33,12 @@ public class ReplyDAO {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Reply reply = new Reply();
-				reply.setUserID(rs.getString(1));
-				reply.setReplyID(rs.getInt(2));
+				reply.setReplyID(rs.getInt(1));
+				reply.setBbsID(rs.getInt(2));
 				reply.setReplyContent(rs.getString(3));
-				reply.setBbsID(bbsID);
-				reply.setReplyAvailable(1);
+				reply.setUserID(rs.getString(4));
+				reply.setReplyAvailable(rs.getInt(5));
+				reply.setReplyDate(rs.getTimestamp(6));
 				list.add(reply);
 			}
 		} catch (Exception e) {
@@ -49,7 +50,6 @@ public class ReplyDAO {
 	public int getNext() {
 		String SQL = "select replyID FROM REPLY ORDER BY replyID DESC";
 		try {
-
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -64,15 +64,16 @@ public class ReplyDAO {
 	}
 
 	public int write(int bbsID, String replyContent, String userID) {
-		String SQL = "INSERT INTO REPLY VALUES(?,?,?,?,?)";
+		String SQL = "INSERT INTO REPLY (replyID, bbsID, replyContent, userID, replyAvailable, replyDate) VALUES(?,?,?,?,?,?)";
 
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setString(1, userID);
-			pstmt.setInt(2, getNext());
-			pstmt.setString(3, replyContent);
-			pstmt.setInt(4, bbsID);
-			pstmt.setInt(5, 1);
+			pstmt.setInt(1, getNext()); // replyID
+			pstmt.setInt(2, bbsID); // bbsID
+			pstmt.setString(3, replyContent); // replyContent
+			pstmt.setString(4, userID); // userID
+			pstmt.setInt(5, 1); // replyAvailable (활성화)
+			pstmt.setString(6, new java.sql.Timestamp(System.currentTimeMillis()).toString());
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -84,7 +85,7 @@ public class ReplyDAO {
 		String SQL = "SELECT * FROM reply WHERE replyID = ? ORDER BY replyID DESC";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1,  replyID);
+			pstmt.setInt(1, replyID);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Reply reply = new Reply();
@@ -95,13 +96,13 @@ public class ReplyDAO {
 				reply.setReplyAvailable(rs.getInt(5));
 				return reply;
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
-	// ��� ����
+
+	// 댓글 삭제
 	public int delete(int replyID) {
 		String SQL = "UPDATE reply SET replyAvailable = 0 WHERE replyID = ?";
 		try {
@@ -114,22 +115,23 @@ public class ReplyDAO {
 		return -1;
 	}
 
-	// �Խù� ������ ��� ��� ����
+	// 댓글 내용 가져오기 (수정용)
 	public String getUpdateComment(int replyID) {
 		String SQL = "SELECT replyContent FROM reply WHERE replyID = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, replyID);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				return rs.getString(1);
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "";
 	}
-	
+
+	// 댓글 수정
 	public int update(int replyID, String replyContent) {
 		String SQL = "UPDATE reply SET replyContent = ? WHERE replyID LIKE ?";
 		try {

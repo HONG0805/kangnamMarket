@@ -38,7 +38,6 @@
 
 .sign_section {
 	display: flex;
-	flex-direction: column;
 	justify-content: center;
 	width: 100%;
 	order: 2;
@@ -62,6 +61,7 @@ div.signup>div.text {
 	border-radius: 10px;
 	padding: 20px;
 	box-sizing: border-box;
+	width: 400px;
 }
 
 input::placeholder {

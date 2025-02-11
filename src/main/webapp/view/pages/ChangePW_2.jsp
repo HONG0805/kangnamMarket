@@ -23,11 +23,8 @@
 		var newPW = document.getElementById("new_pw");
 		var newPWCK = document.getElementById("new_pwck");
 
-		var arrNum1 = new Array();
-		var arrNum2 = new Array();
-
 		//아이디, 패스워드 값 데이터 정규화
-		var regul1 = /^[a-zA-Z0-9]{8,20}$/;
+		var regul1 = /^(?=(.*[a-zA-Z]){1,})(?=(.*\d){1,})(?=(.*[!@#$%^&*()_+={}\[\]:;"'<>,.?/\\|-]){1,}).{8,20}$/;
 
 		if ((newPW.value) == "" && (newPWCK.value) == "") {
 			alert("빈칸을 입력해 주세요");
@@ -64,13 +61,16 @@
 		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href="${pageContext.request.contextPath}/view/pages/jjimBbs.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/MainPage.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-bell-3917226.png"
-						style="width: 30px; height: auto;" alt="">찜목록</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
+						style="width: 30px; height: auto;" alt="">메인홈</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/Login.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/Login.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/Login.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-comments-5074600.png"
 						style="width: 30px; height: auto;" alt="">로그인</a></li>
 			</ul>
@@ -102,13 +102,16 @@
 		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href="${pageContext.request.contextPath}/view/pages/jjimBbs.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/jjimBbs.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-bell-3917226.png"
 						style="width: 30px; height: auto;" alt="">찜목록</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/Logout.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/Logout.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-comments-5074600.png"
 						style="width: 30px; height: auto;" alt="">로그아웃</a></li>
 			</ul>
@@ -137,7 +140,7 @@
 					</div>
 					<div class="text">
 						새 비밀번호&nbsp;&nbsp;<span style="font-size: 10px;">영문, 숫자,
-							특문이 2종류 이상 조합된 8~20자</span>
+							특문이 1종류 이상 조합된 8~20자</span>
 					</div>
 					<div>
 						<input type="password" name="newPw" id="new_pw"

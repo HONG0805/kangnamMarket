@@ -19,13 +19,14 @@
 		var newPW = document.getElementById("new_pw");
 		var newPWCK = document.getElementById("new_pwck");
 
-		var regul1 = /^[a-zA-Z0-9]{8,20}$/;
+		var regul1 = /^(?=(.*[a-zA-Z]){1,})(?=(.*\d){1,})(?=(.*[!@#$%^&*()_+={}\[\]:;"'<>,.?/\\|-]){1,}).{8,20}$/;
 
 		if (newPW.value == "" || newPWCK.value == "") {
 			alert("빈칸을 입력해 주세요");
 			return false;
 		}
-		if (!check(regul1, newPW, "비밀번호는 8~20자의 대소문자와 숫자로만 입력 가능합니다.")) {
+		if (!check(regul1, newPW,
+				"비밀번호는 영문, 숫자, 특수문자 2종류 이상 조합된 8~20자로 입력해 주세요.")) {
 			return false;
 		}
 		if (newPW.value != newPWCK.value) {
@@ -53,7 +54,8 @@
 	%>
 	<form name="changePw"
 		action="${pageContext.request.contextPath}/view/actions/ChangePW_success.jsp"
-		method="post" onsubmit="return validate()">
+		method="post" onsubmit="return validate()"
+		enctype="application/x-www-form-urlencoded">
 		<div id="wrap">
 			<header class="header">
 				<h1>

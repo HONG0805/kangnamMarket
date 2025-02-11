@@ -16,9 +16,9 @@
 	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 <title>강남대학교 중고장터 내 정보</title>
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/reset.css?v=1.0">
+	href="${pageContext.request.contextPath}/CSS/reset.css?v=3">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/view.css?v=1.0">
+	href="${pageContext.request.contextPath}/CSS/view.css">
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/images/favicon/favicon.ico">
 <link rel="apple-touch-icon-precomposed"
@@ -191,14 +191,25 @@
 						<td style="text-align: left; width: 80%;"><p
 								style="font-weight: bold;">
 								작성자:
-								<%=list.get(i).getUserID()%></p><%=list.get(i).getReplyContent()%></td>
+								<%=list.get(i).getUserID()%></p>
+							<p style="font-size: 12px;">
+								작성일:
+								<%
+								java.sql.Timestamp replyDate = list.get(i).getReplyDate();
+										String formattedDate = (replyDate != null)
+												? new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(replyDate)
+												: "날짜 없음";
+							%>
+								<%=formattedDate%>
+							</p>
+							<p><%=list.get(i).getReplyContent()%></p></td>
 						<%
 							if (list.get(i).getUserID() != null && list.get(i).getUserID().equals(userID)) {
 						%>
 						<td style="text-align: center;"><a
 							onclick="return confirm('정말로 삭제하시겠습니까?')"
 							href="${pageContext.request.contextPath}/view/actions/reply_deleteAction.jsp?bbsID=<%=bbsID%>&replyID=<%=list.get(i).getReplyID()%>"
-							class="reply_btn ">삭제</a></td>
+							class="reply_delete">삭제</a></td>
 						<%
 							} else {
 						%>
@@ -210,21 +221,19 @@
 					<%
 						}
 					%>
+
 				</tbody>
 			</table>
-			<div>
-				<form method="post"
-					action="${pageContext.request.contextPath}/view/actions/replyAction.jsp?bbsID=<%=bbsID%>">
-					<table class="table-striped">
-						<tr>
-							<td style="text-align: left;"><textarea class="form-control"
-									placeholder="댓글을 입력하세요." name="replyContent" maxlength="2048"></textarea></td>
-							<td style="text-align: right;"><input type="submit"
-								class="reply_btn" value="댓글입력"></td>
-						</tr>
-					</table>
-				</form>
-			</div>
+		</section>
+		<section class="reply_section_1">
+			<form method="post" style="width: 400px;"
+				action="${pageContext.request.contextPath}/view/actions/replyAction.jsp?bbsID=<%=bbsID%>">
+				<div class="table-striped_1">
+					<textarea placeholder="댓글을 입력하세요." name="replyContent"
+						maxlength="2048" class="textarea_css"></textarea>
+					<input type="submit" class="reply_btn" value="댓글입력">
+				</div>
+			</form>
 		</section>
 
 		<section class="board_section_1">

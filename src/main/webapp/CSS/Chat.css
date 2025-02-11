@@ -115,102 +115,56 @@ p {
 	box-sizing: border-box;
 }
 
-.board_section {
-	display: flex;
-	justify-content: center;
-	width: 100%;
-	order: 2;
-}
-
-.board_section_1 {
-	display: flex;
-	justify-content: center;
-	width: 100%;
-	order: 4;
-}
-
-.btn_div {
-	width: 400px;
-}
-
-.category_div {
-	margin-top: 20px;
-	padding: 20px;
-	border-radius: 5px;
+.inputchat {
+	float: left;
+	width: 60%;
+	padding: 10px 20px;
 	border: 2px solid #4f94e4;
-	width: 400px;
-	max-width: 1000px;
 }
 
-.btn_primary {
-	float: left;
-	margin: 5px;
-	padding: 10px;
-	border-radius: 5px;
-	border: 2px solid black;
-	background: #d6d6d6;
-	color: white;
-	font-weight: bold;
-}
-
-.back_list {
-	float: right;
-	margin: 5px;
-	padding: 10px;
-	border-radius: 5px;
-	border: 2px solid black;
-	background: #d6d6d6;
-	color: white;
-	font-weight: bold;
-	padding: 10px;
-}
-
-.reply_section {
+.chat_section {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	padding: 20px 0;
 	order: 3;
-	width: 100%;
-	display: flex;
-	justify-content: center;
+	margin: 0 auto;
 }
 
-.reply_section_1 {
+.chat_section_1 {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	margin-bottom: 100px;
 	order: 4;
+}
+
+.chatform {
 	width: 100%;
-	margin-bottom: 50px;
-	display: flex;
-	justify-content: center;
-}
-
-.reply_title {
-	background-color: #4f94e4;
-	border-radius: 5px;
-	text-align: center;
-	padding: 10px;
-	width: 400px;
-	max-width: 1000px;
-	color: white;
-}
-
-.table-striped {
-	text-align: center;
-	margin-top: 10px;
-}
-
-.table-striped_1 {
-	width: 400px;
-	padding-top: 10px;
-}
-
-.textarea_css {
-	float: left;
-	border: 1px solid #4f94e4;
-	border-radius: 5px;
-	padding: 12px 18px;
-	transition: background 0.3s ease;
+	height: 80%;
 	font-size: 1rem;
+	padding: 10px;
+	border-radius: 8px;
+	border: 1px solid #ddd;
+	background: #fff;
 	resize: none;
+	overflow-y: auto;
+	height: 80%;
 }
 
-.reply_btn {
+.inputchat {
+	flex: 1;
+	padding: 12px;
+	font-size: 1rem;
+	border-radius: 8px;
+	border: 1px solid #ddd;
+	margin-right: 8px;
+}
+
+.chat_btn {
 	padding: 12px 18px;
 	font-size: 1rem;
 	background-color: #007bff;
@@ -220,43 +174,8 @@ p {
 	cursor: pointer;
 	transition: background 0.3s ease;
 	float: right;
+	width: 25%;
 }
-
-.reply_tr td {
-	border: 1px solid #4f94e4;
-	border-radius: 5px;
-	padding: 10px;
-	text-overflow: ellipsis;
-	vertical-align: middle;
-}
-
-.reply_td_font {
-	font-size: 11px;
-}
-
-.jjimbtn {
-	margin: 5px;
-	font-weight: bold;
-	background-color: #fffe00;
-	border: 2px solid #f9de2e;
-	border-radius: 10px;
-	color: black;
-}
-
-.chatbtn {
-	margin: 5px;
-	font-weight: bold;
-	background-color: #4f94e4;
-	border: 2px solid #4f94e4;
-	border-radius: 10px;
-	color: white;
-}
-
-.chatbtn:hover {
-	background-color: #3578c2;
-	border-color: #3578c2;
-}
-
 
 /* 태블릿용 CSS */
 @media all and (min-width:768px) {

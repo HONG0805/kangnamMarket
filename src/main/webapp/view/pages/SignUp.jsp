@@ -27,72 +27,45 @@
 		var userPassword = document.getElementById("my_password");
 		var userEmail = document.getElementById("my_email");
 		var userName = document.getElementById("my_name");
-		var userNickName = document.getElementById("my_nickname");
 
-		var arrNum1 = new Array();
-		var arrNum2 = new Array();
+		var regul = /^[a-z0-9]{4,20}$/; // 아이디 정규식
+		var regul1 = /^(?=(.*[a-zA-Z]){1,})(?=(.*\d){1,})(?=(.*[!@#$%^&*()_+={}\[\]:;"'<>,.?/\\|-]){1,}).{8,20}$/; // 패스워드 정규식
+		var regul2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/; // 이메일 정규식
+		var regul3 = /^[가-힝a-zA-Z]{2,}$/; // 이름 정규식
 
-		//아이디, 패스워드 값 데이터 정규화
-		var regul1 = /^[a-zA-Z0-9]{8,20}$/;
-		//이메일 정규화
-		var regul2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
-		// 이름 정규화
-		var regul3 = /^[가-힝a-zA-Z]{2,}$/;
+		var errorMsg = ""; // 오류 메시지를 담을 변수
 
-		if ((userID.value) == "") {
-			alert("아이디를 입력하지 않았습니다.");
-			userID.focus();
-			return false;
-		}
-		//아이디 유효성 검사
-		if (!check(regul1, userID, "아이디는 8~20자의 대소문자와 숫자로만 입력 가능합니다.")) {
-			return false;
+		// 각 필드에 대해 유효성 검사
+		if (userID.value.trim() == "") {
+			errorMsg += "아이디를 입력하지 않았습니다.\n";
+		} else if (!regul.test(userID.value.trim())) {
+			errorMsg += "아이디는 4자 이상의 영문 숫자로만 입력 가능합니다.\n";
 		}
 
-		if ((userPassword.value) == "") {
-			alert("비밀번호를 입력해 주세요");
-			userPassword.focus();
-			return false;
-		}
-		if (!check(regul1, userPassword, "비밀번호는 8~20자의 대소문자와 숫자로만 입력 가능합니다.")) {
-			return false;
+		if (userPassword.value.trim() == "") {
+			errorMsg += "비밀번호를 입력해 주세요\n";
+		} else if (!regul1.test(userPassword.value.trim())) {
+			errorMsg += "비밀번호는 8~20자의 대소문자와 숫자로만 입력 가능합니다.\n";
 		}
 
-		if ((userEmail.value) == "") {
-			alert("이메일을 입력해 주세요");
-			userEmail.focus();
-			return false;
+		if (userEmail.value.trim() == "") {
+			errorMsg += "이메일을 입력해 주세요\n";
+		} else if (!regul2.test(userEmail.value.trim())) {
+			errorMsg += "이메일을 잘못 입력 했습니다.\n";
 		}
-		if (!check(regul2, userEmail, "이메일을 잘못 입력 했습니다.")) {
+
+		if (userName.value.trim() == "") {
+			errorMsg += "이름을 입력해 주세요\n";
+		} else if (!regul3.test(userName.value.trim())) {
+			errorMsg += "이름이 잘못 되었습니다.\n";
+		}
+
+		if (errorMsg != "") {
+			alert(errorMsg);
 			return false;
 		}
 
-		if ((userName.value) == "") {
-			alert("이름을 입력해 주세요");
-			userName.focus();
-			return false;
-		}
-		if (!check(regul3, userName, "이름이 잘못 되었습니다.")) {
-			return false;
-		}
-
-		if ((userNickName.value) == "") {
-			alert("닉네임을 입력해 주세요");
-			userNickName.focus();
-			return false;
-		}
-		if (!check(regul3, userNickName, "닉네임이 잘못 되었습니다.")) {
-			return false;
-		}
-
-		function check(re, what, message) {
-			if (re.test(what.value)) {
-				return true;
-			}
-			alert(message);
-			what.value = "";
-			what.focus();
-		}
+		return true; // 유효성 검사를 통과하면 폼이 제출됨
 	}
 </script>
 </head>
@@ -114,7 +87,7 @@
 		<section class="sign_section">
 			<form name="f"
 				action="${pageContext.request.contextPath}/view/actions/SignUp_Action.jsp"
-				method="post" onsubmit="return validate()" enctype="text/plain">
+				method="post" onsubmit="return validate()">
 				<div class="signup">
 					<h2>회원가입</h2>
 					<div class="text">아이디</div>

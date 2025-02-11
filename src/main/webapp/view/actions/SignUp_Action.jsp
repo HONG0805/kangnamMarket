@@ -23,12 +23,21 @@
 		String userEmail = request.getParameter("userEmail");
 		String userName = request.getParameter("userName");
 
-		// -1: 서버 오류 / 0: 이미존재하는 아이디 / 1: 성공
-		if (userID.equals("") || userPassword.equals("") || userEmail.equals("") || userName.equals("")) {
+		System.out.println("------------------------");
+		System.out.println("userID: " + userID);
+		System.out.println("userPassword: " + userPassword);
+		System.out.println("userEmail: " + userEmail);
+		System.out.println("userName: " + userName);
+		System.out.println("------------------------");
+
+		// 빈 값 또는 null 체크
+		if (userID == null || userID.trim().isEmpty() || userPassword == null || userPassword.trim().isEmpty()
+				|| userEmail == null || userEmail.trim().isEmpty() || userName == null
+				|| userName.trim().isEmpty()) {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('빈칸을 확인해 주세요')");
-			script.println("history.back()");
+			script.println("alert('빈칸을 확인해 주세요');");
+			script.println("location.href='" + request.getContextPath() + "/view/pages/SignUp.jsp';");
 			script.println("</script>");
 		} else {
 			UserDAO userDAO = new UserDAO();
