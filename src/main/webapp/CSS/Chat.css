@@ -1,8 +1,5 @@
-/* 모바일용 CSS */
 /* 기본 CSS */
 #wrap {
-	display: flex;
-	flex-flow: column nowrap;
 	width: 80%;
 	margin: 0 auto;
 	max-width: 1200px;
@@ -127,8 +124,7 @@ p {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	height: 100vh;
-	padding: 20px 0;
+	padding: 20px 10px;
 	order: 3;
 	margin: 0 auto;
 }
@@ -142,9 +138,37 @@ p {
 	order: 4;
 }
 
+.chat_container {
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+	height: 500px; 
+	overflow-y: auto;
+	border: 1px solid #ccc;
+	background-color: #f9f9f9;
+}
+
+.my-message {
+	align-self: flex-end; /* 오른쪽 정렬 */
+	background-color: #dcf8c6; /* 연한 초록색 배경 */
+	padding: 8px;
+	border-radius: 10px;
+	margin: 5px;
+	max-width: 60%;
+}
+
+.other-message {
+	align-self: flex-start; /* 왼쪽 정렬 */
+	background-color: #ffffff; /* 흰색 배경 */
+	padding: 8px;
+	border-radius: 10px;
+	margin: 5px;
+	max-width: 60%;
+}
+
 .chatform {
 	width: 100%;
-	height: 80%;
+	max-width: 400px; height : 80%;
 	font-size: 1rem;
 	padding: 10px;
 	border-radius: 8px;
@@ -152,6 +176,7 @@ p {
 	background: #fff;
 	resize: none;
 	overflow-y: auto;
+	height: 80%;
 	height: 80%;
 }
 

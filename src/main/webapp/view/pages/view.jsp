@@ -8,6 +8,7 @@
 <%@ page import="reply.ReplyDAO"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.io.PrintWriter"%>
+<%@ include file="chatPopup.jsp"%>
 <!DOCTYPE HTML>
 <html lang="ko">
 <head>
@@ -18,7 +19,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/CSS/reset.css?v=3">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/view.css">
+	href="${pageContext.request.contextPath}/CSS/view.css?v=4">
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/images/favicon/favicon.ico">
 <link rel="apple-touch-icon-precomposed"
@@ -165,10 +166,8 @@
 						}
 					%>
 					<button class="chatbtn"
-						onclick="if (confirm('채팅을 하시겠습니까?')) { location.href='${pageContext.request.contextPath}/view/pages/Chat.jsp?bbsID=<%=bbsID%>'; }">
+						onclick="location.href='${pageContext.request.contextPath}/view/actions/ChatAction.jsp?bbsID=<%=bbsID%>'">
 						채팅하기</button>
-
-
 				</div>
 			</div>
 		</section>
@@ -226,7 +225,7 @@
 			</table>
 		</section>
 		<section class="reply_section_1">
-			<form method="post" style="width: 400px;"
+			<form method="post"
 				action="${pageContext.request.contextPath}/view/actions/replyAction.jsp?bbsID=<%=bbsID%>">
 				<div class="table-striped_1">
 					<textarea placeholder="댓글을 입력하세요." name="replyContent"

@@ -195,23 +195,18 @@ p {
 	margin-top: 10px;
 }
 
-.table-striped_1 {
-	width: 400px;
-	padding-top: 10px;
-}
-
 .textarea_css {
 	float: left;
 	border: 1px solid #4f94e4;
 	border-radius: 5px;
-	padding: 12px 18px;
+	padding: 12px 30px;
 	transition: background 0.3s ease;
 	font-size: 1rem;
 	resize: none;
 }
 
 .reply_btn {
-	padding: 12px 18px;
+	padding: 18px 18px;
 	font-size: 1rem;
 	background-color: #007bff;
 	color: white;

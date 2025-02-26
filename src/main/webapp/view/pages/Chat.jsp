@@ -1,12 +1,8 @@
-<%@page import="javax.security.auth.Subject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter"%>
-<%@ page import="bbs.BbsDAO"%>
-<%@ page import="bbs.Bbs"%>
-<%@ page import="user.UserDAO"%>
-<%@ page import="user.User"%>
-<%@ page import="java.util.ArrayList"%>
+<%@ page import="chat.ChatDAO"%>
+<%@ page import="java.util.List"%>
 <!DOCTYPE HTML>
 <html lang="ko">
 <head>
@@ -15,79 +11,78 @@
 	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 <title>강남대학교 중고장터</title>
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/reset.css?v=1.0">
+	href="${pageContext.request.contextPath}/CSS/reset.css?v=2.0">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/Chat.css?v=4.0" />
+	href="${pageContext.request.contextPath}/CSS/Chat.css?v=7.0" />
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/images/favicon/favicon.ico">
 <link rel="apple-touch-icon-precomposed"
 	href="${pageContext.request.contextPath}/images/favicon/flat-design-touch.png">
-<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-<style>
-</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
+
     var websocket;
     var line = 0;
     var userID = "<%=session.getAttribute("userID") != null ? session.getAttribute("userID") : ""%>";
+	var roomId = <%=request.getParameter("roomID") != null ? Integer.parseInt(request.getParameter("roomID")) : -1%>;
 
-	// WebSocket 서버 주소 동적으로 처리
 	if (userID === "") {
 		alert("로그인 후 이용 가능합니다.");
 		window.location.href = "${pageContext.request.contextPath}/view/pages/Login.jsp";
 	} else {
-		websocket = new WebSocket("ws://localhost:8080/Chat");
+		websocket = new WebSocket("ws://localhost:8080/kangnamM/Chat/" + roomId
+				+ "?userID=" + userID); // roomId 사용
 	}
 
-	// WebSocket 연결 성공 시
 	websocket.onopen = function(message) {
-		document.getElementById("state").innerHTML = "소켓 시작";
+		console.log("WebSocket 연결 되었습니다.");
 	}
 
-	// WebSocket 연결 종료 시
 	websocket.onclose = function(message) {
 		console.log("WebSocket 연결이 종료되었습니다.");
 	}
 
-	// WebSocket 오류 발생 시
 	websocket.onerror = function(event) {
 		console.error("WebSocket 오류 발생:", event);
 	}
 
-	// WebSocket 메시지 수신 시 처리
 	websocket.onmessage = function(message) {
 		var chatBox = document.getElementById("chat");
-
 		if (++line % 20 == 0) {
 			line = 0;
 			chatBox.value = "";
 		}
-
 		chatBox.value += "\n" + message.data;
 		chatBox.scrollTop = chatBox.scrollHeight; // 자동 스크롤
 	}
 
-	// 메시지 전송 함수
 	function sendmessage() {
 		if (websocket.readyState === WebSocket.OPEN) {
-			var msg = "[" + userID + "] "
-					+ escapeHtml(document.getElementById("send").value);
-			websocket.send(msg);
-			document.getElementById("send").value = ""; // 입력란 초기화
+			var msg = escapeHtml(document.getElementById("send").value);
+
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/view/actions/ChatAction.jsp', // 실제 처리할 JSP 경로
+						type : 'POST',
+						data : {
+							roomId : roomId,
+							userID : userID,
+							message : msg
+						},
+						success : function(response) {
+							websocket.send(msg); // 서버 처리 후 메시지를 웹소켓으로 전송
+							document.getElementById("send").value = ""; // 입력란 초기화
+						},
+						error : function() {
+							alert("서버와 연결할 수 없습니다.");
+						}
+					});
 		} else {
 			console.warn("WebSocket 연결이 닫혀 있습니다.");
 			alert("WebSocket 연결이 닫혀 있습니다. 페이지를 새로고침하세요.");
 		}
 	}
 
-	// 엔터 키로 메시지 전송
-	function keypress(event) {
-		var keycode = event.keyCode || event.which;
-		if (keycode === 13) { // Enter키
-			sendmessage();
-		}
-	}
-
-	// XSS 방지를 위한 HTML 이스케이프 처리
 	function escapeHtml(str) {
 		return str.replace(/[&<>"']/g, function(match) {
 			const escape = {
@@ -104,12 +99,11 @@
 </head>
 <body>
 	<%
+		// 로그인 상태 확인
 		String userID = (String) session.getAttribute("userID");
+		if (userID == null) {
 	%>
 	<div id="wrap">
-		<%
-			if (userID == null) {
-		%>
 		<section class="info_section">
 			<ul class="info_list">
 				<li><a
@@ -157,7 +151,12 @@
 		</section>
 		<%
 			} else {
+				// 메시지 목록을 가져오기
+				int roomId = Integer.parseInt(request.getParameter("roomID"));
+				ChatDAO chatDAO = new ChatDAO();
+				List<String> messages = chatDAO.getMessages(roomId); // 채팅방의 모든 메시지 가져오기
 		%>
+
 		<section class="info_section">
 			<ul class="info_list">
 				<li><a
@@ -190,10 +189,30 @@
 				</a>
 			</h1>
 		</header>
-		<section class="chat_section">
-			<h2>채팅</h2>
-			<textarea id="chat" class="chatform" readonly></textarea>
-		</section>
+
+	<section class="chat_section">
+    <h2>채팅</h2>
+    <div id="chat" class="chat_container">
+        <%
+            String currentUserID = (String) session.getAttribute("userID"); // 현재 로그인한 사용자 ID 가져오기
+            
+            for (String message : messages) {
+                String[] parts = message.split(" ", 2); 
+                String senderID = parts[0]; 
+                String chatMessage = parts[1]; 
+                
+                // 보낸 사람이 현재 로그인한 사용자라면 오른쪽 정렬
+                String cssClass = senderID.equals(currentUserID) ? "my-message" : "other-message";
+        %>
+            <div class="<%= cssClass %>">
+                <strong><%= senderID %></strong> <%= chatMessage %>
+            </div>
+        <%
+            }
+        %>
+    </div>
+</section>
+
 
 		<section class="chat_section_1">
 			<div>
@@ -202,9 +221,11 @@
 				<button class="chat_btn" onclick="sendmessage()">전송</button>
 			</div>
 		</section>
+
 		<%
 			}
 		%>
 	</div>
+
 </body>
 </html>

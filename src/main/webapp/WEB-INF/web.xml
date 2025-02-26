@@ -33,16 +33,6 @@
 		<url-pattern>/ChatSubmitServlet</url-pattern>
 	</servlet-mapping>
 
-	<servlet>
-		<servlet-name>ChatWebSocket</servlet-name>
-		<servlet-class>chat.ChatWebSocket</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ChatWebSocket</servlet-name>
-		<url-pattern>/Chat</url-pattern>
-	</servlet-mapping>
-
-
 	<!-- 기본 웹 애플리케이션 설정 -->
 	<display-name>kangnamM</display-name>
 
