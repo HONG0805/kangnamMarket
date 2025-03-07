@@ -53,6 +53,32 @@ public class JjimDAO {
 		return list;
 	}
 
+	public boolean nextPage(String userID, int pageNumber) {
+		boolean hasNextPage = false;
+		int totalCount = getTotalCount(userID); // 사용자별 찜 게시물 수
+		int pageSize = 10; // 한 페이지에 보여줄 게시물 수
+		if (totalCount > pageNumber * pageSize) {
+			hasNextPage = true; // 다음 페이지가 있다면 true
+		}
+		return hasNextPage;
+	}
+
+	public int getTotalCount(String userID) {
+		int totalCount = 0;
+		try {
+			String SQL = "SELECT COUNT(*) FROM jjim WHERE userID = ?";
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userID);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				totalCount = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return totalCount;
+	}
+
 	public int write(String userID, int bbsID) {
 		String SQL = "INSERT INTO jjim VALUES(?, ?)";
 		try {

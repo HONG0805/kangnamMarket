@@ -32,6 +32,7 @@
 		int pageNumber = request.getParameter("pageNumber") != null
 				? Integer.parseInt(request.getParameter("pageNumber"))
 				: 1;
+		String searchWord = request.getParameter("searchWord") != null ? request.getParameter("searchWord") : "";
 	%>
 
 	<div id="wrap">
@@ -106,7 +107,7 @@
 				<form class="search" method="post"
 					action="${pageContext.request.contextPath}/view/pages/searchedBbs.jsp">
 					<input type="text" name="searchWord" placeholder="검색어를 입력해주세요."
-						class="text">
+						class="text" value="<%=searchWord%>">
 					<button type="submit" class="search_check">
 						<img
 							src="${pageContext.request.contextPath}/images/s_images/search-line.png"
@@ -126,7 +127,7 @@
 
 			<%
 				BbsDAO bbsDAO = new BbsDAO();
-					ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
+					ArrayList<Bbs> list = bbsDAO.getSearchedList(pageNumber, searchWord); 
 					for (Bbs bbs : list) {
 			%>
 			<div style="border: 1px solid #dddddd">
@@ -161,16 +162,16 @@
 					if (pageNumber != 1) {
 				%>
 				<a
-					href="${pageContext.request.contextPath}/view/pages/MainPage.jsp?pageNumber=<%=pageNumber - 1%>"
+					href="${pageContext.request.contextPath}/view/pages/MainPage.jsp?pageNumber=<%=pageNumber - 1%>&searchWord=<%=searchWord%>"
 					class="prev">이전</a>
 				<%
 					}
 				%>
 				<%
-					if (bbsDAO.nextPage(pageNumber + 1)) {
+					if (bbsDAO.searchedNextPage(pageNumber, searchWord)) {
 				%>
 				<a
-					href="${pageContext.request.contextPath}/view/pages/MainPage.jsp?pageNumber=<%=pageNumber + 1%>"
+					href="${pageContext.request.contextPath}/view/pages/MainPage.jsp?pageNumber=<%=pageNumber + 1%>&searchWord=<%=searchWord%>"
 					class="next">다음</a>
 				<%
 					}

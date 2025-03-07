@@ -13,7 +13,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/CSS/reset.css?v=2.0">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/Chat.css?v=7.0" />
+	href="${pageContext.request.contextPath}/CSS/Chat.css?v=1.1" />
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/images/favicon/favicon.ico">
 <link rel="apple-touch-icon-precomposed"
@@ -52,7 +52,29 @@
 			line = 0;
 			chatBox.value = "";
 		}
-		chatBox.value += "\n" + message.data;
+
+		// 메시지 분리 (userID와 chatMessage)
+		var parts = message.data.split(":", 2);
+		var senderID = parts[0].trim(); // 보낸 사람 ID
+		var chatMessage = parts[1] ? parts[1].trim() : ""; // 메시지 내용
+
+		// 메시지 스타일을 사용자별로 다르게 적용
+		var cssClass;
+		if (senderID === userID) {
+			cssClass = "my-message"; // 본인 메시지
+		} else if (senderID === ownerID) {
+			cssClass = "owner-message"; // 게시글 작성자 메시지
+		} else {
+			cssClass = "other-message"; // 다른 사용자 메시지
+		}
+
+		// 메시지를 chatBox에 추가
+		var messageDiv = document.createElement("div");
+		messageDiv.className = cssClass;
+		messageDiv.innerHTML = "<strong>" + senderID + "</strong> "
+				+ chatMessage;
+		chatBox.appendChild(messageDiv);
+
 		chatBox.scrollTop = chatBox.scrollHeight; // 자동 스크롤
 	}
 
@@ -103,6 +125,7 @@
 		String userID = (String) session.getAttribute("userID");
 		if (userID == null) {
 	%>
+
 	<div id="wrap">
 		<section class="info_section">
 			<ul class="info_list">
@@ -154,7 +177,9 @@
 				// 메시지 목록을 가져오기
 				int roomId = Integer.parseInt(request.getParameter("roomID"));
 				ChatDAO chatDAO = new ChatDAO();
-				List<String> messages = chatDAO.getMessages(roomId); // 채팅방의 모든 메시지 가져오기
+				int bbsID = chatDAO.getBbsIDByRoomID(roomId); // 채팅방에 연결된 bbsID 가져오기
+				String ownerID = chatDAO.getBbsUserID(bbsID); // 게시글 작성자의 userID 가져오기
+				List<String> messages = chatDAO.getMessages(roomId, userID); // 채팅방의 모든 메시지 가져오기
 		%>
 
 		<section class="info_section">
@@ -190,28 +215,35 @@
 			</h1>
 		</header>
 
-	<section class="chat_section">
-    <h2>채팅</h2>
-    <div id="chat" class="chat_container">
-        <%
-            String currentUserID = (String) session.getAttribute("userID"); // 현재 로그인한 사용자 ID 가져오기
-            
-            for (String message : messages) {
-                String[] parts = message.split(" ", 2); 
-                String senderID = parts[0]; 
-                String chatMessage = parts[1]; 
-                
-                // 보낸 사람이 현재 로그인한 사용자라면 오른쪽 정렬
-                String cssClass = senderID.equals(currentUserID) ? "my-message" : "other-message";
-        %>
-            <div class="<%= cssClass %>">
-                <strong><%= senderID %></strong> <%= chatMessage %>
-            </div>
-        <%
-            }
-        %>
-    </div>
-</section>
+		<section class="chat_section">
+			<h2>채팅</h2>
+			<div id="chat" class="chat_container">
+				<%
+						for (String messageInfo : messages) {
+							// 메시지와 CSS 클래스를 구분
+							String[] messageParts = messageInfo.split("\\|");
+							String chatMessage = messageParts[0];
+							String cssClass = messageParts[1];
+
+							// 공백이 포함된 메시지만 senderID와 chatMessage로 나누기
+							String senderID = "";
+							String chatText = chatMessage; // 기본적으로 전체 메시지를 chatMessage로 둠
+							if (chatMessage.contains(" ")) {
+								String[] parts = chatMessage.split(" ", 2);
+								senderID = parts[0].trim();
+								chatText = parts[1].trim();
+							}
+				%>
+				<!-- 메시지 출력 -->
+				<div class="<%=cssClass%>">
+					<strong><%=senderID%></strong>
+					<%=chatText%>
+				</div>
+				<%
+					}
+				%>
+			</div>
+		</section>
 
 
 		<section class="chat_section_1">

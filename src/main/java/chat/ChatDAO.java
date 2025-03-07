@@ -60,7 +60,7 @@ public class ChatDAO {
 	}
 
 	// 게시물 작성자의 userID를 가져오는 메소드 구현
-	private String getBbsUserID(int bbsID) {
+	public String getBbsUserID(int bbsID) {
 		String query = "SELECT userID FROM bbs WHERE bbsID = ?";
 		try (PreparedStatement pstmt = con.prepareStatement(query)) {
 			pstmt.setInt(1, bbsID);
@@ -72,6 +72,21 @@ public class ChatDAO {
 			e.printStackTrace();
 		}
 		return null; // 작성자 ID를 찾지 못한 경우
+	}
+
+	// 채팅방의 roomID를 이용해 해당 게시글(bbsID)을 가져오는 메서드
+	public int getBbsIDByRoomID(int roomID) {
+		String query = "SELECT bbsID FROM chatroom WHERE roomID = ?";
+		try (PreparedStatement pstmt = con.prepareStatement(query)) {
+			pstmt.setInt(1, roomID);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("bbsID"); // 해당 roomID의 게시글 ID 반환
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1; // 찾을 수 없는 경우 -1 반환
 	}
 
 	// 메시지 전송
@@ -103,7 +118,7 @@ public class ChatDAO {
 	}
 
 	// 채팅방 메시지 조회
-	public List<String> getMessages(int roomId) {
+	public List<String> getMessages(int roomId, String userID) {
 		List<String> messages = new ArrayList<>();
 		String sql = "SELECT userID, message, created_at FROM message WHERE roomID = ? ORDER BY created_at ASC";
 
@@ -112,16 +127,53 @@ public class ChatDAO {
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				String userID = rs.getString("userID");
+				String senderID = rs.getString("userID");
 				String message = rs.getString("message");
-				String createdAt = rs.getString("created_at"); // created_at 가져오기
-				messages.add("\n\n" + " (" + createdAt + ") " + "\n" + userID + " : "+ "\n\n" + message); // 메시지 형식
+
+				// 메시지의 전송자에 따라서 CSS 클래스 구분
+				String cssClass = senderID.equals(userID) ? "my-message" : "other-message";
+
+				// HTML 특수 문자를 엔터티로 변환하여 XSS 방지
+				message = escapeHtml(message);
+
+				// 메시지 포맷팅
+				String formattedMessage = senderID + " : " + message;
+				messages.add(formattedMessage + "|" + cssClass); // 메시지와 CSS 클래스 정보를 함께 저장
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 		return messages;
+	}
+
+	// 사용자가 참여한 채팅방 목록 조회
+	public List<Integer> getJoinedRooms(String userID) {
+		List<Integer> roomIds = new ArrayList<>();
+		String sql = "SELECT DISTINCT roomID FROM message WHERE userID = ?";
+
+		try (PreparedStatement stmt = con.prepareStatement(sql)) {
+			stmt.setString(1, userID);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				int roomId = rs.getInt("roomID");
+				roomIds.add(roomId);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return roomIds;
+	}
+
+	public String escapeHtml(String str) {
+		if (str == null) {
+			return null;
+		}
+		// HTML 특수 문자를 엔티티로 변환
+		return str.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;").replace("'",
+				"&#039;");
 	}
 
 }

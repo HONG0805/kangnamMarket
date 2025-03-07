@@ -26,14 +26,19 @@
 </head>
 <body>
 	<%
-		String userID = null;
-		if (session.getAttribute("userID") != null) {
-			userID = (String) session.getAttribute("userID");
+		String userID = (String) session.getAttribute("userID");
+		if (userID == null) {
+			response.sendRedirect("Login.jsp");
+			return;
 		}
+
 		int pageNumber = 1;
 		if (request.getParameter("pageNumber") != null) {
 			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 		}
+
+		JjimDAO jjimDAO = new JjimDAO();
+		ArrayList<Bbs> list = jjimDAO.getList(userID, pageNumber);
 	%>
 	<div id="wrap">
 		<%
@@ -41,13 +46,16 @@
 		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href="${pageContext.request.contextPath}/view/pages/MainPage.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/MainPage.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-bell-3917226.png"
 						style="width: 30px; height: auto;" alt="">메인홈</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/Login.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/Login.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-comments-5074600.png"
 						style="width: 30px; height: auto;" alt="">로그인</a></li>
 			</ul>
@@ -79,13 +87,16 @@
 		%>
 		<section class="info_section">
 			<ul class="info_list">
-				<li><a href="${pageContext.request.contextPath}/view/pages/MainPage.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/MainPage.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-bell-3917226.png"
 						style="width: 30px; height: auto;" alt="">메인홈</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/MyPage.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-id-badge-3914510.png"
 						style="width: 30px; height: auto;" alt="">내정보</a></li>
-				<li><a href="${pageContext.request.contextPath}/view/pages/Logout.jsp"><img
+				<li><a
+					href="${pageContext.request.contextPath}/view/pages/Logout.jsp"><img
 						src="${pageContext.request.contextPath}/images/s_images/free-icon-font-comments-5074600.png"
 						style="width: 30px; height: auto;" alt="">로그아웃</a></li>
 			</ul>
@@ -102,7 +113,8 @@
 
 		<section class="content_search">
 			<div class="content_row_2">
-				<form class="search" method="post" action="${pageContext.request.contextPath}/view/pages/searchedBbs.jsp">
+				<form class="search" method="post"
+					action="${pageContext.request.contextPath}/view/pages/searchedBbs.jsp">
 					<input type="text" name="searchWord" placeholder="검색어를 입력해주세요."
 						class="text">
 					<button type="submit" class="search_check">
@@ -123,8 +135,6 @@
 
 			<%
 				BbsDAO bbsDAO = new BbsDAO();
-					JjimDAO jjimDAO = new JjimDAO();
-					ArrayList<Bbs> list = jjimDAO.getList(userID, pageNumber);
 					for (int i = 0; i < list.size(); i++) {
 			%>
 			<div style="text-align: center; border: 1px solid #dddddd">
@@ -157,14 +167,14 @@
 		<footer class="pagination_footer">
 			<div class="pagination">
 				<%
-					if (pageNumber != 1) {
+					if (pageNumber > 1) {
 				%>
-				<a href="MainPage.jsp?pageNumber=<%=pageNumber - 1%>" class="prev">이전</a>
+				<a href="jjimBbs.jsp?pageNumber=<%=pageNumber - 1%>" class="prev">이전</a>
 				<%
 					}
-						if (bbsDAO.nextPage(pageNumber + 1)) {
+						if (jjimDAO.nextPage(userID, pageNumber)) {
 				%>
-				<a href="MainPage.jsp?pageNumber=<%=pageNumber + 1%>" class="next">다음</a>
+				<a href="jjimBbs.jsp?pageNumber=<%=pageNumber + 1%>" class="next">다음</a>
 				<%
 					}
 				%>

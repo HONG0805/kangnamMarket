@@ -3,6 +3,10 @@
 <%@ page import="user.UserDAO"%>
 <%@ page import="user.User"%>
 <%@ page import="java.io.PrintWriter"%>
+<%@ page import="chat.ChatDAO"%>
+<!-- ChatDAO import 추가 -->
+<%@ page import="java.util.List"%>
+<!-- List import 추가 -->
 <!DOCTYPE HTML>
 <html lang="ko">
 <head>
@@ -13,7 +17,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/CSS/reset.css">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/MyPage.css?v=1.0">
+	href="${pageContext.request.contextPath}/CSS/MyPage.css?v=3.0">
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/images/favicon/favicon.ico">
 <link rel="apple-touch-icon-precomposed"
@@ -30,7 +34,15 @@
 			userID = (String) session.getAttribute("userID");
 		}
 		User user = new User();
+		ChatDAO chatDAO = new ChatDAO(); // ChatDAO 객체 생성
+
+		// 사용자의 채팅방 목록을 가져오기 위한 코드
+		List<Integer> chatRooms = null; // Integer로 타입 변경
+		if (userID != null) {
+			chatRooms = chatDAO.getJoinedRooms(userID); // 사용자의 채팅방 리스트를 가져오는 메소드 호출
+		}
 	%>
+
 	<div id="wrap">
 		<%
 			if (userID == null) {
@@ -118,6 +130,7 @@
 				<p>학교/학번</p>
 			</div>
 		</section>
+
 		<section class="my_section_1">
 			<h2>계정</h2>
 			<a href="${pageContext.request.contextPath}/view/utils/MailCheck.jsp"
@@ -125,10 +138,31 @@
 				href="${pageContext.request.contextPath}/view/pages/ChangePW_2.jsp"
 				class="item">비밀번호 변경</a>
 		</section>
+
+		<section class="chat_rooms_section">
+			<h2>내 채팅방</h2>
+			<%
+				if (chatRooms != null && !chatRooms.isEmpty()) {
+						for (Integer chatRoom : chatRooms) {
+			%>
+			<div class="chat_room_item">
+				<p><%=chatRoom%></p>
+				<a
+					href="<%=request.getContextPath() + "/view/pages/Chat.jsp?roomID=" + chatRoom%>">채팅방
+					입장</a>
+			</div>
+			<%
+				}
+					} else {
+			%>
+			<p>채팅방이 없습니다.</p>
+			<%
+				}
+			%>
+		</section>
 		<%
 			}
 		%>
-
 
 	</div>
 </body>

@@ -15,7 +15,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/CSS/reset.css?v=1.0">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/searchedBbs.css?v=1.0">
+	href="${pageContext.request.contextPath}/CSS/searchedBbs.css?v=2.0">
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/images/favicon/favicon.ico">
 <link rel="apple-touch-icon-precomposed"
@@ -26,24 +26,29 @@
 </head>
 <body>
 	<%
+		request.setCharacterEncoding("UTF-8"); // 파라미터 인코딩 설정
+
 		String userID = null;
 		if (session.getAttribute("userID") != null) {
 			userID = (String) session.getAttribute("userID");
 		}
+
 		int pageNumber = 1;
 		if (request.getParameter("pageNumber") != null) {
 			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 		}
+
 		String searchWord = null;
 		if (request.getParameter("searchWord") != null) {
 			searchWord = (String) request.getParameter("searchWord");
-			System.out.println("searchword from parameter is :" + searchWord);
+			System.out.println("searchword from parameter is :" + searchWord); // 콘솔 출력 확인
 		}
 		if (session.getAttribute("searchWord") != null) {
 			searchWord = (String) session.getAttribute("searchWord");
-			System.out.println("searchword from session is :" + searchWord);
+			System.out.println("searchword from session is :" + searchWord); // 콘솔 출력 확인
 		}
 	%>
+
 	<div id="wrap">
 		<%
 			if (userID == null) {
@@ -117,16 +122,16 @@
 
 		<section class="content_search">
 			<div class="content_row_2">
-				<div class="search">
+				<form class="search" method="get"
+					action="${pageContext.request.contextPath}/view/pages/searchedBbs.jsp">
 					<input type="text" name="searchWord" placeholder="검색어를 입력해주세요."
-						class="text">
+						class="text" value="<%= searchWord != null ? searchWord : "" %>">
 					<button type="submit" class="search_check">
 						<img
 							src="${pageContext.request.contextPath}/images/s_images/search-line.png"
 							style="width: 20px; height: 20px;">
-
 					</button>
-				</div>
+				</form>
 			</div>
 		</section>
 

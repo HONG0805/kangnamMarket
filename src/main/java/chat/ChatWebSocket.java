@@ -37,23 +37,20 @@ public class ChatWebSocket {
 
 	@OnMessage
 	public void onMessage(String message, Session session) throws IOException {
-		System.out.println("메시지 수신: " + message);
+		System.out.println("수신된 메시지: " + message);
 
 		// 로그인 상태 체크
 		if (userID == null || userID.isEmpty()) {
-			// 로그인하지 않은 경우 알림 메시지 전송
 			session.getBasicRemote().sendText("로그인 후 채팅을 이용할 수 있습니다.");
 			return;
 		}
 
-		// DB에 메시지 저장 (채팅방 ID, 사용자 ID, 메시지 내용)
 		String createdAt = chatDAO.sendMessage(Integer.parseInt(roomId), userID, message);
 
 		// 해당 채팅방의 모든 사용자에게 메시지 전송
 		for (Session client : roomChats.get(roomId).values()) {
 			if (client.isOpen()) {
-				// 메시지 형식: userID (시간): 메시지
-				String formattedMessage = " (" + createdAt + ") " + "\n" + userID + " : " + "\n\n" + message;
+				String formattedMessage = userID + ": " + message;
 				client.getBasicRemote().sendText(formattedMessage);
 			}
 		}

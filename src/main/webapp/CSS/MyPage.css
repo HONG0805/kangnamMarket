@@ -169,31 +169,79 @@ div.my_profile p {
 	order: 2;
 	padding: 30px;
 	width: 100%;
-	align-items: center; 
+	align-items: center;
 }
 
 .signup {
 	border: 1px solid #1289dd;
 	border-radius: 10px;
 	padding: 20px;
-	box-sizing: border-box; 
+	box-sizing: border-box;
 	width: 100%;
-	max-width: 400px; 
+	max-width: 400px;
 	margin: 0 auto;
 }
 
 .loginbtn {
 	width: 100%;
-	max-width: 1000px; 
+	max-width: 1000px;
 	color: white;
-	padding: 15px; 
+	padding: 15px;
 	border-radius: 5px;
-	margin: 20px 0; 
+	margin: 20px 0;
 	font-weight: bold;
 	text-align: center;
 	background-color: rgba(0, 147, 245);
-	font-size: 16px; 
-	box-sizing: border-box; 
+	font-size: 16px;
+	box-sizing: border-box;
+}
+
+.chat_rooms_section {
+	order: 4;
+	width: 100%;
+	padding: 20px;
+	background-color: #f8f8f8;
+	margin-top: 30px;
+	border-radius: 10px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.chat_rooms_section h2 {
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: #333;
+	margin-bottom: 15px;
+}
+
+.chat_room_item {
+	background-color: white;
+	padding: 15px;
+	border-radius: 8px;
+	margin-bottom: 10px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.chat_room_item p {
+	font-size: 1.1rem;
+	color: #333;
+	font-weight: bold;
+}
+
+.chat_room_item a {
+	padding: 10px 20px;
+	background-color: #4f94e4;
+	color: white;
+	text-decoration: none;
+	border-radius: 5px;
+	font-size: 1rem;
+	transition: background-color 0.3s;
+}
+
+.chat_room_item a:hover {
+	background-color: #357db7;
 }
 
 /* 태블릿용 CSS */
@@ -239,6 +287,17 @@ div.my_profile p {
 		flex-direction: column;
 		margin-top: 20px;
 		width: 500px;
+	}
+	.chat_rooms_section {
+		order: 4;
+		width: 500px;
+		margin: 0 auto;
+		position: relative;
+		padding: 20px;
+		background-color: #f8f8f8;
+		margin-top: 30px;
+		border-radius: 10px;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 	}
 }
 
@@ -314,6 +373,18 @@ div.my_profile p {
 		flex-direction: column;
 		margin-top: 20px;
 		width: 500px;
+	}
+	.chat_rooms_section {
+		order: 4;
+		width: 500px;
+		margin: 0 auto;
+		position: relative;
+		padding: 20px;
+		background-color: #f8f8f8;
+		margin-top: 30px;
+		margin-bottom: 50px;
+		border-radius: 10px;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 	}
 	div.my_info>h1 {
 		font-size: 22px;

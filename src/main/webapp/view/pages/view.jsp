@@ -8,7 +8,6 @@
 <%@ page import="reply.ReplyDAO"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.io.PrintWriter"%>
-<%@ include file="chatPopup.jsp"%>
 <!DOCTYPE HTML>
 <html lang="ko">
 <head>
