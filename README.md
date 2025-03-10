@@ -40,57 +40,106 @@
 ---
 
 ## 📷 프로젝트 관련 자료
-📌 서비스 플로우, 화면 구조, 데이터 모델링, DB 구현 등 상세 내용은 아래 이미지를 참고해주세요.
-
-
 ![image](https://github.com/HONG0805/kangnamMarket/assets/112541200/05759b39-67d7-4d17-825d-2708459c6420)
 
 
-![image](https://github.com/HONG0805/kangnamMarket/assets/112541200/5c21e87d-cb75-4aa2-9e86-2f8de55841d3)
+## ✔**로그인 및 메인홈**
+
+![image](https://github.com/user-attachments/assets/af64c07d-b26c-4967-bb63-0b121c9b987f)
+![image](https://github.com/user-attachments/assets/15672640-335d-459f-84cb-a8c47d171a49)
 
 
-![image](https://github.com/HONG0805/kangnamMarket/assets/112541200/f1dcb61a-8854-46f1-a49e-1087b8ae177c)
+## ✔**게시물 및 게시물 작성**
+
+![image](https://github.com/user-attachments/assets/e5808055-4c38-4c55-829c-941120224be3)
+![image](https://github.com/user-attachments/assets/4f75a344-0bae-4fe7-94af-8c2de41c7c9c)
 
 
-![image](https://github.com/HONG0805/kangnamMarket/assets/112541200/5c9b94ec-1982-4fb3-9d3d-45f9817c2ee0)
+## ✔**마이페이지 및 채팅**
+
+![image](https://github.com/user-attachments/assets/4c14f189-fa1e-49cc-92d5-fbc64b5ac2e0)
+![image](https://github.com/user-attachments/assets/48c95dc7-afad-4df1-bf5f-29daf4bc295d)
 
 
-![image](https://github.com/HONG0805/kangnamMarket/assets/112541200/1da1a4df-43ec-4d57-9141-569e942d9994)
+## ✔**검색 및 페이징**
 
+![image](https://github.com/user-attachments/assets/ceccb953-af36-4e19-a672-d492ce06e21b)
+![image](https://github.com/user-attachments/assets/367e1bab-7135-4fd9-82cb-b7db2ce7c2d9)
 
-![image](https://github.com/HONG0805/kangnamMarket/assets/112541200/839bf47b-5da0-4329-ac2b-37075700e80a)
-
-
-![image](https://github.com/HONG0805/kangnamMarket/assets/112541200/7cec7e79-6f31-41ea-9776-78a96901c05f)
-
-
-![image](https://github.com/HONG0805/kangnamMarket/assets/112541200/8aba9aaa-43d2-483d-8e18-985e0bbb38fc)
-
-
-![image](https://github.com/HONG0805/kangnamMarket/assets/112541200/c61e19fe-fa3b-47c6-8948-6d0ec0464b06)
-
-
-![image](https://github.com/HONG0805/kangnamMarket/assets/112541200/3abc4c38-edfd-419d-971b-28f7c43110eb)
-
-
-![image](https://github.com/HONG0805/kangnamMarket/assets/112541200/072cf026-a948-4ee8-a230-ce2e8cfa5747)
-
-
-![image](https://github.com/HONG0805/kangnamMarket/assets/112541200/a598d4ad-4733-4afc-a109-96c6e8005e34)
-
-
-![image](https://github.com/HONG0805/kangnamMarket/assets/112541200/e690a39c-a7db-40a3-8434-b8ca0752b8ea)
-
-
-![image](https://github.com/HONG0805/kangnamMarket/assets/112541200/4ecbcb76-b4f1-4204-b4a6-abda19394157)
-
-
-![image](https://github.com/HONG0805/kangnamMarket/assets/112541200/afeca9ae-a274-4d27-bdb4-4c920313dd5e)
-
-
-![image](https://github.com/HONG0805/kangnamMarket/assets/112541200/3a0a4d0d-41dc-4c34-b378-5a781c367ec6)
 
 ---
+
+## 🗄 데이터베이스 구조(ERD)
+<details><summary><strong>erDiagram</strong>(보기)</summary>
+   
+    USER ||--o{ BBS : "등록"
+    USER {
+        VARCHAR(255) userID PK
+        VARCHAR(255) userPassword
+        VARCHAR(100) userEmail
+        VARCHAR(100) userName
+    }
+    
+    BBS {
+        INT(10) bbsID PK
+        VARCHAR(100) bbsTitle
+        VARCHAR(255) userID FK
+        TIMESTAMP bbsDate
+        MEDIUMTEXT bbsContent
+        INT(10) bbsAvailable
+        INT(10) cost
+    }
+    
+    BBS ||--o{ REPLY : "댓글"
+    BBS ||--o{ JJIM : "찜"
+    BBS ||--o{ CHATROOM : "채팅방"
+    
+    REPLY {
+        INT(10) replyID PK
+        INT(10) bbsID FK
+        TEXT replyContent
+        VARCHAR(50) userID
+        INT(10) replyAvailable
+        DATETIME replyDate
+    }
+    
+    JJIM {
+        INT(10) bbsID PK,FK
+        VARCHAR(255) userID PK,FK
+    }
+    
+    CHATROOM ||--o{ MESSAGE : "메시지"
+    USER }o--o{ CHATROOM : "참여"
+    
+    CHATROOM {
+        INT(10) roomID PK
+        INT(10) bbsID FK
+        VARCHAR(255) user_1_id FK
+        VARCHAR(255) user_2_id FK
+        DATETIME created_at
+    }
+    
+    MESSAGE {
+        INT(10) messageID PK
+        INT(10) roomID FK
+        VARCHAR(255) userID FK
+        TEXT message
+        DATETIME created_at
+    }
+</details>
+
+## 🔗 관계형 모델 특징
+✅**N:M 관계**
+- JJIM 테이블을 통해 사용자-게시물 찜 관계 구현
+- CHATROOM을 통해 1:1 채팅 관리
+
+✅**계층적 구조**
+- 게시물(BBS) → 댓글(REPLY)
+- 채팅방(CHATROOM) → 메시지(MESSAGE)
+
+✅**참조 무결성**
+- 모든 FK에 ON DELETE/UPDATE 제약 조건 적용
+- CASCADE 대신 NO ACTION으로 데이터 보호
 
 ## 💡 개발 목표 및 기대 효과
 - **합리적인 가격**으로 교재 및 학용품을 거래할 수 있도록 지원
