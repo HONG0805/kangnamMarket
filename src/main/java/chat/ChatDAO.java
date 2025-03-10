@@ -147,24 +147,28 @@ public class ChatDAO {
 		return messages;
 	}
 
-	// 사용자가 참여한 채팅방 목록 조회
-	public List<Integer> getJoinedRooms(String userID) {
-		List<Integer> roomIds = new ArrayList<>();
-		String sql = "SELECT DISTINCT roomID FROM message WHERE userID = ?";
+	// 사용자가 참여한 채팅방 목록과 상대방 ID 가져오기
+	public List<String[]> getJoinedRoomsWithPartner(String userID) {
+		List<String[]> chatRooms = new ArrayList<>();
+		String sql = "SELECT roomID, " + "CASE " + "   WHEN user_1_id = ? THEN user_2_id " + "   ELSE user_1_id "
+				+ "END AS partnerID " + "FROM chatroom " + "WHERE user_1_id = ? OR user_2_id = ?";
 
 		try (PreparedStatement stmt = con.prepareStatement(sql)) {
 			stmt.setString(1, userID);
+			stmt.setString(2, userID);
+			stmt.setString(3, userID);
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				int roomId = rs.getInt("roomID");
-				roomIds.add(roomId);
+				String roomID = String.valueOf(rs.getInt("roomID"));
+				String partnerID = rs.getString("partnerID");
+				chatRooms.add(new String[] { roomID, partnerID }); // String[] 형태로 저장
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return roomIds;
+		return chatRooms; // List<String[]> 반환
 	}
 
 	public String escapeHtml(String str) {

@@ -6,6 +6,9 @@
 <%@ page import="chat.ChatDAO"%>
 <!-- ChatDAO import 추가 -->
 <%@ page import="java.util.List"%>
+<%@ page import="java.util.Set"%>
+<%@ page import="java.util.HashSet"%>
+
 <!-- List import 추가 -->
 <!DOCTYPE HTML>
 <html lang="ko">
@@ -29,19 +32,17 @@
 <body>
 	<%
 		request.setCharacterEncoding("UTF-8");
-		String userID = null;
-		if (session.getAttribute("userID") != null) {
-			userID = (String) session.getAttribute("userID");
-		}
-		User user = new User();
-		ChatDAO chatDAO = new ChatDAO(); // ChatDAO 객체 생성
+		String userID = (String) session.getAttribute("userID");
 
-		// 사용자의 채팅방 목록을 가져오기 위한 코드
-		List<Integer> chatRooms = null; // Integer로 타입 변경
+		User user = null;
+		ChatDAO chatDAO = new ChatDAO(); // ChatDAO 객체 생성
+		UserDAO userDAO = new UserDAO(); // UserDAO 객체 생성
+
 		if (userID != null) {
-			chatRooms = chatDAO.getJoinedRooms(userID); // 사용자의 채팅방 리스트를 가져오는 메소드 호출
+			user = userDAO.getUser(userID); // userID에 해당하는 사용자 정보 가져오기
 		}
 	%>
+
 
 	<div id="wrap">
 		<%
@@ -126,8 +127,7 @@
 				<img
 					src="${pageContext.request.contextPath}/images/s_images/user-line.png">
 				<h3><%=userID%></h3>
-				<p><%=user.getUserName()%></p>
-				<p>학교/학번</p>
+				<p><%=(user != null) ? user.getUserName() : "이름 없음"%></p>
 			</div>
 		</section>
 
@@ -139,27 +139,41 @@
 				class="item">비밀번호 변경</a>
 		</section>
 
+
 		<section class="chat_rooms_section">
 			<h2>내 채팅방</h2>
 			<%
-				if (chatRooms != null && !chatRooms.isEmpty()) {
-						for (Integer chatRoom : chatRooms) {
+				if (userID != null) {
+						List<String[]> chatRooms = chatDAO.getJoinedRoomsWithPartner(userID); // 중복 선언 방지
+						if (chatRooms != null && !chatRooms.isEmpty()) {
+							Set<String> displayedPartners = new HashSet<>(); // 상대방 이름 중복 체크용 Set
+
+							for (String[] room : chatRooms) {
+								String roomID = room[0];
+								String partnerID = room[1];
+								if (displayedPartners.contains(partnerID)) {
+									continue;
+								}
+								displayedPartners.add(partnerID);
 			%>
 			<div class="chat_room_item">
-				<p><%=chatRoom%></p>
+				<p>
+					<%=(partnerID != null) ? partnerID : "알 수 없음"%></p>
 				<a
-					href="<%=request.getContextPath() + "/view/pages/Chat.jsp?roomID=" + chatRoom%>">채팅방
+					href="<%=request.getContextPath() + "/view/pages/Chat.jsp?roomID=" + roomID%>">채팅방
 					입장</a>
 			</div>
 			<%
 				}
-					} else {
+						} else {
 			%>
 			<p>채팅방이 없습니다.</p>
 			<%
 				}
+					}
 			%>
 		</section>
+
 		<%
 			}
 		%>
